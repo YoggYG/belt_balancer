@@ -7,10 +7,10 @@ void Producer::operator()(size_t n, size_t power, size_t rows, size_t cols)
         cols = n;
     
     vector<char> matrix(rows * cols, EMPTY);
-    for (idx = 0; idx < cols; ++idx)
+    for (size_t idx = 0; idx < cols; ++idx)
     	matrix[idx] = BN;
 
-    for (idx = (rows - 1) * cols; idx < rows * cols; ++idx)
+    for (size_t idx = (rows - 1) * cols; idx < rows * cols; ++idx)
     	matrix[idx] = BN;
 
     size_t startIndex = cols;
