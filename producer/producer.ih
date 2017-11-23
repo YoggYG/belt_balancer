@@ -1,0 +1,10 @@
+#include "producer.h"
+
+#include <thread>
+#include <chrono>
+#include "../shareddatahandler/shareddatahandler.h"
+#include "../enum.h"
+
+using namespace std;
+using namespace chrono;
+
