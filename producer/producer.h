@@ -32,6 +32,7 @@ struct Producer
         bool getNextMatrix(std::vector<char> &matrix, size_t n, size_t rows, size_t cols);
         void incrementMatrix(std::vector<char> &matrix, size_t idx, size_t incr);
         bool edgeCase(std::vector<char> &matrix, size_t idx, size_t rows, size_t cols);
+        void placeSplitter(std::vector<char> &matrix, size_t startIndex, size_t rows, size_t cols, size_t n, size_t power, size_t splittersToPlace);
 };
         
 #endif
