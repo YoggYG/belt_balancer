@@ -14,8 +14,9 @@ void Producer::operator()(size_t n, size_t power, size_t rows, size_t cols)
     	matrix[idx] = BN;
 
     size_t startIndex = cols;
+    size_t splittersToPlace = power * n / 2;
 
-    placeSplitter(matrix, startIndex, rows, cols, n, power, power * n / 2);
+    placeSplitter(matrix, startIndex, rows, cols, n, power, splittersToPlace);
     
 //     while (getNextMatrix(matrix, n, rows, cols))
 //     	if (possiblyValid(matrix, n, power))
