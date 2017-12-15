@@ -4,6 +4,7 @@
 #include <vector>
 #include <chrono>
 #include <ctime>
+#include <string>
 #include "balancer/balancer.h"
 #include "producers/producers.h"
 #include "clients/clients.h"
@@ -14,6 +15,8 @@ using namespace std;
 
 int main(int argc, char **argv) {
 	auto start_time = chrono::system_clock::now();
+	time_t start_c_time = chrono::system_clock::to_time_t(start_time);
+	string start_time_string = ctime(&start_c_time);
 	
 	size_t n;
 	if (argc < 2)
@@ -49,7 +52,14 @@ int main(int argc, char **argv) {
 		++power;
 	n = pow(2,power);
 
+	if (maxWidth < n)
+		maxWidth = n;
+
+	if (maxHeight == 0)
+		maxHeight = 2 * n;
+
 	size_t threads_on_machine = thread::hardware_concurrency();
+	//size_t threads_on_machine = 1;
 	if (threads_on_machine == 0)
 	{
 		cout << "Unable to detect available threads, using 8 as default\n";
@@ -84,10 +94,14 @@ int main(int argc, char **argv) {
 
 	auto end_time = chrono::system_clock::now();
 	chrono::duration<double> elapsed_seconds = end_time - start_time;
-	time_t start_c_time = chrono::system_clock::to_time_t(start_time);
 	time_t end_c_time = chrono::system_clock::to_time_t(end_time);
+	string end_time_string = ctime(&end_c_time);
 
-	cout << "Started computation on " << ctime(&start_c_time)
-		 << "Finished computation on " << ctime(&end_c_time)
+	cerr << "Started computation on " << start_time_string
+		 << "Finished computation on " << end_time_string
+		 << "Elapsed time: " << elapsed_seconds.count() << "s\n";
+
+	cout << "Started computation on " << start_time_string
+		 << "Finished computation on " << end_time_string
 		 << "Elapsed time: " << elapsed_seconds.count() << "s\n";
 }
