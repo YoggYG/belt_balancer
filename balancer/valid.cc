@@ -5,7 +5,7 @@ bool Balancer::valid()
 	shrinkBalancer();
 	size_t numberOfSplitters = 0;
 	for (vector<char>::iterator it = d_matrix.begin(); it != d_matrix.end(); ++it)
-		if ((*it > 5 and *it < 8) or (*it > 11 and *it < 16) or *it > 18)
+		if (isSplitter(*it))
 			++numberOfSplitters;
 
 	if (numberOfSplitters != (d_power * d_n))

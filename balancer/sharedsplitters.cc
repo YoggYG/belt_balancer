@@ -5,17 +5,16 @@ size_t Balancer::sharedSplitters(Lane const &lane1, Lane const &lane2)
 	size_t res = 0;
 	for (size_t idx1 = 0; idx1 < lane1.d_path.size(); ++idx1)
 	{
-		if (lane1.d_path[idx1].item < 6 or (lane1.d_path[idx1].item > 7 and lane1.d_path[idx1].item < 12) or (lane1.d_path[idx1].item > 15 and lane1.d_path[idx1].item < 19))
+		if (isSplitter(lane1.d_path[idx1].item))
 			continue;
+		
 		for (size_t idx2 = 0; idx2 < lane2.d_path.size(); ++idx2)
 		{
-			if (lane2.d_path[idx2].item < 6 or (lane2.d_path[idx2].item > 7 and lane2.d_path[idx2].item < 12) or (lane2.d_path[idx2].item > 15 and lane2.d_path[idx2].item < 19)) //not a splitter
+			if (not isSplitter(lane2.d_path[idx2].item)) //not a splitter
 				continue;
 			if (lane2.d_path[idx2].item == lane1.d_path[idx1].item) //the same half of splitter
 				continue;
-			if (lane2.d_path[idx2].item < 16 and lane2.d_path[idx2].item / 2 != lane1.d_path[idx1].item / 2)
-				continue;
-			if (lane2.d_path[idx2].item > 18 and (lane2.d_path[idx2].item + 1) / 2 != (lane1.d_path[idx1].item + 1) / 2) //non-complementary halves
+			if ((lane2.d_path[idx2].item + 1) / 2 != (lane1.d_path[idx1].item + 1) / 2) //non-complementary halves
 				continue;
 			switch (lane1.d_path[idx1].item) //the two splitters are complementary by their halves
 			{
