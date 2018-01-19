@@ -29,7 +29,7 @@ bool Balancer::matrixOK(size_t pos)
 		upUp = d_matrix[pos - 2 * d_cols];
 
 	if (val == EMPTY)
-		return not (hasEastOutput(left) or hasSouthOutput(up));
+		return not (hasEastOutput(left) or hasSouthOutput(up) or requiresWestInput(left) or requiresNorthInput(up));
 
 	if (val == BN)
 		return hasNorthInput(up) and not requiresWestInput(left) and not hasEastOutput(upLeft) and not hasSouthOutput(upUp) and not hasWestOutput(upRight);
