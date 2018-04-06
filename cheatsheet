@@ -1,0 +1,22 @@
+values: 
+0	empty
+1	belt N
+2	belt E
+3	belt W
+4	belt S
+5	UBI N
+6	UBO N
+7	UBI E
+8	UBO E
+9	UBI W
+10	UBO W
+11	UBI S
+12	UBO S
+13	SPL N
+14	SPR N
+15	SPL E
+16	SPR E
+17	SPL W
+18	SPR W
+19	SPL S
+20	SPR S

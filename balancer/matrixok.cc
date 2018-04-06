@@ -67,5 +67,6 @@ bool Balancer::matrixOK(size_t pos)
 	if (val == UBOS)
 		return not hasEastOutput(left) and not hasSouthOutput(up) and not requiresWestInput(left) and not requiresNorthInput(up);
 
-
+	cerr << "Unexpected value: " << val << endl;
+	return false;
 }

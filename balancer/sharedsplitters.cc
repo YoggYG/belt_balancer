@@ -5,7 +5,7 @@ size_t Balancer::sharedSplitters(Lane const &lane1, Lane const &lane2)
 	size_t res = 0;
 	for (size_t idx1 = 0; idx1 < lane1.d_path.size(); ++idx1)
 	{
-		if (isSplitter(lane1.d_path[idx1].item))
+		if (not isSplitter(lane1.d_path[idx1].item))
 			continue;
 		
 		for (size_t idx2 = 0; idx2 < lane2.d_path.size(); ++idx2)
