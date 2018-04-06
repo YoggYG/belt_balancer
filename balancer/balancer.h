@@ -20,13 +20,13 @@ class Balancer
 		size_t cost();
 		void print();
 		bool operator==(Balancer const &rhs);
+		bool nextMatrix();
+		bool incrMatrixUntilOK(size_t pos);
 	private:
 		size_t sharedSplitters(Lane const &lane1, Lane const &lane2);
 		void shrinkBalancer();
-		void incrMatrixUntilOK(size_t pos);
 		bool isEdgeCase(size_t pos);
 		bool matrixOK(size_t pos);
-		bool nextMatrix();
 		bool isSplitter(char val);
 		bool hasEastInput(char val);
 		bool hasEastOutput(char val);

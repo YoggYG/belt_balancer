@@ -1,8 +1,11 @@
 #include "balancer.ih"
 
-void Balancer::incrMatrixUntilOK(size_t pos)
+bool Balancer::incrMatrixUntilOK(size_t pos)
 {
-	char maxVal = 21;
+	if (d_matrix[0] > 1)
+		return false;
+
+	char maxVal = 13;
 	if (pos < d_cols or pos >= (d_rows - 1) * d_cols)
 		maxVal = 2;
 
@@ -35,4 +38,9 @@ void Balancer::incrMatrixUntilOK(size_t pos)
 
 		incrMatrixUntilOK(nextPos);
 	}
+
+	if (d_matrix[0] > 1)
+		return false;
+
+	return true;
 }

@@ -19,6 +19,36 @@ int main(int argc, char **argv) {
 	string start_time_string = ctime(&start_c_time);
 	
 	size_t n;
+
+
+	vector<char> test
+	{
+		0,0,0,0,
+		0,0,0,0,
+		0,0,0,0,
+		0,13,14,0,
+		0,0,0,0,
+		0,0,0,0,
+		0,13,14,0,
+		13,14,13,14,
+		0,0,0,0
+	};
+
+	n = 4;
+
+	Balancer testBal(test, 9, 4, 4, 2);
+
+	testBal.incrMatrixUntilOK(0);
+
+	while (testBal.nextMatrix())
+	{
+		//if (testBal.valid())
+			testBal.print();
+	}
+
+	return 0;
+
+
 	if (argc < 2)
 	{
 		cout << "Provide the number of belts to be balanced\n";
