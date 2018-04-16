@@ -8,25 +8,28 @@
 class Balancer
 {
 	std::vector<char> d_matrix;
-	std::vector<Lane> d_lanes;
 	size_t d_rows;
 	size_t d_cols;
 	size_t d_n;
 	size_t d_power;
+	size_t d_underground_length = 9;
 
 	public:
 		Balancer(std::vector<char> &matrix, size_t rows, size_t cols, size_t n, size_t power);
 		bool valid();
 		size_t cost();
 		void print();
+		void print2();
 		bool operator==(Balancer const &rhs);
 		bool nextMatrix();
-		bool incrMatrixUntilOK(size_t pos);
+		void setUndergroundLength(size_t len);
 	private:
+		void initMatrix();
 		size_t sharedSplitters(Lane const &lane1, Lane const &lane2);
 		void shrinkBalancer();
 		bool isEdgeCase(size_t pos);
 		bool matrixOK(size_t pos);
+		bool incrMatrixUntilOK(size_t pos);
 		bool isSplitter(char val);
 		bool hasEastInput(char val);
 		bool hasEastOutput(char val);
@@ -40,6 +43,10 @@ class Balancer
 		bool requiresEastInput(char val);
 		bool requiresWestInput(char val);
 		bool requiresSouthInput(char val);
+		bool hasNorthUndergroundOutput(size_t pos);
+		bool hasEastUndergroundInput(size_t pos);
+		bool hasSouthUndergroundInput(size_t pos);
+		bool hasWestUndergroundOutput(size_t pos);
 };
 
 inline Balancer::Balancer(std::vector<char> &matrix, size_t rows, size_t cols, size_t n, size_t power)
@@ -49,7 +56,9 @@ inline Balancer::Balancer(std::vector<char> &matrix, size_t rows, size_t cols, s
 	d_cols(cols),
 	d_n(n),
 	d_power(power)
-{}
+{
+	initMatrix();
+}
 
 inline bool Balancer::operator==(Balancer const &rhs)
 {
@@ -59,6 +68,11 @@ inline bool Balancer::operator==(Balancer const &rhs)
 inline bool Balancer::isSplitter(char val)
 {
 	return (val == SPLN or val == SPRN or val == SPLE or val == SPRE or val == SPLW or val == SPRW or val == SPLS or val == SPRS);
+}
+
+inline void Balancer::setUndergroundLength(size_t len)
+{
+	d_underground_length = len;
 }
 
 inline bool Balancer::hasEastInput(char val)

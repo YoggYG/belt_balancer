@@ -2,18 +2,18 @@
 
 bool Balancer::matrixOK(size_t pos)
 {
-	if (pos == 0)
-		return true;
-
 	char val = d_matrix[pos];
-	char left = d_matrix[pos - 1];
+	char left = EMPTY;
 	char up = BN;
-	char upUp = BN;
-	char upLeft = BN;
-	char upRight = BN;
-	char leftLeft = BN;
-	char down = BN;
-	char right = BN;
+	char upUp = EMPTY;
+	char upLeft = EMPTY;
+	char upRight = EMPTY;
+	char leftLeft = EMPTY;
+	char down = EMPTY;
+	char right = EMPTY;
+
+	if (pos > 0)
+		left = d_matrix[pos - 1];
 
 	if (pos > 1)
 		leftLeft = d_matrix[pos - 2];
@@ -34,11 +34,12 @@ bool Balancer::matrixOK(size_t pos)
 		right = d_matrix[pos + 1];
 
 	if (pos < d_matrix.size() - d_cols)
-		down = d_matrix[pos - d_cols];
+		down = d_matrix[pos + d_cols];
 
 
 	if (val == EMPTY)
 		return not hasEastOutput(left) and not hasSouthOutput(up) and not requiresWestInput(left) and not requiresNorthInput(up) 
+				and (hasEastOutput(upLeft) or hasWestOutput(upRight) or hasSouthOutput(upUp) or up == UBON or up == EMPTY or pos < d_cols)
 				and not (down == SPLN or down == SPRN or down == SPLS or down == SPRS or right == SPLE or right == SPRE or right == SPLW or right == SPRW);
 
 	if (val == BN)
@@ -49,24 +50,29 @@ bool Balancer::matrixOK(size_t pos)
 
 	if (val == BE)
 		return not (hasEastOutput(left) and hasSouthOutput(up)) and not hasSouthOutput(upRight)
+				and (hasEastOutput(upLeft) or hasWestOutput(upRight) or hasSouthOutput(upUp) or up == UBON or up == EMPTY)
 				and not (hasEastOutput(left) and (down == SPLN or down == SPRN)) and not (hasSouthOutput(up) and (down == SPLN or down == SPRN))
 				and not (down == SPLS or down == SPRS or down == SPLN) and not (right == SPLN or right == SPLW or right == SPRW or right == SPRS) //(isSplitter(right) and not (right == SPLE or right == SPRE))
 				and not (down == SPLE and not hasEastOutput(left) and not hasSouthOutput(up)) and not (down == SPRW and not hasEastOutput(left) and not hasSouthOutput(up));
 
 	if (val == BW)
 		return hasWestInput(left) and not requiresNorthInput(up) and not hasSouthOutput(upLeft) and not hasEastOutput(leftLeft)
+				and (hasEastOutput(upLeft) or hasWestOutput(upRight) or hasSouthOutput(upUp) or up == UBON or up == EMPTY)
 				and not (hasSouthOutput(up) and (down == SPLN or down == SPRN)) and not (hasSouthOutput(up) and (right == SPLW or right == SPRW)) and not ((down == SPLN or down == SPRN) and (right == SPLW or right == SPRW))
 				and not (down == SPLS or down == SPRS or down == SPRN) and not (right == SPLE or right == SPRE)
 				and not (down == SPLE and right == SPLN and not hasSouthOutput(up)) and not (down == SPRW and right == SPRS and not hasSouthOutput(up)); 
 
 	if (val == BS)
 		return not (hasEastOutput(left) and hasSouthOutput(up))
+				and (hasEastOutput(upLeft) or hasWestOutput(upRight) or hasSouthOutput(upUp) or up == UBON or up == EMPTY)
 				and not (hasEastOutput(left) and (right == SPLW or right == SPRW)) and not (hasSouthOutput(up) and (right == SPLW or right == SPRW))
 				and not (right == SPLE or right == SPRE or right == SPRW) and not (down == SPLN or down == SPRN or down == SPLE or down == SPRW) //(isSplitter(down) and not (down == SPLS or down == SPRS))
 				and not (right == SPLN and not hasEastOutput(left) and not hasSouthOutput(up)) and not (right == SPRS and not hasEastOutput(left) and not hasSouthOutput(up));
 
 	if (val == UBIN)
 		return not requiresNorthInput(up) and not requiresWestInput(left) and not hasEastOutput(left) and not hasSouthOutput(up)
+				and (hasEastOutput(upLeft) or hasWestOutput(upRight) or hasSouthOutput(upUp) or up == EMPTY)
+				and not (up == UBON or up == UBIS) and hasNorthUndergroundOutput(pos)
 				and not (down == SPLE or down == SPRW or down == SPLS or down == SPRS) //(isSplitter(down) and not (down == SPLN or down == SPRN))
 				and not (right == SPLE or right == SPRE or right == SPLW or right == SPRW); //(isSplitter(right) and not (right == SPLN or right == SPRS));
 
@@ -77,31 +83,40 @@ bool Balancer::matrixOK(size_t pos)
 
 	if (val == UBIE)
 		return hasEastOutput(left) and not requiresNorthInput(up) and not hasSouthOutput(up)
+				and (hasEastOutput(upLeft) or hasWestOutput(upRight) or hasSouthOutput(upUp) or up == UBON or up == EMPTY)
 				and not (down == SPLN or down == SPRN or down == SPLS or down == SPRS) //(isSplitter(down) and not (down == SPLE or down == SPRW))
 				and not (right == SPLE or right == SPRE or right == SPLW or right == SPRW); //(isSplitter(right) and not (right == SPLN or right == SPRS));
 
 	if (val == UBOE)
 		return not hasEastOutput(left) and not requiresWestInput(left) and not hasSouthOutput(up) and not requiresNorthInput(up) and not hasSouthOutput(upRight)
+				and (hasEastOutput(upLeft) or hasWestOutput(upRight) or hasSouthOutput(upUp) or up == UBON or up == EMPTY)
+				and not (left == UBIE or left == UBOW) and hasEastUndergroundInput(pos)
 				and not (down == SPLN or down == SPRN or down == SPLS or down == SPRS) //(isSplitter(down) and not (down == SPLE or down == SPRW))
 				and not (right == SPLN or right == SPRS or right == SPLW or right == SPRW); //(isSplitter(right) and not (right == SPLE or right == SPRE));
 
 	if (val == UBIW)
 		return not hasSouthOutput(up) and not requiresNorthInput(up) and not hasEastOutput(left) and not requiresWestInput(left)
+				and (hasEastOutput(upLeft) or hasWestOutput(upRight) or hasSouthOutput(upUp) or up == UBON or up == EMPTY)
+				and not (left == UBOW or left == UBIE) and hasWestUndergroundOutput(pos)
 				and not (down == SPLN or down == SPRN or down == SPLS or down == SPRS) //(isSplitter(down) and not (down == SPLE or down == SPRW))
 				and not (right == SPLN or right == SPRS or right == SPLE or right == SPRE); //(isSplitter(right) and not (right == SPLW or right == SPRW));
 
 	if (val == UBOW)
 		return hasWestInput(left) and not hasSouthOutput(up) and not requiresNorthInput(up) and not hasEastOutput(leftLeft) and not hasSouthOutput(upLeft)
+				and (hasEastOutput(upLeft) or hasWestOutput(upRight) or hasSouthOutput(upUp) or up == UBON or up == EMPTY)
 				and not (down == SPLN or down == SPRN or down == SPLS or down == SPRS) //(isSplitter(down) and not (down == SPLE or down == SPRW))
 				and not (right == SPLE or right == SPRE or right == SPLW or right == SPRW); //(isSplitter(right) and not (right == SPLN or right == SPRS));
 
 	if (val == UBIS)
 		return hasSouthOutput(up) and not hasEastOutput(left) and not requiresWestInput(left)
+				and (hasEastOutput(upLeft) or hasWestOutput(upRight) or hasSouthOutput(upUp))
 				and not (down == SPLN or down == SPRN or down == SPLS or down == SPRS) //(isSplitter(down) and not (down == SPLE or down == SPRW))
 				and not (right == SPLE or right == SPRE or right == SPLW or right == SPRW); //(isSplitter(right) and not (right == SPLN or right == SPRS));
 
 	if (val == UBOS)
 		return not hasEastOutput(left) and not hasSouthOutput(up) and not requiresWestInput(left) and not requiresNorthInput(up)
+				and (hasEastOutput(upLeft) or hasWestOutput(upRight) or hasSouthOutput(upUp) or up == EMPTY)
+				and not (up == UBIS or up == UBON) and hasSouthUndergroundInput(pos)
 				and not (down == SPLE or down == SPRW or down == SPLN or down == SPRN) //(isSplitter(down) and not (down == SPLS or down == SPRS))
 				and not (right == SPLE or right == SPRE or right == SPLW or right == SPRW); //(isSplitter(right) and not (right == SPLN or right == SPRS));
 
