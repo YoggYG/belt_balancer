@@ -34,6 +34,19 @@ int main(int argc, char **argv) {
 	// 	0,0,0,0
 	// };
 
+	// vector<char> test
+	// {
+	// 	0,0,0,0,0,0,
+	// 	0,0,13,14,0,0,
+	// 	0,0,0,0,0,0,
+	// 	0,0,0,0,0,0,
+	// 	0,0,13,14,0,0,
+	// 	0,0,0,0,0,0,
+	// 	0,0,0,0,0,0,
+	// 	0,13,14,13,14,0,
+	// 	0,0,0,0,0,0
+	// };
+
 	vector<char> test
 	{
 		0,0,0,0,0,0,0,0,0,0,0,0,
@@ -61,16 +74,16 @@ int main(int argc, char **argv) {
 	// 	1,1,1,1
 	// };
 
-	// Balancer testBal(test, 9, 4, 4, 2);
+	// Balancer testBal(test, 9, 6, 4, 2);
 	Balancer testBal(test, 10, 12, 8, 3);
 	// Balancer solutionBal(solution, 9, 4, 4, 2);
+
+	string tempString;
 
 	do
 		if (testBal.valid())
 			testBal.print();
 	while (testBal.nextMatrix());
-
-	// cerr << "Only the main return left to call\n";
 
 	return 0;
 

@@ -28,9 +28,6 @@ bool Balancer::incrMatrixUntilOK(size_t pos)
 		d_matrix[pos] = EMPTY;
 		return incrMatrixUntilOK(prevPos);
 	}
-
-	if (pos < d_cols and numberOfOutputBelts() < d_n)
-		return initMatrix();
 	
 	if (pos + 1 < d_matrix.size())
 	{

@@ -17,43 +17,78 @@ bool Balancer::matrixOK(size_t pos)
 	char downDown = EMPTY;
 	char rightRight = EMPTY;
 
-	if (pos > 0)
-		left = d_matrix[pos - 1];
-
-	if (pos > 1)
-		leftLeft = d_matrix[pos - 2];
-
-	if (pos > d_cols)
+	if (pos >= 2 * d_cols)
+	{
+		upUp = d_matrix[pos - 2 * d_cols];
 		upLeft = d_matrix[pos - d_cols - 1];
-	
-	if (pos >= d_cols)
+		up = d_matrix[pos - d_cols];
+		upRight = d_matrix[pos - d_cols + 1];
+		leftLeft = d_matrix[pos - 2];
+		left = d_matrix[pos - 1];
+	}
+	else if (pos > d_cols)
+	{
+		upLeft = d_matrix[pos - d_cols - 1];
+		up = d_matrix[pos - d_cols];
+		upRight = d_matrix[pos - d_cols + 1];
+		leftLeft = d_matrix[pos - 2];
+		left = d_matrix[pos - 1];
+	}
+	else if (pos == d_cols)
 	{
 		up = d_matrix[pos - d_cols];
 		upRight = d_matrix[pos - d_cols + 1];
+		leftLeft = d_matrix[pos - 2];
+		left = d_matrix[pos - 1];
 	}
-	
-	if (pos >= 2 * d_cols)
-		upUp = d_matrix[pos - 2 * d_cols];
-
-	if (pos < d_matrix.size() - 1)
-		right = d_matrix[pos + 1];
-
-	if (pos < d_matrix.size() - 2)
-		rightRight = d_matrix[pos + 2];
-
-	if (pos < d_matrix.size() - d_cols)
+	else if (pos > 1)
 	{
-		down = d_matrix[pos + d_cols];
-		downLeft = d_matrix[pos + d_cols - 1];
+		if (pos == d_cols - 1 and numberOfOutputBelts() != d_n)
+			return false;
+		
+		leftLeft = d_matrix[pos - 2];
+		left = d_matrix[pos - 1];
+	}	
+	else if (pos == 1)
+	{
+		left = d_matrix[pos - 1];
 	}
-	else if (numberOfInputBelts() > d_n)
-		return false;
-
-	if (pos < d_matrix.size() - d_cols - 1)
-		downRight = d_matrix[pos + d_cols + 1];
 
 	if (pos < d_matrix.size() - 2 * d_cols)
+	{
+		right = d_matrix[pos + 1];
+		rightRight = d_matrix[pos + 2];
+		downLeft = d_matrix[pos + d_cols - 1];
+		down = d_matrix[pos + d_cols];
+		downRight = d_matrix[pos + d_cols + 1];
 		downDown = d_matrix[pos + 2 * d_cols];
+	}
+	else if (pos < d_matrix.size() - d_cols - 1)
+	{
+		right = d_matrix[pos + 1];
+		rightRight = d_matrix[pos + 2];
+		downLeft = d_matrix[pos + d_cols - 1];
+		down = d_matrix[pos + d_cols];
+		downRight = d_matrix[pos + d_cols + 1];
+	}	
+	else if (pos == d_matrix.size() - d_cols - 1)
+	{
+		right = d_matrix[pos + 1];
+		rightRight = d_matrix[pos + 2];
+		downLeft = d_matrix[pos + d_cols - 1];
+		down = d_matrix[pos + d_cols];
+	}
+	else if (pos < d_matrix.size() - 2)
+	{
+		right = d_matrix[pos + 1];
+		rightRight = d_matrix[pos + 2];
+	}
+	else if (pos == d_matrix.size() - 2)
+	{
+		right = d_matrix[pos + 1];
+	}
+	else if (numberOfInputBelts() != d_n)
+		return false;
 
 	if (val == EMPTY)
 		return not hasEastOutput(left) and not hasSouthOutput(up) and not requiresWestInput(left) and not requiresNorthInput(up) 
