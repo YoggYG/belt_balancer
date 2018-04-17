@@ -66,7 +66,7 @@ int main(int argc, char **argv) {
 	// Balancer solutionBal(solution, 9, 4, 4, 2);
 
 	do
-		//if (testBal.valid())
+		if (testBal.valid())
 			testBal.print();
 	while (testBal.nextMatrix());
 
