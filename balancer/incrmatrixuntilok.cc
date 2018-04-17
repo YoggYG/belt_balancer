@@ -26,9 +26,12 @@ bool Balancer::incrMatrixUntilOK(size_t pos)
 		while (isEdgeCase(prevPos));
 
 		d_matrix[pos] = EMPTY;
-		incrMatrixUntilOK(prevPos);
+		return incrMatrixUntilOK(prevPos);
 	}
 
+	if (pos < d_cols and numberOfOutputBelts() < d_n)
+		return initMatrix();
+	
 	if (pos + 1 < d_matrix.size())
 	{
 		size_t nextPos = pos + 1;
@@ -36,11 +39,14 @@ bool Balancer::incrMatrixUntilOK(size_t pos)
 		while (nextPos + 1 < d_matrix.size() and isSplitter(d_matrix[nextPos]))
 			++nextPos;
 
-		incrMatrixUntilOK(nextPos);
+		return incrMatrixUntilOK(nextPos);
 	}
 
 	if (d_matrix[0] > 1)
+	{
+		cerr << "incrMatrixUntilOK returned false at second check\n";
 		return false;
+	}
 
 	return true;
 }

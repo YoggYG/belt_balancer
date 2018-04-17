@@ -21,53 +21,56 @@ int main(int argc, char **argv) {
 	size_t n;
 
 
+	// vector<char> test
+	// {
+	// 	0,0,0,0,
+	// 	0,13,14,0,
+	// 	0,0,0,0,
+	// 	0,0,0,0,
+	// 	0,13,14,0,
+	// 	0,0,0,0,
+	// 	0,0,0,0,
+	// 	13,14,13,14,
+	// 	0,0,0,0
+	// };
+
 	vector<char> test
 	{
-		0,0,0,0,
-		0,13,14,0,
-		0,0,0,0,
-		0,0,0,0,
-		0,13,14,0,
-		0,0,0,0,
-		0,0,0,0,
-		13,14,13,14,
-		0,0,0,0
+		0,0,0,0,0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,13,14,13,14,
+		13,14,13,14,0,0,0,15,0,0,0,0,
+		0,13,14,0,0,0,0,16,0,0,0,0,
+		0,0,0,0,0,0,0,18,0,0,0,0,
+		0,0,0,0,0,0,0,17,0,0,0,0,
+		0,0,0,0,0,0,0,0,0,13,14,0,
+		0,0,0,0,0,0,0,0,13,14,13,14,
+		13,14,13,14,0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,0,0,0,0
 	};
 
-	vector<char> solution
-	{
-		1,1,1,1,
-		1,6,6,1,
-		1,3,2,1,
-		0,13,14,0,
-		2,1,1,3,
-		1,5,5,1,
-		1,13,14,1,
-		13,14,13,14,
-		1,1,1,1
-	};
+	// vector<char> solution
+	// {
+	// 	1,1,1,1,
+	// 	1,6,6,1,
+	// 	1,3,2,1,
+	// 	0,13,14,0,
+	// 	2,1,1,3,
+	// 	1,5,5,1,
+	// 	1,13,14,1,
+	// 	13,14,13,14,
+	// 	1,1,1,1
+	// };
 
-	n = 4;
-
-	Balancer testBal(test, 9, 4, 4, 2);
-	Balancer solutionBal(solution, 9, 4, 4, 2);
+	// Balancer testBal(test, 9, 4, 4, 2);
+	Balancer testBal(test, 10, 12, 8, 3);
+	// Balancer solutionBal(solution, 9, 4, 4, 2);
 
 	do
-	{
-		if (testBal == solutionBal)
-		{
-			solutionBal.print();
-			testBal.print();
-			cout << "solutionBal equals testBal.\n";
-			cout << "solutionBal.valid() == " << solutionBal.valid() << endl;
-			cout << "testBal.valid() == " << testBal.valid() << endl;
-			cout << "equal? " << (testBal == solutionBal) << endl;
-		}
-
 		//if (testBal.valid())
-			testBal.print2();
+			testBal.print();
+	while (testBal.nextMatrix());
 
-	} while (testBal.nextMatrix());
+	// cerr << "Only the main return left to call\n";
 
 	return 0;
 
@@ -157,4 +160,4 @@ int main(int argc, char **argv) {
 	cout << "Started computation on " << start_time_string
 		 << "Finished computation on " << end_time_string
 		 << "Elapsed time: " << elapsed_seconds.count() << "s\n";
-}
+} 

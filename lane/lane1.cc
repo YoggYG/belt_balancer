@@ -1,6 +1,6 @@
 #include "lane.ih"
 
-Lane::Lane(vector<char> &matrix, size_t idx, size_t rows, size_t cols, size_t power)
+Lane::Lane(vector<char> &matrix, size_t idx, size_t rows, size_t cols, size_t power, size_t underground_distance)
 :
 	d_rows(rows),
 	d_cols(cols),
@@ -9,7 +9,7 @@ Lane::Lane(vector<char> &matrix, size_t idx, size_t rows, size_t cols, size_t po
 	size_t x = idx - (d_rows - 1) * d_cols;
 	size_t y = d_rows - 1;
 	size_t item = 1;
-	size_t underground_distance = 10;
+
 	while (true)
 	{
 		//cerr << "X: " << x << "   Y: " << y << "    Item: " << item << endl;
@@ -35,7 +35,7 @@ Lane::Lane(vector<char> &matrix, size_t idx, size_t rows, size_t cols, size_t po
 			case SPRW: --x; break;
 			case UBIN:
 				for (len = 2; len < underground_distance; ++len)
-					if (y - len >= 0 && matrix[(y-len) * d_cols + x] == UBON)
+					if (y - len >= 0 && matrix[(y - len) * d_cols + x] == UBON)
 					{
 						y -= len;
 						break;
@@ -43,7 +43,7 @@ Lane::Lane(vector<char> &matrix, size_t idx, size_t rows, size_t cols, size_t po
 				break;
 			case UBIE:
 				for (len = 2; len < underground_distance; ++len)
-					if (x + len >= 0 && matrix[y * d_cols + x + len] == UBOE)
+					if (x + len < d_cols && matrix[y * d_cols + x + len] == UBOE)
 					{
 						x += len;
 						break;
@@ -51,7 +51,7 @@ Lane::Lane(vector<char> &matrix, size_t idx, size_t rows, size_t cols, size_t po
 				break;
 			case UBIS:
 				for (len = 2; len < underground_distance; ++len)
-					if (y + len >= 0 && matrix[(y+len) * d_cols + x] == UBOS)
+					if (y + len < d_rows && matrix[(y + len) * d_cols + x] == UBOS)
 					{
 						y += len;
 						break;
@@ -68,8 +68,10 @@ Lane::Lane(vector<char> &matrix, size_t idx, size_t rows, size_t cols, size_t po
 		}
 		if (len == underground_distance)
 			break;
-		if (x < 0 || y < 0 || x >= d_cols || y >= d_rows)
+
+		if (/*x < 0 || y < 0 || */x >= d_cols || y >= d_rows) // coordinates use unsigned ints. Negative values become max_int like.
 			break;
+		
 		size_t newItem = matrix[y * d_cols + x];
 		bool fail = true;
 		switch (item)
@@ -121,10 +123,12 @@ Lane::Lane(vector<char> &matrix, size_t idx, size_t rows, size_t cols, size_t po
 		}
 		if (fail)
 			break;
+
 		item = newItem;
 		for (auto it = d_path.begin(); it != d_path.end(); ++it)
 			if (it->x == x && it->y == y)
 				fail = true;
+		
 		if (fail)
 			break;
 	}

@@ -3,7 +3,7 @@
 bool Balancer::hasSouthUndergroundInput(size_t pos)
 {
 	pos -= 2 * d_cols;
-	for (size_t length = 2; length <= d_underground_length; ++length)
+	for (size_t length = 2; length < d_underground_length; ++length)
 	{
 		if (d_matrix[pos] == UBIS)
 			return true;

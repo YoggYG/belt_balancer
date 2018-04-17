@@ -11,7 +11,7 @@ class Lane {
 
 	public:
 		std::vector<Triple> d_path;
-		Lane(std::vector<char> &matrix, size_t idx, size_t rows, size_t cols, size_t power);
+		Lane(std::vector<char> &matrix, size_t idx, size_t rows, size_t cols, size_t power, size_t underground_distance);
 		bool valid(std::vector<char> &matrix);
 };
 

@@ -19,10 +19,10 @@ bool Balancer::valid()
 			return false;
 		if (d_matrix[idx] == BN)
 		{
-			Lane lane(d_matrix, idx, d_rows, d_cols, d_power);
-			lanes.push_back(lane);
+			Lane lane(d_matrix, idx, d_rows, d_cols, d_power, d_underground_length);
 			if (!lane.valid(d_matrix))
 				return false;
+			lanes.push_back(lane);
 			++numberOfLanes;
 		}
 	}

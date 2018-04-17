@@ -1,11 +1,17 @@
 #include "balancer.ih"
 
-void Balancer::initMatrix()
+bool Balancer::initMatrix()
 {
-	size_t idx = d_cols - 1;
-	
-	for (size_t beltsToPlace = d_n; beltsToPlace > 0; --beltsToPlace)
-		d_matrix[idx--] = BN;
+	size_t idx = d_cols;
 
-	incrMatrixUntilOK(0);
+	size_t beltsToPlace = d_n - numberOfOutputBelts();
+	
+	while (beltsToPlace > 0)
+	{
+		while (d_matrix[--idx] == BN); // decrement idx until an empty spot is reached
+		d_matrix[idx] = BN;
+		--beltsToPlace;
+	}
+
+	return incrMatrixUntilOK(0);
 }

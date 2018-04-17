@@ -2,7 +2,8 @@
 
 void Balancer::print2()
 {
-	cout << "==============";
+	for (size_t col = 0; col < d_cols; ++col)
+		cout << "==";
 	for (size_t row = 0; row < d_rows; ++row)
 	{
 		cout << endl;
@@ -64,5 +65,8 @@ void Balancer::print2()
 			}
 		}
 	}
-	cout << endl << "==============" << endl;
+	cout << endl;
+	for (size_t col = 0; col < d_cols; ++col)
+		cout << "=="; 
+	cout << endl;
 }

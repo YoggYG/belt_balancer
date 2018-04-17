@@ -2,8 +2,9 @@
 
 void Client::process(Balancer &b)
 {   // Work!
-    //pause();
-    //b.print();
-    if (b.valid())
-    	d_sdh.addRes(SharedDataHandler::Spec{b,false});    	
+    do 
+    	if (b.valid()) 
+    		// TODO: copy balancer, shrink copy and add the copy of the balancer to the result queue instead of the original balancer. 
+    		d_sdh.addRes(SharedDataHandler::Spec{b,false});
+	while (b.nextMatrix());
 }

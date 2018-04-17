@@ -6,7 +6,7 @@ bool Balancer::hasEastUndergroundInput(size_t pos)
 	if (pos % d_cols == d_cols - 1)
 		return false;
 	
-	for (size_t length = 2; length <= d_underground_length; ++length)
+	for (size_t length = 2; length < d_underground_length; ++length)
 	{
 		if (d_matrix[pos] == UBIE)
 			return true;

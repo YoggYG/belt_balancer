@@ -12,7 +12,7 @@ class Balancer
 	size_t d_cols;
 	size_t d_n;
 	size_t d_power;
-	size_t d_underground_length = 9;
+	size_t d_underground_length = 10;
 
 	public:
 		Balancer(std::vector<char> &matrix, size_t rows, size_t cols, size_t n, size_t power);
@@ -24,7 +24,9 @@ class Balancer
 		bool nextMatrix();
 		void setUndergroundLength(size_t len);
 	private:
-		void initMatrix();
+		size_t numberOfOutputBelts();
+		size_t numberOfInputBelts();
+		bool initMatrix();
 		size_t sharedSplitters(Lane const &lane1, Lane const &lane2);
 		void shrinkBalancer();
 		bool isEdgeCase(size_t pos);

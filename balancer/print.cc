@@ -2,7 +2,8 @@
 
 void Balancer::print()
 {
-	cout << "==============";
+	// for (size_t col = 0; col < d_cols; ++col)
+	// 	cout << "=";
 	for (size_t idx = 0; idx < d_rows * d_cols; ++idx)
 	{
 		if (idx % d_cols == 0)
@@ -33,5 +34,8 @@ void Balancer::print()
 			default: cerr << "uuum value was above 20 (" << d_matrix[idx] << ")\n";
 		}
 	}
-	cout << endl << "==============" << endl;
+	cout << endl;
+	// for (size_t col = 0; col < d_cols; ++col)
+	// 	cout << "="; 
+	cout << endl;
 }

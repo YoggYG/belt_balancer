@@ -17,7 +17,7 @@ bool Lane::valid(vector<char> &matrix)
 				++numSplit;
 				break;
 			case SPRN: 
-				if (it->x - 1 < 0)
+				if (it->x == 0)
 					return false; 
 				if (matrix[it->y * d_cols + it->x - 1] != SPLN)
 					return false;
@@ -31,14 +31,14 @@ bool Lane::valid(vector<char> &matrix)
 				++numSplit;
 				break;
 			case SPRE: 
-				if (it->y - 1 < 0) 
+				if (it->y == 0) 
 					return false; 
 				if (matrix[(it->y - 1) * d_cols + it->x] != SPLE)
 					return false;
 				++numSplit;
 				break;
 			case SPLS: 
-				if (it->x - 1 < 0) 
+				if (it->x == 0) 
 					return false; 
 				if (matrix[it->y * d_cols + it->x - 1] != SPRS)
 					return false;
@@ -52,7 +52,7 @@ bool Lane::valid(vector<char> &matrix)
 				++numSplit;
 				break;
 			case SPLW: 
-				if (it->y - 1 < 0) 
+				if (it->y == 0) 
 					return false; 
 				if (matrix[(it->y - 1) * d_cols + it->x] != SPRW)
 					return false;
