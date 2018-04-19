@@ -18,5 +18,13 @@ bool Balancer::isEdgeCase(size_t idx)
 		if (d_matrix[idx] == BE or d_matrix[idx] == UBIW or d_matrix[idx] == UBOW or d_matrix[idx] == UBIE or d_matrix[idx] == UBOE)
 			return true;
 
+	if (idx % d_cols == d_cols - 2)
+		if (d_matrix[idx] == UBIE or d_matrix[idx] == UBOW)
+			return true;
+
+	if (idx % d_cols == 1)
+		if (d_matrix[idx] == UBIW or d_matrix[idx] == UBOE)
+			return true;
+
 	return false;
 }
