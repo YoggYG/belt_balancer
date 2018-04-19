@@ -3,11 +3,12 @@
 
 #include <vector>
 #include "../lane/lane.h"
+#include "../tile/tile.h"
 #include "../enum.h"
 
 class Balancer
 {
-	std::vector<char> d_matrix;
+	std::vector<Tile> d_matrix;
 	size_t d_rows;
 	size_t d_cols;
 	size_t d_n;
@@ -28,7 +29,7 @@ class Balancer
 		size_t horizontalUndergroundBeltDistance(size_t pos);
 		size_t numberOfOutputBelts();
 		size_t numberOfInputBelts();
-		bool initMatrix();
+		void initMatrix();
 		size_t sharedSplitters(Lane const &lane1, Lane const &lane2);
 		void shrinkBalancer();
 		bool isEdgeCase(size_t pos);
@@ -55,13 +56,13 @@ class Balancer
 
 inline Balancer::Balancer(std::vector<char> &matrix, size_t rows, size_t cols, size_t n, size_t power)
 :
-	d_matrix(matrix),
 	d_rows(rows),
 	d_cols(cols),
 	d_n(n),
 	d_power(power)
 {
-	initMatrix();
+	initMatrix(matrix);
+	incrMatrixUntilOK(0);
 }
 
 inline bool Balancer::operator==(Balancer const &rhs)
