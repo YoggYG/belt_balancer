@@ -25,29 +25,28 @@ class Balancer
 		bool nextMatrix();
 		void setUndergroundLength(size_t len);
 	private:
-		char requiresHorizontalUndergroundBelt(size_t pos);
-		size_t horizontalUndergroundBeltDistance(size_t pos);
+		bool verticalUndergroundOK(size_t pos);
+		bool horizontalUndergroundOK(size_t pos);
 		size_t numberOfOutputBelts();
 		size_t numberOfInputBelts();
-		void initMatrix();
+		void initMatrix(std::vector<char> &matrix);
 		size_t sharedSplitters(Lane const &lane1, Lane const &lane2);
 		void shrinkBalancer();
-		bool isEdgeCase(size_t pos);
 		bool matrixOK(size_t pos);
 		bool incrMatrixUntilOK(size_t pos);
-		bool isSplitter(char val);
-		bool hasEastInput(char val);
-		bool hasEastOutput(char val);
-		bool hasNorthInput(char val);
-		bool hasNorthOutput(char val);
-		bool hasSouthInput(char val);
-		bool hasSouthOutput(char val);
-		bool hasWestInput(char val);
-		bool hasWestOutput(char val);
-		bool requiresNorthInput(char val);
-		bool requiresEastInput(char val);
-		bool requiresWestInput(char val);
-		bool requiresSouthInput(char val);
+		bool isSplitter(size_t val);
+		bool hasEastInput(size_t val);
+		bool hasEastOutput(size_t val);
+		bool hasNorthInput(size_t val);
+		bool hasNorthOutput(size_t val);
+		bool hasSouthInput(size_t val);
+		bool hasSouthOutput(size_t val);
+		bool hasWestInput(size_t val);
+		bool hasWestOutput(size_t val);
+		bool requiresNorthInput(size_t val);
+		bool requiresEastInput(size_t val);
+		bool requiresWestInput(size_t val);
+		bool requiresSouthInput(size_t val);
 		bool hasNorthUndergroundOutput(size_t pos);
 		bool hasEastUndergroundInput(size_t pos);
 		bool hasSouthUndergroundInput(size_t pos);
@@ -70,7 +69,7 @@ inline bool Balancer::operator==(Balancer const &rhs)
 	return d_matrix == rhs.d_matrix;
 }
 
-inline bool Balancer::isSplitter(char val)
+inline bool Balancer::isSplitter(size_t val)
 {
 	return (val == SPLN or val == SPRN or val == SPLE or val == SPRE or val == SPLW or val == SPRW or val == SPLS or val == SPRS);
 }
@@ -80,62 +79,62 @@ inline void Balancer::setUndergroundLength(size_t len)
 	d_underground_length = len;
 }
 
-inline bool Balancer::hasEastInput(char val)
+inline bool Balancer::hasEastInput(size_t val)
 {
 	return (val == BN or val == BE or val == BS or val == UBIE or val == SPLE or val == SPRE);
 }
 
-inline bool Balancer::hasEastOutput(char val)
+inline bool Balancer::hasEastOutput(size_t val)
 {
 	return (val == BE or val == UBOE or val == SPLE or val == SPRE);
 }
 
-inline bool Balancer::hasNorthInput(char val)
+inline bool Balancer::hasNorthInput(size_t val)
 {
 	return (val == BN or val == BE or val == BW or val == UBIN or val == SPLN or val == SPRN);
 }
 
-inline bool Balancer::hasNorthOutput(char val)
+inline bool Balancer::hasNorthOutput(size_t val)
 {
 	return (val == BN or val == UBON or val == SPLN or val == SPRN);
 }
 
-inline bool Balancer::hasSouthInput(char val)
+inline bool Balancer::hasSouthInput(size_t val)
 {
 	return (val == BE or val == BW or val == BS or val == UBIS or val == SPLS or val == SPRS);
 }
 
-inline bool Balancer::hasSouthOutput(char val)
+inline bool Balancer::hasSouthOutput(size_t val)
 {
 	return (val == BS or val == UBOS or val == SPLS or val == SPRS);
 }
 
-inline bool Balancer::hasWestInput(char val)
+inline bool Balancer::hasWestInput(size_t val)
 {
 	return (val == BN or val == BW or val == BS or val == UBIW or val == SPLW or val == SPRW);
 }
 
-inline bool Balancer::hasWestOutput(char val)
+inline bool Balancer::hasWestOutput(size_t val)
 {
 	return (val == BW or val == UBOW or val == SPLW or val == SPRW);
 }
 
-inline bool Balancer::requiresNorthInput(char val)
+inline bool Balancer::requiresNorthInput(size_t val)
 {
 	return (val == UBIN or val == SPLN or val == SPRN);
 }
 
-inline bool Balancer::requiresWestInput(char val)
+inline bool Balancer::requiresWestInput(size_t val)
 {
 	return (val == UBIW or val == SPLW or val == SPRW);
 }
 
-inline bool Balancer::requiresEastInput(char val)
+inline bool Balancer::requiresEastInput(size_t val)
 {
 	return (val == UBIE or val == SPLE or val == SPRE);
 }
 
-inline bool Balancer::requiresSouthInput(char val)
+inline bool Balancer::requiresSouthInput(size_t val)
 {
 	return (val == UBIS or val == SPLS or val == SPRS);
 }

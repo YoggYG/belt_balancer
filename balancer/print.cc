@@ -8,7 +8,7 @@ void Balancer::print()
 	{
 		if (idx % d_cols == 0)
 			cout << endl;
-		switch (d_matrix[idx])
+		switch (d_matrix[idx].item)
 		{
 			case EMPTY: cout << ' '; break;
 			case BN: cout << '^'; break;
@@ -31,7 +31,7 @@ void Balancer::print()
 			case SPRS: cout << ')'; break;
 			case SPLW: cout << '~'; break;
 			case SPRW: cout << '_'; break;
-			default: cerr << "uuum value was above 20 (" << d_matrix[idx] << ")\n";
+			default: cerr << "uuum value was above 20 (" << d_matrix[idx].item << ")\n";
 		}
 	}
 	cout << endl;

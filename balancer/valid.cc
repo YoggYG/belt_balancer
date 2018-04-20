@@ -42,11 +42,11 @@ bool Balancer::valid()
 			if (sharedSplitters(lanes[idx1], lanes[idx2]) > 1)
 				return false;
 	
-	vector<char> secondVector(d_cols * d_rows, 0);
+	vector<Tile> secondVector(d_cols * d_rows, Tile{0,0,0,0,0});
 	for (vector<Lane>::iterator it1 = lanes.begin(); it1 != lanes.end(); ++it1)
 		for (vector<Triple>::iterator it2 = it1->d_path.begin(); it2 != it1->d_path.end(); ++it2)
-			if (secondVector[it2->y * d_cols + it2->x] == 0)
-				secondVector[it2->y * d_cols + it2->x] = it2->item;
+			if (secondVector[it2->y * d_cols + it2->x].item == 0)
+				secondVector[it2->y * d_cols + it2->x].item = it2->item;
 			else
 				return false;
 	

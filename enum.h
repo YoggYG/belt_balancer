@@ -15,6 +15,7 @@ enum {
 	UBOW,
 	UBIS,
 	UBOS,
+	MAXVAL,
 	SPLN,
 	SPRN,
 	SPLE,
