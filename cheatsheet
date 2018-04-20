@@ -20,3 +20,35 @@ values:
 18	SPR W
 19	SPL S
 20	SPR S
+
+
+
+if P = EMPTY: 	up != BS
+				and up != UBIN
+				and up != UBOS
+				and up != SPLN (so upRight != SPRN)
+				and up != SPRN (so upLeft != SPLN)
+				and up != SPLS (so upLeft != SPRS)
+				and up != SPRS (so upRight != SPLS)
+				and (up == EMPTY or up == UBON or upLeft == BE or upLeft == UBOE or upLeft == SPRE or upUp == BS or upUp == UBOS or upUp == SPLS or upUp == SPRS or upRight == BW or upRight == UBOW or upRight == SPLW or pos < d_cols)
+
+				and left != BE
+				and left != UBIW
+				and left != UBOE
+				and left != SPLE (so downLeft != SPRE)
+				and left != SPRE (so upLeft != SPLE)
+				and left != SPLW (so upLeft != SPRW)
+				and left != SPRW (so downLeft != SPLW)
+				and (left == EMPTY or left == UBOW or upLeft == BS or upLeft == UBOS or upLeft == SPLS or leftLeft == BE or leftLeft == UBOE or leftLeft == SPLE or leftLeft == SPRE or downLeft == EMPTY or downLeft == SPRN) (anything that is not a splitter will be empty)
+
+				and right != SPLE (so downRight != SPRE)
+				and right != SPRE (so upRight != SPLE)
+				and right != SPLW (so upRight != SPRW)
+				and right != SPRW (so downRight != SPLW)
+
+				and down != SPLN (so downRight != SPRN)
+				and down != SPRN (so downLeft != SPLN)
+				and down != SPLS (so downLeft != SPRS)
+				and down != SPRS (so downRight != SPLS)
+				
+				and UG stuffs

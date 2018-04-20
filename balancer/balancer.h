@@ -26,7 +26,7 @@ class Balancer
 	private:
 		size_t numberOfOutputBelts();
 		size_t numberOfInputBelts();
-		bool initMatrix();
+		//bool initMatrix();
 		size_t sharedSplitters(Lane const &lane1, Lane const &lane2);
 		void shrinkBalancer();
 		bool isEdgeCase(size_t pos);
@@ -45,10 +45,10 @@ class Balancer
 		bool requiresEastInput(char val);
 		bool requiresWestInput(char val);
 		bool requiresSouthInput(char val);
-		bool hasNorthUndergroundOutput(size_t pos);
-		bool hasEastUndergroundInput(size_t pos);
-		bool hasSouthUndergroundInput(size_t pos);
-		bool hasWestUndergroundOutput(size_t pos);
+		size_t northUndergroundOutputDistance(size_t pos);
+		size_t eastUndergroundInputDistance(size_t pos);
+		size_t southUndergroundInputDistance(size_t pos);
+		size_t westUndergroundOutputDistance(size_t pos);
 };
 
 inline Balancer::Balancer(std::vector<char> &matrix, size_t rows, size_t cols, size_t n, size_t power)
@@ -59,7 +59,7 @@ inline Balancer::Balancer(std::vector<char> &matrix, size_t rows, size_t cols, s
 	d_n(n),
 	d_power(power)
 {
-	initMatrix();
+	incrMatrixUntilOK(0);
 }
 
 inline bool Balancer::operator==(Balancer const &rhs)

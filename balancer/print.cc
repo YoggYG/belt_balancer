@@ -34,7 +34,7 @@ void Balancer::print()
 			default: cerr << "uuum value was above 20 (" << d_matrix[idx] << ")\n";
 		}
 	}
-	cout << endl;
+	cout << endl << "=";
 	// for (size_t col = 0; col < d_cols; ++col)
 	// 	cout << "="; 
 	cout << endl;
