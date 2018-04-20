@@ -24,6 +24,8 @@ class Balancer
 		bool nextMatrix();
 		void setUndergroundLength(size_t len);
 	private:
+		char requiresHorizontalUndergroundBelt(size_t pos);
+		size_t horizontalUndergroundBeltDistance(size_t pos);
 		size_t numberOfOutputBelts();
 		size_t numberOfInputBelts();
 		//bool initMatrix();

@@ -81,7 +81,7 @@ bool Balancer::matrixOK(size_t pos)
 		down = d_matrix[pos + d_cols];
 	}
 	else if (pos < d_matrix.size() - 2)
-	{
+	{		
 		right = d_matrix[pos + 1];
 		rightRight = d_matrix[pos + 2];
 	}
@@ -91,6 +91,7 @@ bool Balancer::matrixOK(size_t pos)
 	}
 	else if (numberOfInputBelts() != d_n)
 		return false;
+
 
 	if (val == EMPTY)
 		return not hasEastOutput(left) and not hasSouthOutput(up) and not requiresWestInput(left) and not requiresNorthInput(up) 

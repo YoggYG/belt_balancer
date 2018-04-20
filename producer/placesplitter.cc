@@ -21,7 +21,7 @@ void Producer::placeSplitter(vector<char> &matrix, size_t startIndex, size_t row
 			// Try to place north splitter first
 			if (splList[splType] == SPLN)
 			{
-				if (cols % (idx + 1) != 0 and matrix[idx + 1] == EMPTY)
+				if ((idx + 1) % cols != 0 and matrix[idx + 1] == EMPTY)
 				{
 					matrix[idx] = SPLN;
 					matrix[idx + 1] = SPRN;
@@ -31,7 +31,7 @@ void Producer::placeSplitter(vector<char> &matrix, size_t startIndex, size_t row
 			// Try to place east splitter
 			if (splList[splType] == SPLE) 
 			{
-				if (cols % idx != 0 and cols % (idx + 1) != 0 and idx + cols < (rows - 1) * cols)
+				if (idx % cols != 0 and (idx + 1) % cols != 0 and idx + cols < (rows - 1) * cols)
 				{
 					matrix[idx] = SPLE;
 					matrix[idx + cols] = SPRE;
@@ -41,7 +41,7 @@ void Producer::placeSplitter(vector<char> &matrix, size_t startIndex, size_t row
 			// Try to place west splitter
 			if (splList[splType] == SPRW)
 			{
-				if (cols % idx != 0 and cols % (idx + 1) != 0 and idx + cols < (rows - 1) * cols)
+				if (idx % cols != 0 and (idx + 1) % cols != 0 and idx + cols < (rows - 1) * cols)
 				{
 					matrix[idx] = SPRW;
 					matrix[idx + cols] = SPLW;
@@ -51,7 +51,7 @@ void Producer::placeSplitter(vector<char> &matrix, size_t startIndex, size_t row
 			// Try to place south splitter
 			if (splList[splType] == SPRS)
 			{
-				if (cols % (idx + 1) != 0 and matrix[idx + 1] == EMPTY and idx >= 2 * cols and idx < (rows - 2) * cols)
+				if ((idx + 1) % cols != 0 and matrix[idx + 1] == EMPTY and idx >= 2 * cols and idx < (rows - 2) * cols)
 				{
 					matrix[idx] = SPRS;
 					matrix[idx + 1] = SPLS;
