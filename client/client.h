@@ -23,7 +23,7 @@ class Client
 
     private:
         void process(Balancer &b);
-        //void pause();
+        void pause();
 };
         
 #endif

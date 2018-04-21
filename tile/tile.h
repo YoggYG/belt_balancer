@@ -10,6 +10,14 @@ class Tile
 		size_t ugE;
 		size_t ugS;
 		size_t ugW;
+		size_t lane;
+
+		Tile();
+		Tile(size_t it);
+		Tile(size_t it, size_t uN, size_t uE, size_t uS, size_t uW, size_t laneArg);
+		Tile(Tile const &other);
+
+		void operator=(Tile const &other);
 
 		bool operator==(Tile const &rhs) const;
 		bool operator!=(Tile const &rhs) const;
@@ -20,6 +28,56 @@ class Tile
 		Tile &operator++();
 		Tile operator++(int);
 };
+
+inline Tile::Tile()
+:
+	item(0),
+	ugN(0),
+	ugE(0),
+	ugS(0),
+	ugW(0),
+	lane(0)
+{}
+
+inline Tile::Tile(size_t it)
+:
+	item(it),
+	ugN(0),
+	ugE(0),
+	ugS(0),
+	ugW(0),
+	lane(0)
+{}
+
+inline Tile::Tile(size_t it, size_t uN, size_t uE, size_t uS, size_t uW, size_t laneArg)
+:
+	item(it),
+	ugN(uN),
+	ugE(uE),
+	ugS(uS),
+	ugW(uW),
+	lane(laneArg)
+{}
+
+inline Tile::Tile(Tile const &other)
+:
+	item(other.item),
+	ugN(other.ugN),
+	ugE(other.ugE),
+	ugS(other.ugS),
+	ugW(other.ugW),
+	lane(other.lane)
+{}
+
+inline void Tile::operator=(Tile const &other)
+{
+	item = other.item;
+	ugN = other.ugN;
+	ugE = other.ugE;
+	ugS = other.ugS;
+	ugW = other.ugW;
+	lane = other.lane;
+}
 
 inline bool Tile::operator==(Tile const &rhs) const
 {

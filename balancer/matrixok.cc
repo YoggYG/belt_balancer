@@ -137,18 +137,18 @@ bool Balancer::matrixOK(size_t pos)
 		return pos >= 3 * d_cols
 				and not requiresNorthInput(up) and not requiresWestInput(left) and not hasEastOutput(left) and not hasSouthOutput(up)
 				and (hasEastOutput(upLeft) or hasWestOutput(upRight) or hasSouthOutput(upUp) or up == EMPTY)
-				and not (up == UBON or up == UBIS) and hasNorthUndergroundOutput(pos)
+				//and not (up == UBON or up == UBIS) and hasNorthUndergroundOutput(pos)
 				and not (downLeft == SPLW or downLeft == SPRW) and not (downDown == SPLS or downDown == SPRS) and not (downRight == SPLE or downRight == SPRE)
 				and not (down == SPLE or down == SPRW or down == SPLS or down == SPRS)
 				and not (right == SPLE or right == SPRE or right == SPLW or right == SPRW)
-				and horizontalUndergroundOK(pos) and d_matrix[pos].ugS == 0 and d_matrix[pos].ugN > 1;
+				and horizontalUndergroundOK(pos) and d_matrix[pos].ugS == 0 and d_matrix[pos].ugN > 1 and undergroundUsefulNorth(pos);
 
 	if (val == UBON)
 		return pos + 4 * d_cols < d_matrix.size()
 				and hasNorthInput(up) and not hasEastOutput(left) and not requiresWestInput(left) and not hasEastOutput(upLeft) and not hasSouthOutput(upUp) and not hasWestOutput(upRight)
 				and not (down == SPLN or down == SPRN or down == SPLS or down == SPRS) 
 				and not (right == SPLE or right == SPRE or right == SPLW or right == SPRW)
-				and horizontalUndergroundOK(pos) and d_matrix[pos].ugS == 0;
+				and horizontalUndergroundOK(pos) and d_matrix[pos].ugS == 0 and d_matrix[pos].ugN == 0;
 
 	if (val == UBIE)
 		return (pos + 3) % d_cols > 3
@@ -157,27 +157,27 @@ bool Balancer::matrixOK(size_t pos)
 				and downLeft != SPLS and not requiresNorthInput(upLeft) and not requiresWestInput(leftLeft)
 				and not (down == SPLN or down == SPRN or down == SPLS or down == SPRS)
 				and not (right == SPLE or right == SPRE or right == SPLW or right == SPRW)
-				and verticalUndergroundOK(pos) and d_matrix[pos].ugW == 0;
+				and verticalUndergroundOK(pos) and d_matrix[pos].ugW == 0 and d_matrix[pos].ugE == 0;
 
 	if (val == UBOE)
 		return (pos + 1) % d_cols > 3
 				and not hasEastOutput(left) and not requiresWestInput(left) and not hasSouthOutput(up) and not requiresNorthInput(up) and not hasSouthOutput(upRight)
 				and (hasEastOutput(upLeft) or hasWestOutput(upRight) or hasSouthOutput(upUp) or up == UBON or up == EMPTY)
-				and not (left == UBIE or left == UBOW) and hasEastUndergroundInput(pos)
+				//and not (left == UBIE or left == UBOW) and hasEastUndergroundInput(pos)
 				and not (downRight == SPLN or downRight == SPRN) and not (rightRight == SPLW or rightRight == SPRW)
 				and not (down == SPLN or down == SPRN or down == SPLS or down == SPRS)
 				and not (right == SPLN or right == SPRS or right == SPLW or right == SPRW)
-				and verticalUndergroundOK(pos) and d_matrix[pos].ugW == 0 and d_matrix[pos].ugE > 1;
+				and verticalUndergroundOK(pos) and d_matrix[pos].ugW == 0 and d_matrix[pos].ugE > 1 and undergroundUsefulEast(pos);
 
 	if (val == UBIW)
 		return (pos + 1) % d_cols > 3
 				and not hasSouthOutput(up) and not requiresNorthInput(up) and not hasEastOutput(left) and not requiresWestInput(left)
 				and (hasEastOutput(upLeft) or hasWestOutput(upRight) or hasSouthOutput(upUp) or up == UBON or up == EMPTY)
-				and not (left == UBOW or left == UBIE) and hasWestUndergroundOutput(pos)
+				//and not (left == UBOW or left == UBIE) and hasWestUndergroundOutput(pos)
 				and downRight != SPRS and not (rightRight == SPLE or rightRight == SPRE) and not requiresNorthInput(upRight)
 				and not (down == SPLN or down == SPRN or down == SPLS or down == SPRS)
 				and not (right == SPLN or right == SPRS or right == SPLE or right == SPRE)
-				and verticalUndergroundOK(pos) and d_matrix[pos].ugE == 0 and d_matrix[pos].ugW > 1;
+				and verticalUndergroundOK(pos) and d_matrix[pos].ugE == 0 and d_matrix[pos].ugW > 1 and undergroundUsefulWest(pos);
 
 	if (val == UBOW)
 		return (pos + 3) % d_cols > 3
@@ -186,7 +186,7 @@ bool Balancer::matrixOK(size_t pos)
 				and downLeft != SPRN
 				and not (down == SPLN or down == SPRN or down == SPLS or down == SPRS)
 				and not (right == SPLE or right == SPRE or right == SPLW or right == SPRW)
-				and verticalUndergroundOK(pos) and d_matrix[pos].ugE == 0;
+				and verticalUndergroundOK(pos) and d_matrix[pos].ugE == 0 and d_matrix[pos].ugW == 0;
 
 	if (val == UBIS)
 		return pos + 5 * d_cols < d_matrix.size() and pos >= 2 * d_cols
@@ -195,17 +195,17 @@ bool Balancer::matrixOK(size_t pos)
 				and not requiresWestInput(upLeft) and not requiresNorthInput(upUp) and not requiresEastInput(upRight)
 				and not (down == SPLN or down == SPRN or down == SPLS or down == SPRS)
 				and not (right == SPLE or right == SPRE or right == SPLW or right == SPRW)
-				and horizontalUndergroundOK(pos) and d_matrix[pos].ugN == 0;
+				and horizontalUndergroundOK(pos) and d_matrix[pos].ugN == 0 and d_matrix[pos].ugS == 0;
 
 	if (val == UBOS)
 		return pos + 3 * d_cols < d_matrix.size() and pos >= 4 * d_cols
 				and not hasEastOutput(left) and not hasSouthOutput(up) and not requiresWestInput(left) and not requiresNorthInput(up)
 				and (hasEastOutput(upLeft) or hasWestOutput(upRight) or hasSouthOutput(upUp) or up == EMPTY)
-				and not (up == UBIS or up == UBON) and hasSouthUndergroundInput(pos)
+				//and not (up == UBIS or up == UBON) and hasSouthUndergroundInput(pos)
 				and not (downLeft == SPLE or downLeft == SPRE) and not (downDown == SPLN or downDown == SPRN) and not (downRight == SPLW or downRight == SPRW)
 				and not (down == SPLE or down == SPRW or down == SPLN or down == SPRN)
 				and not (right == SPLE or right == SPRE or right == SPLW or right == SPRW)
-				and horizontalUndergroundOK(pos) and d_matrix[pos].ugN == 0 and d_matrix[pos].ugS > 1;
+				and horizontalUndergroundOK(pos) and d_matrix[pos].ugN == 0 and d_matrix[pos].ugS > 1 and undergroundUsefulSouth(pos);
 
 	cerr << "Unexpected value: " << val + '0' - '0' << " at position: " << pos << endl;
 	return false;

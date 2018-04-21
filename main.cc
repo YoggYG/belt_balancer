@@ -6,7 +6,7 @@
 #include <ctime>
 #include <string>
 #include "balancer/balancer.h"
-#include "producers/producers.h"
+#include "producer/producer.h"
 #include "clients/clients.h"
 #include "outputhandler/outputhandler.h"
 #include "shareddatahandler/shareddatahandler.h"
@@ -20,19 +20,32 @@ int main(int argc, char **argv) {
 	
 	size_t n;
 
+	// // vector<char> test
+	// // {
+	// // 	0,0,
+	// // 	0,0,
+	// // 	0,0,
+	// // 	0,0,
+	// // 	0,0,
+	// // 	0,0,
+	// // 	0,0,
+	// // 	0,0,
+	// // 	14,15,
+	// // 	0,0
+	// // };
 
-	// vector<char> test
-	// {
-	// 	0,0,0,0,
-	// 	0,14,15,0,
-	// 	0,0,0,0,
-	// 	0,0,0,0,
-	// 	0,14,15,0,
-	// 	0,0,0,0,
-	// 	0,0,0,0,
-	// 	14,15,14,15,
-	// 	0,0,0,0
-	// };
+	// // vector<char> test
+	// // {
+	// // 	0,0,0,0,
+	// // 	0,14,15,0,
+	// // 	0,0,0,0,
+	// // 	0,0,0,0,
+	// // 	0,14,15,0,
+	// // 	0,0,0,0,
+	// // 	0,0,0,0,
+	// // 	14,15,14,15,
+	// // 	0,0,0,0
+	// // };
 
 	// vector<char> test
 	// {
@@ -47,59 +60,79 @@ int main(int argc, char **argv) {
 	// 	0,0,0,0,0,0
 	// };
 
-	// vector<char> test
-	// {
-	// 	0,0,0,0,0,0,
-	// 	0,0,14,15,0,0,
-	// 	0,0,0,0,0,0,
-	// 	0,0,0,0,0,0,
-	// 	0,0,14,15,0,0,
-	// 	0,0,0,0,0,0,
-	// 	0,0,0,0,0,0,
-	// 	0,14,15,14,15,0,
-	// 	0,0,0,0,0,0
-	// };
+	// // vector<char> test
+	// // {
+	// // 	0,0,0,0,0,0,0,0,
+	// // 	0,0,0,14,15,0,0,0,
+	// // 	0,0,0,0,0,0,0,0,
+	// // 	0,0,0,0,0,0,0,0,
+	// // 	0,0,0,0,0,0,0,0,
+	// // 	0,0,0,14,15,0,0,0,
+	// // 	0,0,0,0,0,0,0,0,
+	// // 	0,0,0,0,0,0,0,0,
+	// // 	0,0,14,15,14,15,0,0,
+	// // 	0,0,0,0,0,0,0,0
+	// // };
 
-	vector<char> test
-	{
-		0,0,0,0,0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,14,15,14,15,
-		14,15,14,15,0,0,0,16,0,0,0,0,
-		0,14,15,0,0,0,0,17,0,0,0,0,
-		0,0,0,0,0,0,0,19,0,0,0,0,
-		0,0,0,0,0,0,0,18,0,0,0,0,
-		0,0,0,0,0,0,0,0,0,14,15,0,
-		0,0,0,0,0,0,0,0,14,15,14,15,
-		14,15,14,15,0,0,0,0,0,0,0,0,
-		0,0,0,0,0,0,0,0,0,0,0,0
-	};
+	// // vector<char> test
+	// // {
+	// // 	0,0,0,0,0,0,0,0,0,0,0,0,
+	// // 	0,0,0,0,0,0,0,0,14,15,14,15,
+	// // 	14,15,14,15,0,0,0,16,0,0,0,0,
+	// // 	0,14,15,0,0,0,0,17,0,0,0,0,
+	// // 	0,0,0,0,0,0,0,19,0,0,0,0,
+	// // 	0,0,0,0,0,0,0,18,0,0,0,0,
+	// // 	0,0,0,0,0,0,0,0,0,14,15,0,
+	// // 	0,0,0,0,0,0,0,0,14,15,14,15,
+	// // 	14,15,14,15,0,0,0,0,0,0,0,0,
+	// // 	0,0,0,0,0,0,0,0,0,0,0,0
+	// // };
 
-	// vector<char> solution
-	// {
-	// 	1,1,1,1,
-	// 	1,6,6,1,
-	// 	1,3,2,1,
-	// 	0,14,15,0,
-	// 	2,1,1,3,
-	// 	1,5,5,1,
-	// 	1,14,15,1,
-	// 	14,15,14,15,
-	// 	1,1,1,1
-	// };
+	// // vector<char> test
+	// // {
+	// // 	0,0,0,0,0,0,0,0,
+	// // 	14,15,14,15,14,15,14,15,
+	// // 	0,0,0,0,0,0,0,0,
+	// // 	0,0,0,0,0,0,0,0,
+	// // 	0,0,0,0,0,0,0,0,
+	// // 	0,0,0,0,0,0,0,0,
+	// // 	0,0,14,15,0,0,14,15,
+	// // 	0,0,0,0,0,0,0,0,
+	// // 	0,0,0,0,0,0,0,0,
+	// // 	0,14,15,0,0,14,15,0,
+	// // 	14,15,14,15,14,15,14,15,
+	// // 	0,0,0,0,0,0,0,0
+	// // };
 
-	// Balancer testBal(test, 9, 4, 4, 2);
+	// // vector<char> solution
+	// // {
+	// // 	1,1,1,1,
+	// // 	1,6,6,1,
+	// // 	1,3,2,1,
+	// // 	0,14,15,0,
+	// // 	2,1,1,3,
+	// // 	1,5,5,1,
+	// // 	1,14,15,1,
+	// // 	14,15,14,15,
+	// // 	1,1,1,1
+	// // };
+
+	// // Balancer testBal(test, 10, 2, 2, 1);
+	// // Balancer testBal(test, 9, 4, 4, 2);
 	// Balancer testBal(test, 9, 6, 4, 2);
-	Balancer testBal(test, 10, 12, 8, 3);
-	// Balancer solutionBal(solution, 9, 4, 4, 2);
+	// // Balancer testBal(test, 10, 8, 4, 2);
+	// // Balancer testBal(test, 10, 12, 8, 3);
+	// // Balancer testBal(test, 12, 8, 8, 3);
+	// // Balancer solutionBal(solution, 9, 4, 4, 2);
 
-	string tempString;
+	// string tempString;
 
-	do
-		if (testBal.valid())
-			testBal.print();
-	while (testBal.nextMatrix());
+	// do
+	// 	if (testBal.valid())
+	// 		testBal.print();
+	// while (testBal.nextMatrix());
 
-	return 0;
+	// return 0;
 
 
 	if (argc < 2)
@@ -141,28 +174,25 @@ int main(int argc, char **argv) {
 	if (maxHeight == 0)
 		maxHeight = 2 * n;
 
-	size_t threads_on_machine = thread::hardware_concurrency();
-	//size_t threads_on_machine = 1;
+	// size_t threads_on_machine = thread::hardware_concurrency();
+	size_t threads_on_machine = 1;
 	if (threads_on_machine == 0)
 	{
 		cout << "Unable to detect available threads, using 8 as default\n";
 		threads_on_machine = 8;
 	}
 
-	bool noSouthBelts = true;
-	bool onlyNorthUGS = false;
-
 	SharedDataHandler sdh(30);
 
-	Producers producers(sdh, threads_on_machine, noSouthBelts, onlyNorthUGS);
+	Producer producer(sdh);
 	Clients clients(sdh, threads_on_machine);
 	OutputHandler opHandler(sdh);
 	
-	producers.run(n, power, maxHeight, maxWidth);
+	thread producerThread(ref(producer), n, power, maxHeight, maxWidth);
 	clients.run();
 	thread opThread(ref(opHandler));
 
-	producers.join();
+	producerThread.join();
 	vector<char> endVector;
 	SharedDataHandler::Spec endSignal = SharedDataHandler::Spec{Balancer(endVector, 0, 0, 0, 0), true};
 	sdh.addTask(endSignal);

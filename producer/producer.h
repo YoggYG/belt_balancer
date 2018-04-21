@@ -17,21 +17,16 @@ struct Producer
     SharedDataHandler &d_sdh;
     size_t d_id;
 
-    bool d_noSouthBelts;
-    bool d_onlyNorthUGS;
-    size_t d_numIncrements;
-    size_t d_startNumber;
-
     public:
-        Producer(SharedDataHandler &sdh, bool noSB, bool onlyNUGS, size_t numIncrements, size_t startNum);
+        Producer(SharedDataHandler &sdh);
         void operator()(size_t n, size_t power, size_t rows, size_t cols);
 
     private:
         void pause();
-        bool possiblyValid(std::vector<char> &matrix, size_t n, size_t power);
-        bool getNextMatrix(std::vector<char> &matrix, size_t n, size_t rows, size_t cols);
-        void incrementMatrix(std::vector<char> &matrix, size_t idx, size_t incr);
-        bool edgeCase(std::vector<char> &matrix, size_t idx, size_t rows, size_t cols);
+        // bool possiblyValid(std::vector<char> &matrix, size_t n, size_t power);
+        // bool getNextMatrix(std::vector<char> &matrix, size_t n, size_t rows, size_t cols);
+        // void incrementMatrix(std::vector<char> &matrix, size_t idx, size_t incr);
+        // bool edgeCase(std::vector<char> &matrix, size_t idx, size_t rows, size_t cols);
         void placeSplitter(std::vector<char> &matrix, size_t startIndex, size_t rows, size_t cols, size_t n, size_t power, size_t splittersToPlace);
 };
         

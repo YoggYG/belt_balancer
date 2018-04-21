@@ -1,19 +1,147 @@
 #include "producer.ih"
 void Producer::operator()(size_t n, size_t power, size_t rows, size_t cols)
 {
-    if (rows == 0)
-        rows = 2*n;
-    if (cols < n)
-        cols = n;
+    // if (rows == 0)
+    //     rows = 2*n;
+    // if (cols < n)
+    //     cols = n;
     
-    vector<char> matrix(rows * cols, EMPTY);
+    // vector<char> matrix(rows * cols, EMPTY);
 
-    size_t startIndex = cols;
-    size_t splittersToPlace = power * n / 2;
+    // size_t startIndex = cols;
+    // size_t splittersToPlace = power * n / 2;
 
-    placeSplitter(matrix, startIndex, rows, cols, n, power, splittersToPlace);
-    
-//     while (getNextMatrix(matrix, n, rows, cols))
-//     	if (possiblyValid(matrix, n, power))
-//         	d_sdh.addTask(SharedDataHandler::Spec{Balancer(matrix, rows, cols, n, power), false});
+    // placeSplitter(matrix, startIndex, rows, cols, n, power, splittersToPlace);
+
+
+	// BELOW THIS LINE IS TESTING STUFFS
+
+    vector<char> test1
+	{
+		0,0,
+		0,0,
+		0,0,
+		0,0,
+		0,0,
+		0,0,
+		0,0,
+		0,0,
+		14,15,
+		0,0
+	};
+
+	vector<char> test2
+	{
+		0,0,0,0,
+		0,14,15,0,
+		0,0,0,0,
+		0,0,0,0,
+		0,14,15,0,
+		0,0,0,0,
+		0,0,0,0,
+		14,15,14,15,
+		0,0,0,0
+	};
+
+	vector<char> test3
+	{
+		0,0,0,0,0,0,
+		0,0,0,0,0,0,
+		0,0,14,15,0,0,
+		0,0,0,0,0,0,
+		0,0,0,0,0,0,
+		0,0,14,15,0,0,
+		0,0,0,0,0,0,
+		0,0,0,0,0,0,
+		0,14,15,14,15,0,
+		0,0,0,0,0,0
+	};
+
+	vector<char> test4
+	{
+		0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,
+		0,0,0,14,15,0,0,0,
+		0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,
+		0,0,0,14,15,0,0,0,
+		0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,
+		0,0,14,15,14,15,0,0,
+		0,0,0,0,0,0,0,0
+	};
+
+	vector<char> test5
+	{
+		0,0,0,0,0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,14,15,14,15,
+		14,15,14,15,0,0,0,16,0,0,0,0,
+		0,14,15,0,0,0,0,17,0,0,0,0,
+		0,0,0,0,0,0,0,19,0,0,0,0,
+		0,0,0,0,0,0,0,18,0,0,0,0,
+		0,0,0,0,0,0,0,0,0,14,15,0,
+		0,0,0,0,0,0,0,0,14,15,14,15,
+		14,15,14,15,0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,0,0,0,0
+	};
+
+	vector<char> test6
+	{
+		0,0,0,0,0,0,0,0,
+		14,15,14,15,14,15,14,15,
+		0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,
+		0,0,14,15,0,0,14,15,
+		0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,
+		0,14,15,0,0,14,15,0,
+		14,15,14,15,14,15,14,15,
+		0,0,0,0,0,0,0,0
+	};
+
+	vector<char> test7
+	{
+		0,0,0,0,0,0,
+		0,0,0,0,0,0,
+		0,0,14,15,0,0,
+		0,0,0,0,0,0,
+		0,0,0,0,0,0,
+		0,0,14,15,0,0,
+		0,0,0,0,0,0,
+		0,0,0,0,0,0,
+		0,0,0,0,0,0,
+		0,0,0,0,0,0
+	};
+
+	vector<char> test8
+	{
+		0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,
+		0,0,0,14,15,0,0,0,
+		0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,
+		0,0,0,14,15,0,0,0,
+		0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0,
+		0,0,0,0,0,0,0,0
+	};
+
+	// placeSplitter(test1, 0, 10, 2, 2, 1, 0);
+	// placeSplitter(test2, 0, 9, 4, 4, 2, 0);
+	// placeSplitter(test3, 0, 10, 6, 4, 2, 0);
+	// placeSplitter(test4, 0, 10, 8, 2, 2, 0);
+	// placeSplitter(test5, 0, 10, 12, 8, 3, 0);
+	// placeSplitter(test6, 0, 12, 8, 8, 3, 0);
+	placeSplitter(test7, 48, 10, 6, 4, 2, 2);
+	// placeSplitter(test8, 64, 10, 8, 2, 2, 2);
+
+	// Balancer testBal(test, 10, 2, 2, 1);
+	// Balancer testBal(test, 9, 4, 4, 2);
+	//Balancer testBal(test, 9, 6, 4, 2);
+	// Balancer testBal(test, 10, 8, 4, 2);
+	// Balancer testBal(test, 10, 12, 8, 3);
+	// Balancer testBal(test, 12, 8, 8, 3);
 }

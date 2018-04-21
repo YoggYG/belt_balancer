@@ -17,6 +17,7 @@ class Balancer
 
 	public:
 		Balancer(std::vector<char> &matrix, size_t rows, size_t cols, size_t n, size_t power);
+		Balancer(Balancer const &other);
 		bool valid();
 		size_t cost();
 		void print();
@@ -24,14 +25,20 @@ class Balancer
 		bool operator==(Balancer const &rhs);
 		bool nextMatrix();
 		void setUndergroundLength(size_t len);
+		void shrinkBalancer();
+		void initMatrix();
+
+		//size_t size() {return d_matrix.size();};
 	private:
 		bool verticalUndergroundOK(size_t pos);
 		bool horizontalUndergroundOK(size_t pos);
+		bool undergroundUsefulNorth(size_t pos);
+		bool undergroundUsefulEast(size_t pos);
+		bool undergroundUsefulWest(size_t pos);
+		bool undergroundUsefulSouth(size_t pos);
 		size_t numberOfOutputBelts();
 		size_t numberOfInputBelts();
-		void initMatrix(std::vector<char> &matrix);
 		size_t sharedSplitters(Lane const &lane1, Lane const &lane2);
-		void shrinkBalancer();
 		bool matrixOK(size_t pos);
 		bool incrMatrixUntilOK(size_t pos);
 		bool isSplitter(size_t val);
@@ -47,22 +54,7 @@ class Balancer
 		bool requiresEastInput(size_t val);
 		bool requiresWestInput(size_t val);
 		bool requiresSouthInput(size_t val);
-		bool hasNorthUndergroundOutput(size_t pos);
-		bool hasEastUndergroundInput(size_t pos);
-		bool hasSouthUndergroundInput(size_t pos);
-		bool hasWestUndergroundOutput(size_t pos);
 };
-
-inline Balancer::Balancer(std::vector<char> &matrix, size_t rows, size_t cols, size_t n, size_t power)
-:
-	d_rows(rows),
-	d_cols(cols),
-	d_n(n),
-	d_power(power)
-{
-	initMatrix(matrix);
-	incrMatrixUntilOK(0);
-}
 
 inline bool Balancer::operator==(Balancer const &rhs)
 {
@@ -71,12 +63,19 @@ inline bool Balancer::operator==(Balancer const &rhs)
 
 inline bool Balancer::isSplitter(size_t val)
 {
-	return (val == SPLN or val == SPRN or val == SPLE or val == SPRE or val == SPLW or val == SPRW or val == SPLS or val == SPRS);
+	return val > MAXVAL;
+	//return (val == SPLN or val == SPRN or val == SPLE or val == SPRE or val == SPLW or val == SPRW or val == SPLS or val == SPRS);
 }
 
 inline void Balancer::setUndergroundLength(size_t len)
 {
 	d_underground_length = len;
+}
+
+inline void Balancer::initMatrix()
+{
+	if (d_matrix.size())
+		incrMatrixUntilOK(0);
 }
 
 inline bool Balancer::hasEastInput(size_t val)

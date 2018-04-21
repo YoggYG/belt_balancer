@@ -1,10 +1,16 @@
 #include "client.ih"
+#include <iostream>
 
 void Client::process(Balancer &b)
-{   // Work!
+{
+	cerr << "Started task\n" << flush;
+	b.initMatrix();
     do 
     	if (b.valid()) 
-    		// TODO: copy balancer, shrink copy and add the copy of the balancer to the result queue instead of the original balancer. 
-    		d_sdh.addRes(SharedDataHandler::Spec{b,false});
+    	{
+    		Balancer outputBal(b);
+    		outputBal.shrinkBalancer();
+    		d_sdh.addRes(SharedDataHandler::Spec{outputBal,false});
+    	}
 	while (b.nextMatrix());
 }

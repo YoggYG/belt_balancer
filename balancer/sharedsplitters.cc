@@ -14,7 +14,7 @@ size_t Balancer::sharedSplitters(Lane const &lane1, Lane const &lane2)
 				continue;
 			if (lane2.d_path[idx2].item == lane1.d_path[idx1].item) //the same half of splitter
 				continue;
-			if ((lane2.d_path[idx2].item + 1) / 2 != (lane1.d_path[idx1].item + 1) / 2) //non-complementary halves
+			if ((lane2.d_path[idx2].item) / 2 != (lane1.d_path[idx1].item) / 2) //non-complementary halves
 				continue;
 			switch (lane1.d_path[idx1].item) //the two splitters are complementary by their halves
 			{
