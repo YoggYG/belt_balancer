@@ -1,6 +1,6 @@
 #include "lane.ih"
 
-Lane::Lane(vector<char> &matrix, size_t idx, size_t rows, size_t cols, size_t power, size_t underground_distance)
+Lane::Lane(vector<Tile> &matrix, size_t idx, size_t rows, size_t cols, size_t power, size_t underground_distance)
 :
 	d_rows(rows),
 	d_cols(cols),
@@ -12,7 +12,7 @@ Lane::Lane(vector<char> &matrix, size_t idx, size_t rows, size_t cols, size_t po
 
 	while (true)
 	{
-		//cerr << "X: " << x << "   Y: " << y << "    Item: " << item << endl;
+		// cerr << "X: " << x << "   Y: " << y << "    Item: " << item << endl;
 		d_path.push_back(Triple{x, y, item});
 		size_t len = 0;
 		switch (item)
@@ -35,7 +35,7 @@ Lane::Lane(vector<char> &matrix, size_t idx, size_t rows, size_t cols, size_t po
 			case SPRW: --x; break;
 			case UBIN:
 				for (len = 2; len < underground_distance; ++len)
-					if (y - len >= 0 && matrix[(y - len) * d_cols + x] == UBON)
+					if (/*y - len >= 0 && */matrix[(y - len) * d_cols + x] == UBON)
 					{
 						y -= len;
 						break;
@@ -43,7 +43,7 @@ Lane::Lane(vector<char> &matrix, size_t idx, size_t rows, size_t cols, size_t po
 				break;
 			case UBIE:
 				for (len = 2; len < underground_distance; ++len)
-					if (x + len < d_cols && matrix[y * d_cols + x + len] == UBOE)
+					if (/*x + len < d_cols && */matrix[y * d_cols + x + len] == UBOE)
 					{
 						x += len;
 						break;
@@ -51,7 +51,7 @@ Lane::Lane(vector<char> &matrix, size_t idx, size_t rows, size_t cols, size_t po
 				break;
 			case UBIS:
 				for (len = 2; len < underground_distance; ++len)
-					if (y + len < d_rows && matrix[(y + len) * d_cols + x] == UBOS)
+					if (/*y + len < d_rows && */matrix[(y + len) * d_cols + x] == UBOS)
 					{
 						y += len;
 						break;
@@ -59,7 +59,7 @@ Lane::Lane(vector<char> &matrix, size_t idx, size_t rows, size_t cols, size_t po
 				break;
 			case UBIW:
 				for (len = 2; len < underground_distance; ++len)
-					if (x - len >= 0 && matrix[y * d_cols + x - len] == UBOW)
+					if (/*x - len >= 0 && */matrix[y * d_cols + x - len] == UBOW)
 					{
 						x -= len;
 						break;
@@ -67,12 +67,18 @@ Lane::Lane(vector<char> &matrix, size_t idx, size_t rows, size_t cols, size_t po
 				break;
 		}
 		if (len == underground_distance)
+		{
+			// cerr << "lane1.cc: len == underground_distance\n";
 			break;
+		}
 
 		if (/*x < 0 || y < 0 || */x >= d_cols || y >= d_rows) // coordinates use unsigned ints. Negative values become max_int like.
+		{
+			// cerr << "lane1.cc: x or y larger than bounds\n";
 			break;
+		}
 		
-		size_t newItem = matrix[y * d_cols + x];
+		size_t newItem = matrix[y * d_cols + x].item;
 		bool fail = true;
 		switch (item)
 		{
@@ -122,7 +128,10 @@ Lane::Lane(vector<char> &matrix, size_t idx, size_t rows, size_t cols, size_t po
 				break;
 		}
 		if (fail)
+		{
+			cerr << "lane1.cc: following item invalid\n";
 			break;
+		}
 
 		item = newItem;
 		for (auto it = d_path.begin(); it != d_path.end(); ++it)
@@ -130,6 +139,9 @@ Lane::Lane(vector<char> &matrix, size_t idx, size_t rows, size_t cols, size_t po
 				fail = true;
 		
 		if (fail)
+		{
+			cerr << "lane1.cc: tile elsewhere in path\n";
 			break;
+		}
 	}
 }

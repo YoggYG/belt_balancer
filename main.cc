@@ -87,18 +87,18 @@ int main(int argc, char **argv) {
 	// 	1,1,1,1
 	// };
 
-	Balancer testBal(test, 9, 6, 4, 2);
-	// Balancer testBal(test, 10, 12, 8, 3);
-	// Balancer solutionBal(solution, 9, 4, 4, 2);
+	// Balancer testBal(test, 9, 6, 4, 2);
+	// // Balancer testBal(test, 10, 12, 8, 3);
+	// // Balancer solutionBal(solution, 9, 4, 4, 2);
 
-	string tempString;
+	// string tempString;
 
-	do
-		if (testBal.valid())
-			testBal.print();
-	while (testBal.nextMatrix());
+	// do
+	// 	if (testBal.valid())
+	// 		testBal.print();
+	// while (testBal.nextMatrix());
 
-	return 0;
+	// return 0;
 
 
 	if (argc < 2)
@@ -141,7 +141,7 @@ int main(int argc, char **argv) {
 		maxHeight = 2 * n;
 
 	size_t threads_on_machine = thread::hardware_concurrency();
-	//size_t threads_on_machine = 1;
+	// size_t threads_on_machine = 1;
 	if (threads_on_machine == 0)
 	{
 		cout << "Unable to detect available threads, using 8 as default\n";
@@ -153,7 +153,8 @@ int main(int argc, char **argv) {
 
 	SharedDataHandler sdh(30);
 
-	Producers producers(sdh, threads_on_machine, noSouthBelts, onlyNorthUGS);
+	// Producers producers(sdh, threads_on_machine, noSouthBelts, onlyNorthUGS);
+	Producers producers(sdh, 1, noSouthBelts, onlyNorthUGS);
 	Clients clients(sdh, threads_on_machine);
 	OutputHandler opHandler(sdh);
 	

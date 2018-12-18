@@ -32,7 +32,12 @@ struct Producer
         bool getNextMatrix(std::vector<char> &matrix, size_t n, size_t rows, size_t cols);
         void incrementMatrix(std::vector<char> &matrix, size_t idx, size_t incr);
         bool edgeCase(std::vector<char> &matrix, size_t idx, size_t rows, size_t cols);
-        void placeSplitter(std::vector<char> &matrix, size_t startIndex, size_t rows, size_t cols, size_t n, size_t power, size_t splittersToPlace);
+        void placeSplitter(std::vector<char> &matrix, size_t startIndex, size_t rows, size_t cols, size_t n, size_t power, size_t splittersToPlace, size_t incr);
+        bool canPlaceSplitterNorth(std::vector<char> &matrix, size_t pos, size_t cols, size_t n);
+        bool canPlaceSplitterEast(std::vector<char> &matrix, size_t pos, size_t cols);
+        bool canPlaceSplitterSouth(std::vector<char> &matrix, size_t pos, size_t cols);
+        bool canPlaceSplitterWest(std::vector<char> &matrix, size_t pos, size_t cols);
+        std::vector<char> makeMirror(std::vector<char> &matrix, size_t cols) const;
 };
         
 #endif

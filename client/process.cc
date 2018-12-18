@@ -2,6 +2,8 @@
 
 void Client::process(Balancer &b)
 {   // Work!
+	b.incrMatrixUntilOK(0);
+	
     do 
     	if (b.valid()) 
     		// TODO: copy balancer, shrink copy and add the copy of the balancer to the result queue instead of the original balancer. 

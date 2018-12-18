@@ -1,6 +1,6 @@
 #include "lane.ih"
 
-bool Lane::valid(vector<char> &matrix)
+bool Lane::valid(vector<Tile> &matrix)
 {
 	if (d_path.back().item != BN || d_path.back().y != EMPTY)
 		return false;
@@ -68,5 +68,9 @@ bool Lane::valid(vector<char> &matrix)
 		}
 	if (numSplit != d_power)
 		return false;
+	
+	if (hasLoops(matrix))
+		return false;
+
 	return true;
 }

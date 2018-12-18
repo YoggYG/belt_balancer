@@ -3,8 +3,8 @@
 size_t Balancer::cost()
 {
 	size_t cost = 0;
-	for (vector<char>::iterator it = d_matrix.begin(); it != d_matrix.end(); ++it)
-		switch (*it)
+	for (vector<Tile>::iterator it = d_matrix.begin(); it != d_matrix.end(); ++it)
+		switch (it->item)
 		{
 			case 1:
 			case 2:
@@ -25,7 +25,7 @@ size_t Balancer::cost()
 			case 9:
 			case 10:
 			case 11:
-			case 12: cost += 10; break;
+			case 12: cost += d_underground_cost_penalty; break;
 		}
 	cost *= d_rows * d_cols;
 	return cost;

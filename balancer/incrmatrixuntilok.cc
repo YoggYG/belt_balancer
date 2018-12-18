@@ -2,19 +2,19 @@
 
 bool Balancer::incrMatrixUntilOK(size_t pos)
 {
-	if (d_matrix[0] > 1)
+	if (d_matrix[0].item > 1)
 		return false;
 
-	char maxVal = 13;
+	size_t maxVal = 13;
 	if (pos < d_cols or pos >= (d_rows - 1) * d_cols)
 		maxVal = 2;
 
-	while (d_matrix[pos] < maxVal and not matrixOK(pos))
+	while (d_matrix[pos].item < maxVal and (not matrixOK(pos) or not matrixOptimised(pos)))
 		do
 			++d_matrix[pos];
 		while (isEdgeCase(pos));
 
-	if (d_matrix[pos] >= maxVal and pos > 0)
+	if (d_matrix[pos].item >= maxVal and pos > 0)
 	{
 		size_t prevPos = pos - 1;
 
@@ -25,7 +25,7 @@ bool Balancer::incrMatrixUntilOK(size_t pos)
 			++d_matrix[prevPos];
 		while (isEdgeCase(prevPos));
 
-		d_matrix[pos] = EMPTY;
+		d_matrix[pos].item = EMPTY;
 		return incrMatrixUntilOK(prevPos);
 	}
 	
@@ -39,7 +39,7 @@ bool Balancer::incrMatrixUntilOK(size_t pos)
 		return incrMatrixUntilOK(nextPos);
 	}
 
-	if (d_matrix[0] > 1)
+	if (d_matrix[0].item > 1)
 	{
 		cerr << "incrMatrixUntilOK returned false at second check\n";
 		return false;
