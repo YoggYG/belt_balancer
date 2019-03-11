@@ -1,3 +1,6 @@
 *.o
 .d/*
 *.gch
+libmain.out.a
+main
+main.out
