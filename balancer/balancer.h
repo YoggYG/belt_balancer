@@ -26,6 +26,7 @@ class Balancer
 		bool nextMatrix();
 		void setUndergroundLength(size_t len);
 		bool incrMatrixUntilOK(size_t pos);
+		bool matrixOK(size_t pos);
 	private:
 		char requiresHorizontalUndergroundBelt(size_t pos);
 		size_t horizontalUndergroundBeltDistance(size_t pos);
@@ -35,7 +36,6 @@ class Balancer
 		bool sharedSplitters(Lane const &lane1, Lane const &lane2);
 		void shrinkBalancer();
 		bool isEdgeCase(size_t pos);
-		bool matrixOK(size_t pos);
 		bool matrixOptimised(size_t pos);
 		bool isSplitter(char val);
 		bool isSplitter(Tile val);

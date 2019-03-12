@@ -97,7 +97,28 @@ int main(int argc, char **argv) {
 	// 	0,0,0,0,0,0,0,0,0
 	// };
 
+	vector<char> test
+	{
+		0,0,0,0,0,0,0,0,0,
+		0,0,13,14,0,0,15,0,0,
+		0,0,0,0,0,0,16,0,0,
+		0,0,0,0,0,0,0,0,0,
+		0,13,14,13,14,0,0,0,0,
+		0,0,0,0,0,0,0,0,0
+	};
+
+	vector<char> solution
+	{
+		0,0,1,1,0,0,0,1,1,
+		0,0,13,14,2,2,15,1,1,
+		2,7,1,1,1,8,16,2,1,
+		1,3,1,1,1,0,0,0,0,
+		0,13,14,13,14,0,0,0,0,
+		0,1,1,1,1,0,0,0,0
+	};
+
 	// Balancer testBal(test, 6, 9, 4, 2);
+	Balancer testBal(solution, 6, 9, 4, 2);
 
 	// Balancer testBal(test, 9, 6, 4, 2);
 	// // Balancer testBal(test, 10, 12, 8, 3);
@@ -106,13 +127,22 @@ int main(int argc, char **argv) {
 	// string tempString;
 
 
-	// testBal.incrMatrixUntilOK(0);
-	// do
-	// 	if (testBal.valid())
-	// 		testBal.print();
-	// while (testBal.nextMatrix());
+	// for (size_t index = 0; index < 54; ++index)
+		if (testBal.matrixOK(32) == false)
+		{
+			cerr << "matrixOK false" << endl;
+		}
 
-	// return 0;
+	// testBal.incrMatrixUntilOK(0);
+	do
+	{
+		if (testBal.valid())
+			testBal.print();
+			// cin >> tempString;
+	}
+	while (testBal.nextMatrix());
+
+	return 0;
 
 
 	if (argc < 2)

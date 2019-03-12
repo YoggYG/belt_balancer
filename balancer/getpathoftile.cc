@@ -233,6 +233,9 @@ vector<Triple> Balancer::getPathOfTile(size_t pos)
 	Triple endTile = resVector.back();
 	Triple startTile = resVector.front();
 
+	// if (endTile.tile == startTile.tile)
+	// 	return vector<Triple>();
+
 	if (endTile.y == 0)
 		isExit = true;
 
@@ -296,7 +299,11 @@ vector<Triple> Balancer::getPathOfTile(size_t pos)
 		}
 	}
 
-	
+	// Find path backwards from current path end to bottom of balancer
+	if (isEntry)
+	{
+
+	}
 
 	return resVector;
 }
