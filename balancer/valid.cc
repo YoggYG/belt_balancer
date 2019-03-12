@@ -27,7 +27,7 @@ bool Balancer::valid()
 			
 			if (!lane.valid(d_matrix))
 				return false;
-
+			
 			lanes.push_back(lane);
 			++numberOfLanes;
 		}
@@ -53,7 +53,7 @@ bool Balancer::valid()
 	for (vector<Lane>::iterator it1 = lanes.begin(); it1 != lanes.end(); ++it1)
 		for (vector<Triple>::iterator it2 = it1->d_path.begin(); it2 != it1->d_path.end(); ++it2)
 			if (secondVector[it2->y * d_cols + it2->x] == 0)
-				secondVector[it2->y * d_cols + it2->x].item = it2->item;
+				secondVector[it2->y * d_cols + it2->x].item = it2->tile.item;
 			else
 				return false;
 	

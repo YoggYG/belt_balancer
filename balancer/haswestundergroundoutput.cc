@@ -6,7 +6,10 @@ bool Balancer::hasWestUndergroundOutput(size_t pos)
 
 	--pos;
 	if (pos % d_cols == d_cols - 1)
+	{
+		cerr << "ROGUE UGBELT\n";
 		return false;
+	}
 	
 	for (size_t length = 1; length < d_underground_length; ++length)
 	{

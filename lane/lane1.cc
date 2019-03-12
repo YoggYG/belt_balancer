@@ -8,14 +8,14 @@ Lane::Lane(vector<Tile> &matrix, size_t idx, size_t rows, size_t cols, size_t po
 {
 	size_t x = idx - (d_rows - 1) * d_cols;
 	size_t y = d_rows - 1;
-	size_t item = 1;
+	Tile tile = BN;
 
 	while (true)
 	{
 		// cerr << "X: " << x << "   Y: " << y << "    Item: " << item << endl;
-		d_path.push_back(Triple{x, y, item});
+		d_path.push_back(Triple{x, y, tile});
 		size_t len = 0;
-		switch (item)
+		switch (tile.item)
 		{
 			case BN:
 			case UBON:
@@ -43,7 +43,7 @@ Lane::Lane(vector<Tile> &matrix, size_t idx, size_t rows, size_t cols, size_t po
 				break;
 			case UBIE:
 				for (len = 2; len < underground_distance; ++len)
-					if (/*x + len < d_cols && */matrix[y * d_cols + x + len] == UBOE)
+					if (x + len < d_cols && matrix[y * d_cols + x + len] == UBOE)
 					{
 						x += len;
 						break;
@@ -51,7 +51,7 @@ Lane::Lane(vector<Tile> &matrix, size_t idx, size_t rows, size_t cols, size_t po
 				break;
 			case UBIS:
 				for (len = 2; len < underground_distance; ++len)
-					if (/*y + len < d_rows && */matrix[(y + len) * d_cols + x] == UBOS)
+					if (y + len < d_rows && matrix[(y + len) * d_cols + x] == UBOS)
 					{
 						y += len;
 						break;
@@ -78,62 +78,62 @@ Lane::Lane(vector<Tile> &matrix, size_t idx, size_t rows, size_t cols, size_t po
 			break;
 		}
 		
-		size_t newItem = matrix[y * d_cols + x].item;
+		Tile newTile = matrix[y * d_cols + x];
 		bool fail = true;
-		switch (item)
+		switch (tile.item)
 		{
 			case BN:
 			case UBON:
 			case SPLN:
 			case SPRN:
-				if (newItem == BN || newItem == BE || newItem == BW || newItem == UBIN || newItem == SPLN || newItem == SPRN)
+				if (newTile == BN || newTile == BE || newTile == BW || newTile == UBIN || newTile == SPLN || newTile == SPRN)
 					fail = false;
 				break;
 			case BE:
 			case UBOE:
 			case SPLE:
 			case SPRE:
-				if (newItem == BN || newItem == BE || newItem == BS || newItem == UBIE || newItem == SPLE || newItem == SPRE)
+				if (newTile == BN || newTile == BE || newTile == BS || newTile == UBIE || newTile == SPLE || newTile == SPRE)
 					fail = false;
 				break;
 			case BS:
 			case UBOS:
 			case SPLS:
 			case SPRS:
-				if (newItem == BE || newItem == BS || newItem == BW || newItem == UBIS || newItem == SPLS || newItem == SPRS)
+				if (newTile == BE || newTile == BS || newTile == BW || newTile == UBIS || newTile == SPLS || newTile == SPRS)
 					fail = false;
 				break;
 			case BW:
 			case UBOW:
 			case SPLW:
 			case SPRW:
-				if (newItem == BN || newItem == BS || newItem == BW || newItem == UBIW || newItem == SPLW || newItem == SPRW)
+				if (newTile == BN || newTile == BS || newTile == BW || newTile == UBIW || newTile == SPLW || newTile == SPRW)
 					fail = false;
 				break;
 			case UBIN:
-				if (newItem == UBON)
+				if (newTile == UBON)
 					fail = false;
 				break;
 			case UBIE:
-				if (newItem == UBOE)
+				if (newTile == UBOE)
 					fail = false;
 				break;
 			case UBIS:
-				if (newItem == UBOS)
+				if (newTile == UBOS)
 					fail = false;
 				break;
 			case UBIW:
-				if (newItem == UBOW)
+				if (newTile == UBOW)
 					fail = false;
 				break;
 		}
 		if (fail)
 		{
-			cerr << "lane1.cc: following item invalid\n";
+			cerr << "lane1.cc: following item invalid, tile: " << tile.item << ", newTile: " << newTile.item << ", idx: " << x  + y * d_cols << "\n";
 			break;
 		}
 
-		item = newItem;
+		tile = newTile;
 		for (auto it = d_path.begin(); it != d_path.end(); ++it)
 			if (it->x == x && it->y == y)
 				fail = true;

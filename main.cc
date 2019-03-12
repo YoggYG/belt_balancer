@@ -47,18 +47,18 @@ int main(int argc, char **argv) {
 	// 	0,0,0,0,0,0
 	// };
 
-	vector<char> test
-	{
-		0,0,0,0,0,0,
-		0,0,13,14,0,0,
-		0,0,0,0,0,0,
-		0,0,0,0,0,0,
-		0,0,13,14,0,0,
-		0,0,0,0,0,0,
-		0,0,0,0,0,0,
-		0,13,14,13,14,0,
-		0,0,0,0,0,0
-	};
+	// vector<char> test
+	// {
+	// 	0,0,0,0,0,0,
+	// 	0,0,13,14,0,0,
+	// 	0,0,0,0,0,0,
+	// 	0,0,0,0,0,0,
+	// 	0,0,13,14,0,0,
+	// 	0,0,0,0,0,0,
+	// 	0,0,0,0,0,0,
+	// 	0,13,14,13,14,0,
+	// 	0,0,0,0,0,0
+	// };
 
 	// vector<char> test
 	// {
@@ -87,12 +87,26 @@ int main(int argc, char **argv) {
 	// 	1,1,1,1
 	// };
 
+	// vector<char> test
+	// {
+	// 	0,0,0,0,0,0,0,0,0,
+	// 	0,0,13,14,0,0,15,0,0,
+	// 	0,0,0,0,0,0,16,0,0,
+	// 	0,0,0,0,0,18,0,0,0,
+	// 	0,13,14,0,0,17,0,0,0,
+	// 	0,0,0,0,0,0,0,0,0
+	// };
+
+	// Balancer testBal(test, 6, 9, 4, 2);
+
 	// Balancer testBal(test, 9, 6, 4, 2);
 	// // Balancer testBal(test, 10, 12, 8, 3);
 	// // Balancer solutionBal(solution, 9, 4, 4, 2);
 
 	// string tempString;
 
+
+	// testBal.incrMatrixUntilOK(0);
 	// do
 	// 	if (testBal.valid())
 	// 		testBal.print();
@@ -141,7 +155,7 @@ int main(int argc, char **argv) {
 		maxHeight = 2 * n;
 
 	size_t threads_on_machine = thread::hardware_concurrency();
-	// size_t threads_on_machine = 1;
+	// threads_on_machine = 1;
 	if (threads_on_machine == 0)
 	{
 		cout << "Unable to detect available threads, using 8 as default\n";

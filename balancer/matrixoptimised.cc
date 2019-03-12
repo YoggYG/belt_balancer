@@ -51,11 +51,12 @@ bool Balancer::matrixOptimised(size_t pos)
 			return false;
 	}
 	
-	// if (val != EMPTY)
-	// {
-	// 	vector<Triple> path = getPathOfTile(pos);
-	// 	cerr << "path length = " << path.size() << endl;
-	// }
+	if (val != EMPTY)
+	{
+		vector<Triple> path = getPathOfTile(pos);
+		if (path.size() == 0)
+			return false;
+	}
 
 	if (pos >= 2 * d_cols)
 	{

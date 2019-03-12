@@ -55,6 +55,8 @@ class Balancer
 		bool hasEastUndergroundInput(size_t pos);
 		bool hasSouthUndergroundInput(size_t pos);
 		bool hasWestUndergroundOutput(size_t pos);
+		bool hasVerticalUndergroundPath(size_t pos);
+		bool hasHorizontalUndergroundPath(size_t pos);
 		bool hasLoop(Tile val, Tile up, Tile upLeft, Tile left);
 		std::vector<Triple> getPathOfTile(size_t pos);
 };

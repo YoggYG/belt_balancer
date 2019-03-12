@@ -4,20 +4,20 @@
 
 class Tile
 {
-public: 
-	size_t item;
-	size_t ugN;
-	size_t ugE;
-	size_t ugS;
-	size_t ugW;
+	public: 
+		size_t item;
+		size_t ugN;
+		size_t ugE;
+		size_t ugS;
+		size_t ugW;
 
-	Tile(size_t value);
-	bool operator==(Tile const &rhs) const;
-	bool operator==(size_t const &rhs) const;
-	bool operator!=(Tile const &rhs) const;
-	bool operator!=(size_t const &rhs) const;
-	void operator++();
-	void operator++(int);
+		Tile(size_t value);
+		bool operator==(Tile const &rhs) const;
+		bool operator==(size_t const &rhs) const;
+		bool operator!=(Tile const &rhs) const;
+		bool operator!=(size_t const &rhs) const;
+		void operator++();
+		void operator++(int);
 };
 
 inline Tile::Tile(size_t value) : item(value)
