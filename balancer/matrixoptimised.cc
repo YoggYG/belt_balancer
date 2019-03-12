@@ -2,7 +2,6 @@
 
 bool Balancer::matrixOptimised(size_t pos)
 {
-	return true;
 	//cerr << pos << endl;
 	Tile val = d_matrix[pos];
 	Tile left = EMPTY;
@@ -56,10 +55,7 @@ bool Balancer::matrixOptimised(size_t pos)
 	{
 		vector<Triple> path = getPathOfTile(pos);
 		if (path.size() == 0)
-		{
-			print();
 			return false;
-		}
 	}
 
 	if (pos >= 2 * d_cols)

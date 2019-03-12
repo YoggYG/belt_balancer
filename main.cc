@@ -97,28 +97,49 @@ int main(int argc, char **argv) {
 	// 	0,0,0,0,0,0,0,0,0
 	// };
 
-	vector<char> test
-	{
-		0,0,0,0,0,0,0,0,0,
-		0,0,13,14,0,0,15,0,0,
-		0,0,0,0,0,0,16,0,0,
-		0,0,0,0,0,0,0,0,0,
-		0,13,14,13,14,0,0,0,0,
-		0,0,0,0,0,0,0,0,0
-	};
+	// vector<char> test
+	// {
+	// 	0,0,0,0,0,0,0,0,0,
+	// 	0,0,13,14,0,0,15,0,0,
+	// 	0,0,0,0,0,0,16,0,0,
+	// 	0,0,0,0,0,0,0,0,0,
+	// 	0,13,14,13,14,0,0,0,0,
+	// 	0,0,0,0,0,0,0,0,0
+	// };
 
-	vector<char> solution
-	{
-		0,0,1,1,0,0,0,1,1,
-		0,0,13,14,2,2,15,1,1,
-		2,7,1,1,1,8,16,2,1,
-		1,3,1,1,1,0,0,0,0,
-		0,13,14,13,14,0,0,0,0,
-		0,1,1,1,1,0,0,0,0
-	};
+	// vector<char> solution
+	// {
+	// 	0,0,1,1,0,0,0,1,1,
+	// 	0,0,13,14,2,2,15,1,1,
+	// 	2,7,1,1,1,8,16,2,1,
+	// 	1,3,1,1,1,0,0,0,0,
+	// 	0,13,14,13,14,0,0,0,0,
+	// 	0,1,1,1,1,0,0,0,0
+	// };
+
+	// vector<char> test
+	// {
+	// 	0,0,0,0,0,0,0,0,
+	// 	0,0,13,14,0,15,0,0,
+	// 	0,0,0,0,0,16,0,0,
+	// 	0,13,14,13,14,0,0,0,
+	// 	0,0,0,0,0,0,0,0
+	// };
+
+	// vector<char> solution
+	// {
+	// 	0,0,1,1,0,0,1,1,
+	// 	2,7,13,14,8,15,1,1,
+	// 	1,3,1,1,2,16,2,1,
+	// 	0,13,14,13,14,0,0,0,
+	// 	0,1,1,1,1,0,0,0
+	// };
 
 	// Balancer testBal(test, 6, 9, 4, 2);
-	Balancer testBal(solution, 6, 9, 4, 2);
+	// Balancer testBal(solution, 6, 9, 4, 2);
+
+	// Balancer testBal(test, 5, 8, 4, 2);
+	// Balancer testBal(solution, 5, 8, 4, 2);
 
 	// Balancer testBal(test, 9, 6, 4, 2);
 	// // Balancer testBal(test, 10, 12, 8, 3);
@@ -126,23 +147,22 @@ int main(int argc, char **argv) {
 
 	// string tempString;
 
-
-	// for (size_t index = 0; index < 54; ++index)
-		if (testBal.matrixOK(32) == false)
-		{
-			cerr << "matrixOK false" << endl;
-		}
+	// for (size_t idx = 0; idx < 40; ++idx)
+		// if (testBal.matrixOK(20) == false)
+		// {
+		// 	cerr << "matrixOK false " << endl;
+		// }
 
 	// testBal.incrMatrixUntilOK(0);
-	do
-	{
-		if (testBal.valid())
-			testBal.print();
-			// cin >> tempString;
-	}
-	while (testBal.nextMatrix());
+	// do
+	// {
+	// 	if (testBal.valid())
+	// 		testBal.print();
+	// 		// cin >> tempString;
+	// }
+	// while (testBal.nextMatrix());
 
-	return 0;
+	// return 0;
 
 
 	if (argc < 2)
