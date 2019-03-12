@@ -22,25 +22,29 @@ size_t Balancer::sharedSplitters(Lane const &lane1, Lane const &lane2)
 				case SPRS:
 					if (lane1.d_path[idx1].y == lane2.d_path[idx2].y)
 						if (lane1.d_path[idx1].x == lane2.d_path[idx2].x - 1)
-							++res;
+							if (++res > 1)
+								return res;
 					break;
 				case SPRN:
 				case SPLS:
 					if (lane1.d_path[idx1].y == lane2.d_path[idx2].y)
 						if (lane1.d_path[idx1].x == lane2.d_path[idx2].x + 1)
-							++res;
+							if (++res > 1)
+								return res;
 					break;
 				case SPLE:
 				case SPRW:
 					if (lane1.d_path[idx1].y == lane2.d_path[idx2].y + 1)
 						if (lane1.d_path[idx1].x == lane2.d_path[idx2].x)
-							++res;
+							if (++res > 1)
+								return res;
 					break;
 				case SPRE:
 				case SPLW:
 					if (lane1.d_path[idx1].y == lane2.d_path[idx2].y - 1)
 						if (lane1.d_path[idx1].x == lane2.d_path[idx2].x)
-							++res;
+							if (++res > 1)
+								return res;
 					break;
 			}
 		}

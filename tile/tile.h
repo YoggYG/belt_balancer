@@ -1,9 +1,12 @@
 #ifndef TILE_H
 #define TILE_H
 #include <cstddef>
+#include <iostream>
 
 class Tile
 {
+	//maybe add "immutable" field or method, and a list to every tile with the possible belt types of that specific tile. "Add/Next" operator to increment to the next possible value.
+
 	public:
 		size_t item;
 		size_t ugN;
@@ -57,7 +60,9 @@ inline Tile::Tile(size_t it, size_t uN, size_t uE, size_t uS, size_t uW, size_t 
 	ugS(uS),
 	ugW(uW),
 	lane(laneArg)
-{}
+{
+	std::cerr << "Tile constructor with all individual arguments called\n";
+}
 
 inline Tile::Tile(Tile const &other)
 :

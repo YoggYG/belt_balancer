@@ -6,6 +6,7 @@ Lane::Lane(vector<Tile> &matrix, size_t idx, size_t rows, size_t cols, size_t po
 	d_cols(cols),
 	d_power(power)
 {
+	// cerr << "Lane constructor\n";
 	size_t x = idx - (d_rows - 1) * d_cols;
 	size_t y = d_rows - 1;
 	size_t item = 1;

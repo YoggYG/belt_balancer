@@ -129,14 +129,29 @@ void Producer::operator()(size_t n, size_t power, size_t rows, size_t cols)
 		0,0,0,0,0,0,0,0
 	};
 
+	vector<char> test9
+	{
+		0,0,0,0,
+		0,0,0,0,
+		0,0,0,0,
+		0,0,0,0,
+		0,0,0,0,
+		0,0,0,0,
+		0,0,0,0,
+		0,0,0,0,
+		0,0,0,0
+	};
+
 	// placeSplitter(test1, 0, 10, 2, 2, 1, 0);
 	// placeSplitter(test2, 0, 9, 4, 4, 2, 0);
 	// placeSplitter(test3, 0, 10, 6, 4, 2, 0);
 	// placeSplitter(test4, 0, 10, 8, 2, 2, 0);
 	// placeSplitter(test5, 0, 10, 12, 8, 3, 0);
 	// placeSplitter(test6, 0, 12, 8, 8, 3, 0);
-	placeSplitter(test7, 48, 10, 6, 4, 2, 2);
-	// placeSplitter(test8, 64, 10, 8, 2, 2, 2);
+	// placeSplitter(test7, 48, 10, 6, 4, 2, 2);
+	// placeSplitter(test8, 64, 10, 8, 4, 2, 2);
+	placeSplitter(test9, 0, 9, 4, 4, 2, 4);
+
 
 	// Balancer testBal(test, 10, 2, 2, 1);
 	// Balancer testBal(test, 9, 4, 4, 2);

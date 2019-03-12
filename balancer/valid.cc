@@ -19,7 +19,7 @@ bool Balancer::valid()
 		for (size_t idx2 = idx1 + 1; idx2 < lanes.size(); ++idx2)
 			if (sharedSplitters(lanes[idx1], lanes[idx2]) > 1)
 			{
-				cerr << "Balancer::valid() false: more than one shared splitter between lanes\n";
+				// cerr << "Balancer::valid() false: more than one shared splitter between lanes\n";
 				return false;
 			}
 	
@@ -36,7 +36,7 @@ bool Balancer::valid()
 	
 	if (d_matrix != secondVector)
 	{
-		cerr << "Balancer::valid() false: balancer had useless extra stuff\n";
+		// cerr << "Balancer::valid() false: balancer had useless extra stuff\n";
 		return false;
 	}
 

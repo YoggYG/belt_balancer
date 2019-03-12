@@ -30,6 +30,8 @@ class Balancer
 
 		//size_t size() {return d_matrix.size();};
 	private:
+		void setUndergroundValues(size_t pos);
+		size_t getMinPosOfBadLane();
 		bool verticalUndergroundOK(size_t pos);
 		bool horizontalUndergroundOK(size_t pos);
 		bool undergroundUsefulNorth(size_t pos);
