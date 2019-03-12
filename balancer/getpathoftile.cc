@@ -204,7 +204,7 @@ vector<Triple> Balancer::getPathOfTile(size_t pos)
 		if (len == d_underground_length or d_matrix[idx] == EMPTY)
 			break;
 
-		resVector.push_back(Triple{idx % d_cols, idx / d_cols, d_matrix[idx]});
+		resVector.insert(resVector.begin(), Triple{idx % d_cols, idx / d_cols, d_matrix[idx]});
 
 		if (isSplitter(d_matrix[idx]))
 			break;
@@ -233,8 +233,8 @@ vector<Triple> Balancer::getPathOfTile(size_t pos)
 	Triple endTile = resVector.back();
 	Triple startTile = resVector.front();
 
-	// if (endTile.tile == startTile.tile)
-	// 	return vector<Triple>();
+	if (endTile.tile == startTile.tile) // loop detection
+		return vector<Triple>();
 
 	if (endTile.y == 0)
 		isExit = true;
