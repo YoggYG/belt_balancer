@@ -205,7 +205,7 @@ bool Balancer::matrixOK(size_t pos)
 				and not requiresWestInput(upLeft) and not requiresNorthInput(upUp) and not requiresEastInput(upRight)
 				and not (down == SPLN or down == SPRN or down == SPLS or down == SPRS)
 				and not (right == SPLE or right == SPRE or right == SPLW or right == SPRW)
-				// and not hasVerticalUndergroundPath(pos)
+				// and not hasVerticalUndergroundPath(pos);
 				and val.ugN == 0 and val.ugS == 0;
 
 	if (val == UBOS)
