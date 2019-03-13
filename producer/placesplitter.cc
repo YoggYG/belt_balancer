@@ -22,6 +22,8 @@ void Producer::placeSplitter(vector<char> &matrix, size_t startIndex, size_t row
 			if (not d_sdh.isMirror(matrix))
 			{
 				d_sdh.addMirror(makeMirror(matrix, cols));
+				d_sdh.addMirror(makeVerticalMirror(matrix, rows, cols));
+				d_sdh.addMirror(makeDoubleMirror(matrix, rows, cols));
 				placeSplitter(matrix, idx + 2, rows, cols, n, power, splittersToPlace - 1, 1);
 			}
 			matrix[idx] = EMPTY;
@@ -39,7 +41,9 @@ void Producer::placeSplitter(vector<char> &matrix, size_t startIndex, size_t row
 			if (not d_sdh.isMirror(matrix))
 			{
 				d_sdh.addMirror(makeMirror(matrix, cols));
-				placeSplitter(matrix, idx + 1, rows, cols, n, power, splittersToPlace - 1, 1);
+				d_sdh.addMirror(makeVerticalMirror(matrix, rows, cols));
+				d_sdh.addMirror(makeDoubleMirror(matrix, rows, cols));
+				placeSplitter(matrix, idx + 2, rows, cols, n, power, splittersToPlace - 1, 1);
 			}
 			matrix[idx] = EMPTY;
 			matrix[idx + cols] = EMPTY;
@@ -52,7 +56,9 @@ void Producer::placeSplitter(vector<char> &matrix, size_t startIndex, size_t row
 			if (not d_sdh.isMirror(matrix))
 			{
 				d_sdh.addMirror(makeMirror(matrix, cols));
-				placeSplitter(matrix, idx + 1, rows, cols, n, power, splittersToPlace - 1, 1);
+				d_sdh.addMirror(makeVerticalMirror(matrix, rows, cols));
+				d_sdh.addMirror(makeDoubleMirror(matrix, rows, cols));
+				placeSplitter(matrix, idx + 2, rows, cols, n, power, splittersToPlace - 1, 1);
 			}
 			matrix[idx] = EMPTY;
 			matrix[idx + cols] = EMPTY;
@@ -69,6 +75,8 @@ void Producer::placeSplitter(vector<char> &matrix, size_t startIndex, size_t row
 			if (not d_sdh.isMirror(matrix))
 			{
 				d_sdh.addMirror(makeMirror(matrix, cols));
+				d_sdh.addMirror(makeVerticalMirror(matrix, rows, cols));
+				d_sdh.addMirror(makeDoubleMirror(matrix, rows, cols));
 				placeSplitter(matrix, idx + 2, rows, cols, n, power, splittersToPlace - 1, 1);
 			}
 			matrix[idx] = EMPTY;

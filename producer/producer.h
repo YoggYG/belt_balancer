@@ -38,6 +38,8 @@ struct Producer
         bool canPlaceSplitterSouth(std::vector<char> &matrix, size_t pos, size_t cols);
         bool canPlaceSplitterWest(std::vector<char> &matrix, size_t pos, size_t cols);
         std::vector<char> makeMirror(std::vector<char> &matrix, size_t cols) const;
+        std::vector<char> makeVerticalMirror(std::vector<char> &matrix, size_t rows, size_t cols) const;
+        std::vector<char> makeDoubleMirror(std::vector<char> &matrix, size_t rows, size_t cols) const;
 };
         
 #endif

@@ -37,6 +37,9 @@ class Balancer
 		void shrinkBalancer();
 		bool isEdgeCase(size_t pos);
 		bool matrixOptimised(size_t pos);
+		std::vector<Triple> getPathOfTile(size_t pos);
+		void setUndergroundCount(size_t pos);
+		void resetUndergroundCount(size_t pos);
 		bool isSplitter(char val);
 		bool isSplitter(Tile val);
 		bool hasEastInput(Tile val);
@@ -58,7 +61,6 @@ class Balancer
 		bool hasVerticalUndergroundPath(size_t pos);
 		bool hasHorizontalUndergroundPath(size_t pos);
 		bool hasLoop(Tile val, Tile up, Tile upLeft, Tile left);
-		std::vector<Triple> getPathOfTile(size_t pos);
 };
 
 inline Balancer::Balancer(std::vector<char> &matrix, size_t rows, size_t cols, size_t n, size_t power)

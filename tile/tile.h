@@ -30,7 +30,7 @@ inline Tile::Tile(size_t value) : item(value)
 
 inline bool Tile::operator==(Tile const &rhs) const
 {
-	return item == rhs.item and ugN == rhs.ugN and ugE == rhs.ugE and ugS == rhs.ugS and ugW == rhs.ugW;
+	return item == rhs.item/* and ugN == rhs.ugN and ugE == rhs.ugE and ugS == rhs.ugS and ugW == rhs.ugW*/;
 }
 
 inline bool Tile::operator==(size_t const &rhs) const

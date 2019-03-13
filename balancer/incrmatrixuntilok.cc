@@ -16,10 +16,14 @@ bool Balancer::incrMatrixUntilOK(size_t pos)
 
 	if (d_matrix[pos].item >= maxVal and pos > 0)
 	{
-		size_t prevPos = pos - 1;
+		size_t prevPos = pos;
 
-		while (prevPos > 0 and isSplitter(d_matrix[prevPos]))
+		do
+		{
+			resetUndergroundCount(prevPos);
 			--prevPos;
+		}
+		while (prevPos > 0 and isSplitter(d_matrix[prevPos]));
 
 		do
 			++d_matrix[prevPos];
@@ -31,10 +35,15 @@ bool Balancer::incrMatrixUntilOK(size_t pos)
 	
 	if (pos + 1 < d_matrix.size())
 	{
-		size_t nextPos = pos + 1;
+		size_t nextPos = pos;
 
-		while (nextPos + 1 < d_matrix.size() and isSplitter(d_matrix[nextPos]))
+		do
+		{
 			++nextPos;
+			if (nextPos > d_cols)
+				setUndergroundCount(nextPos);
+		}
+		while (nextPos + 1 < d_matrix.size() and isSplitter(d_matrix[nextPos]));
 
 		return incrMatrixUntilOK(nextPos);
 	}

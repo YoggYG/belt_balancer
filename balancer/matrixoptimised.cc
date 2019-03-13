@@ -2,6 +2,7 @@
 
 bool Balancer::matrixOptimised(size_t pos)
 {
+	// return true;
 	//cerr << pos << endl;
 	Tile val = d_matrix[pos];
 	Tile left = EMPTY;
@@ -17,19 +18,19 @@ bool Balancer::matrixOptimised(size_t pos)
 	Tile downDown = EMPTY;
 	Tile rightRight = EMPTY;
 
-	if (pos + 1 == 2 * d_cols)
-	{
-		bool onlyNorthBelts = true;
-		for (size_t idx = d_cols; idx < 2 * d_cols; ++idx)
-			if (d_matrix[idx] != EMPTY and d_matrix[idx] != BN)
-			{
-				onlyNorthBelts = false;
-				break;
-			}
+	// if (pos + 1 == 2 * d_cols)
+	// {
+	// 	bool onlyNorthBelts = true;
+	// 	for (size_t idx = d_cols; idx < 2 * d_cols; ++idx)
+	// 		if (d_matrix[idx] != EMPTY and d_matrix[idx] != BN)
+	// 		{
+	// 			onlyNorthBelts = false;
+	// 			break;
+	// 		}
 		
-		if (onlyNorthBelts)
-			return false;
-	}
+	// 	if (onlyNorthBelts)
+	// 		return false;
+	// }
 
 	if (pos > d_cols and pos < d_matrix.size() - d_cols and (pos + 1) % d_cols == 0)
 	{
@@ -134,7 +135,8 @@ bool Balancer::matrixOptimised(size_t pos)
 				and not (up == BE and upRight == BS and right != SPRS and upUp == BS and d_matrix[pos - 2 * d_cols + 1] == UBON and d_matrix[pos - 3 * d_cols] == BS and d_matrix[pos - 3 * d_cols + 1] == BW);
 
 	if (val == BN)
-		return not (left == BE and upLeft == EMPTY and (up == BN or up == BE))
+		return /*not (left == BN and down == SPRN and pos >= d_cols)
+				and*/ not (left == BE and upLeft == EMPTY and (up == BN or up == BE))
 				and not (left == BE and up == UBIN and upLeft == BS and upUp == BW and d_matrix[pos - (2 * d_cols) - 1] == BS 
 					and (d_matrix[pos - (3 * d_cols)] == UBON 
 						or (d_matrix[pos - (2 * d_cols) + 1] == BW and (upRight == EMPTY or upRight == BN))))

@@ -90,6 +90,12 @@ bool Balancer::matrixOK(size_t pos)
 	else if (numberOfInputBelts() != d_n)
 		return false;
 
+	if (val.ugN >= d_underground_length or val.ugE >= d_underground_length or val.ugW >= d_underground_length or val.ugS >= d_underground_length)
+		return false;
+
+	if ((pos + 1) % d_cols == 0 and (val.ugE > 0 or val.ugW > 0))
+		return false;
+
 
 	if (val == EMPTY)
 		return not hasEastOutput(left) and not hasSouthOutput(up) and not requiresWestInput(left) and not requiresNorthInput(up) 
@@ -127,6 +133,7 @@ bool Balancer::matrixOK(size_t pos)
 		return not (hasEastOutput(left) and hasSouthOutput(up)) and not requiresWestInput(left) and not requiresNorthInput(up)
 				and (hasEastOutput(upLeft) or hasWestOutput(upRight) or hasSouthOutput(upUp) or up == UBON or up == UBOE or up == UBOW or up == UBOS or up == EMPTY)
 				and (hasEastOutput(leftLeft) or hasSouthOutput(upLeft) or downLeft == EMPTY or downLeft == SPRN or left == UBON or left == UBOE or left == UBOW or left == UBOS or left == EMPTY or pos % d_cols == 0) // ensure 'left' does have an input
+				and not ((pos + 1) % d_cols == 0 and not hasSouthOutput(up) and not hasEastOutput(left))
 				and not (hasEastOutput(left) and (right == SPLW or right == SPRW)) and not (hasSouthOutput(up) and (right == SPLW or right == SPRW))
 				and not (right == SPLE or right == SPRE) and not (down == SPLN or down == SPRN or down == SPLE or down == SPRW)
 				and not (downRight == SPLW or downRight == SPRW) and not (downDown == SPLN or downDown == SPRN)
@@ -137,7 +144,8 @@ bool Balancer::matrixOK(size_t pos)
 		return not requiresNorthInput(up) and not requiresWestInput(left) and not hasEastOutput(left) and not hasSouthOutput(up)
 				and (hasEastOutput(upLeft) or hasWestOutput(upRight) or hasSouthOutput(upUp) or up == UBOE or up == UBOW or up == EMPTY)
 				and (hasEastOutput(leftLeft) or hasSouthOutput(upLeft) or downLeft == EMPTY or downLeft == SPLN or downLeft == SPRN or left == UBON or left == UBOE or left == UBOW or left == UBOS or left == EMPTY or pos % d_cols == 0) // ensure 'left' does have an input
-				and not (up == UBON or up == UBIS) and hasNorthUndergroundOutput(pos)
+				// and not (up == UBON or up == UBIS) and hasNorthUndergroundOutput(pos)
+				and val.ugN > 1
 				and not (downLeft == SPLW or downLeft == SPRW) and not (downDown == SPLS or downDown == SPRS) and not (downRight == SPLE or downRight == SPRE)
 				and not (down == SPLE or down == SPRW or down == SPLS or down == SPRS)
 				and not (right == SPLE or right == SPRE or right == SPLW or right == SPRW);
@@ -147,7 +155,9 @@ bool Balancer::matrixOK(size_t pos)
 				and (hasEastOutput(leftLeft) or hasSouthOutput(upLeft) or downLeft == EMPTY or downLeft == SPRN or left == UBON or left == UBOE or left == UBOW or left == UBOS or left == EMPTY or pos % d_cols == 0) // ensure 'left' does have an input
 				and not (down == SPLN or down == SPRN or down == SPLS or down == SPRS) 
 				and not (right == SPLE or right == SPRE or right == SPLW or right == SPRW)
-				and not hasVerticalUndergroundPath(pos);
+				// and not hasVerticalUndergroundPath(pos)
+				and val.ugN == 0 and val.ugS == 0
+				;
 
 	if (val == UBIE)
 		return hasEastOutput(left) and not requiresNorthInput(up) and not hasSouthOutput(up)
@@ -156,13 +166,15 @@ bool Balancer::matrixOK(size_t pos)
 				and downLeft != SPLS and not requiresNorthInput(upLeft) and not requiresWestInput(leftLeft)
 				and not (down == SPLN or down == SPRN or down == SPLS or down == SPRS)
 				and not (right == SPLE or right == SPRE or right == SPLW or right == SPRW)
-				and not hasHorizontalUndergroundPath(pos);
+				// and not hasHorizontalUndergroundPath(pos);
+				and val.ugE == 0 and val.ugW == 0;
 
 	if (val == UBOE)
 		return not hasEastOutput(left) and not requiresWestInput(left) and not hasSouthOutput(up) and not requiresNorthInput(up) and not hasSouthOutput(upRight)
 				and (hasEastOutput(upLeft) or hasWestOutput(upRight) or hasSouthOutput(upUp) or up == UBON or up == UBOE or up == UBOW or up == EMPTY)
 				and (hasEastOutput(leftLeft) or hasSouthOutput(upLeft) or downLeft == EMPTY or downLeft == SPRN or left == UBON or left == UBOS or left == EMPTY) // ensure 'left' does have an input
-				and not (left == UBIE or left == UBOW) and hasEastUndergroundInput(pos)
+				// and not (left == UBIE or left == UBOW) and hasEastUndergroundInput(pos)
+				and val.ugE > 1
 				and not (downRight == SPLN or downRight == SPRN) and not (rightRight == SPLW or rightRight == SPRW)
 				and not (down == SPLN or down == SPRN or down == SPLS or down == SPRS)
 				and not (right == SPLN or right == SPRS or right == SPLW or right == SPRW);
@@ -171,7 +183,8 @@ bool Balancer::matrixOK(size_t pos)
 		return not hasSouthOutput(up) and not requiresNorthInput(up) and not hasEastOutput(left) and not requiresWestInput(left)
 				and (hasEastOutput(upLeft) or hasWestOutput(upRight) or hasSouthOutput(upUp) or up == UBON or up == UBOE or up == UBOW or up == EMPTY)
 				and (hasEastOutput(leftLeft) or hasSouthOutput(upLeft) or downLeft == EMPTY or downLeft == SPRN or left == UBON or left == UBOS or left == EMPTY) // ensure 'left' does have an input
-				and not (left == UBOW or left == UBIE) and hasWestUndergroundOutput(pos)
+				// and not (left == UBOW or left == UBIE) and hasWestUndergroundOutput(pos)
+				and val.ugW > 1
 				and downRight != SPRS and not (rightRight == SPLE or rightRight == SPRE) and not requiresNorthInput(upRight)
 				and not (down == SPLN or down == SPRN or down == SPLS or down == SPRS)
 				and not (right == SPLN or right == SPRS or right == SPLE or right == SPRE);
@@ -182,7 +195,8 @@ bool Balancer::matrixOK(size_t pos)
 				and downLeft != SPRN
 				and not (down == SPLN or down == SPRN or down == SPLS or down == SPRS)
 				and not (right == SPLE or right == SPRE or right == SPLW or right == SPRW)
-				and not hasHorizontalUndergroundPath(pos);
+				// and not hasHorizontalUndergroundPath(pos);
+				and val.ugE == 0 and val.ugW == 0;
 
 	if (val == UBIS)
 		return hasSouthOutput(up) and not hasEastOutput(left) and not requiresWestInput(left)
@@ -191,13 +205,15 @@ bool Balancer::matrixOK(size_t pos)
 				and not requiresWestInput(upLeft) and not requiresNorthInput(upUp) and not requiresEastInput(upRight)
 				and not (down == SPLN or down == SPRN or down == SPLS or down == SPRS)
 				and not (right == SPLE or right == SPRE or right == SPLW or right == SPRW)
-				and not hasVerticalUndergroundPath(pos);
+				// and not hasVerticalUndergroundPath(pos)
+				and val.ugN == 0 and val.ugS == 0;
 
 	if (val == UBOS)
 		return not hasEastOutput(left) and not hasSouthOutput(up) and not requiresWestInput(left) and not requiresNorthInput(up)
 				and (hasEastOutput(upLeft) or hasWestOutput(upRight) or hasSouthOutput(upUp) or up == UBOE or up == UBOW or up == EMPTY)
 				and (hasEastOutput(leftLeft) or hasSouthOutput(upLeft) or downLeft == EMPTY or downLeft == SPRN or left == UBON or left == UBOE or left == UBOW or left == UBOS or left == EMPTY or pos % d_cols == 0) // ensure 'left' does have an input
-				and not (up == UBIS or up == UBON) and hasSouthUndergroundInput(pos)
+				// and not (up == UBIS or up == UBON) and hasSouthUndergroundInput(pos)
+				and val.ugS > 1
 				and not (downLeft == SPLE or downLeft == SPRE) and not (downDown == SPLN or downDown == SPRN) and not (downRight == SPLW or downRight == SPRW)
 				and not (down == SPLE or down == SPRW or down == SPLN or down == SPRN)
 				and not (right == SPLE or right == SPRE or right == SPLW or right == SPRW);

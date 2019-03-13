@@ -142,18 +142,19 @@ int main(int argc, char **argv) {
 	// Balancer testBal(solution, 5, 8, 4, 2);
 
 	// Balancer testBal(test, 9, 6, 4, 2);
-	// // Balancer testBal(test, 10, 12, 8, 3);
-	// // Balancer solutionBal(solution, 9, 4, 4, 2);
+	// Balancer testBal(test, 10, 12, 8, 3);
+	// Balancer testBal(test, 9, 4, 4, 2);
 
-	// string tempString;
+	// // string tempString;
 
 	// for (size_t idx = 0; idx < 40; ++idx)
-		// if (testBal.matrixOK(20) == false)
-		// {
-		// 	cerr << "matrixOK false " << endl;
-		// }
+	// 	if (testBal.matrixOK(idx) == false)
+	// 	{
+	// 		cerr << "matrixOK false at " << idx << endl;
+	// 	}
+	// testBal.print();
 
-	// testBal.incrMatrixUntilOK(0);
+	// // testBal.incrMatrixUntilOK(0);
 	// do
 	// {
 	// 	if (testBal.valid())
