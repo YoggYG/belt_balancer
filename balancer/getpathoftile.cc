@@ -8,6 +8,128 @@ vector<Triple> Balancer::getPathOfTile(size_t pos)
 	resVector.push_back(Triple{pos % d_cols, pos / d_cols, d_matrix[pos].item});
 	size_t idx = pos;
 
+	while (idx < d_matrix.size() - d_cols)
+	{
+		size_t len = 0;
+		switch (d_matrix[idx].item)
+		{
+			case BN: 
+			case BE:
+			case BW:
+			case BS:
+				if (hasNorthOutput(d_matrix[idx + d_cols]))
+					idx += d_cols;
+				else if (hasEastOutput(d_matrix[idx - 1]))
+					--idx;
+				else if (hasWestOutput(d_matrix[idx + 1]))
+					++idx;
+				else if (hasSouthOutput(d_matrix[idx - d_cols]))
+					idx -= d_cols;
+				else
+					len = d_underground_length;
+				break;
+			case UBIN: idx += d_cols; break;
+			case UBIE: --idx; break;
+			case UBIW: ++idx; break;
+			case UBIS: idx -= d_cols; break;
+			case UBON:
+				for (len = 2; len < d_underground_length; ++len)
+				{
+					if (idx + len * d_cols >= d_matrix.size() - d_cols)
+					{
+						len = d_underground_length;
+						// cerr << "UBON d_underground_length set.\n";
+						break;
+					}
+					if (d_matrix[idx + len * d_cols] == UBIN)
+					{
+						idx += len * d_cols;
+						break;
+					}
+				}
+				break;
+			case UBOE:
+				for (len = 2; len < d_underground_length; ++len)
+				{
+					if (idx % d_cols - len == 0)
+					{
+						len = d_underground_length;
+						cerr << "UBOE d_underground_length set.\n";
+						break;
+					}
+					if (d_matrix[idx - len] == UBIE)
+					{
+						idx -= len;
+						break;
+					}
+				}
+				break;
+			case UBOW:
+				for (len = 2; len < d_underground_length; ++len)
+				{
+					if (idx % d_cols + len == d_cols - 1)
+					{
+						len = d_underground_length;
+						// cerr << "UBOW d_underground_length set.\n";
+						break;
+					}
+					if (d_matrix[idx + len] == UBIW)
+					{
+						idx += len;
+						break;
+					}
+				}
+				break;
+			case UBOS:
+				for (len = 2; len < d_underground_length; ++len)
+				{
+					if (idx < len * d_cols + d_cols)
+					{
+						len = d_underground_length;
+						cerr << "UBOS d_underground_length set.\n";
+						break;
+					}
+					if (d_matrix[idx - len * d_cols] == UBIS)
+					{
+						idx -= len * d_cols;
+						break;
+					}
+				}
+				break;
+
+			default:
+				cerr << "SOMETHING WENT WRONG IN getPathOfTile\n";
+		}
+
+		if (len == d_underground_length or d_matrix[idx] == EMPTY)
+			break;
+
+		if (idx == pos)
+			return vector<Triple>();
+
+		resVector.insert(resVector.begin(), Triple{idx % d_cols, idx / d_cols, d_matrix[idx]});
+
+		if (isSplitter(d_matrix[idx]))
+			break;
+
+		// debug stuff, remove when working
+		if (resVector.size() > d_matrix.size())
+		{
+			cerr << resVector.size() << ", " << idx % d_cols << "," << idx / d_cols << ", " << d_matrix[idx].item << ", pos: " << pos << endl;
+			for (size_t i = 0; i < resVector.size(); ++i)
+			{
+				cerr << resVector[i].x << "," << resVector[i].y << ", " << resVector[i].tile.item << endl;
+			}
+
+			print();
+
+			string c;
+			cin >> c;
+		}
+	}
+
+	idx = pos;
+
 	while (idx / d_cols != 0)
 	{
 		size_t len = 0;
@@ -67,7 +189,7 @@ vector<Triple> Balancer::getPathOfTile(size_t pos)
 					if (idx % d_cols - len == 0)
 					{
 						len = d_underground_length;
-						// cerr << "UBIW d_underground_length set.\n";
+						cerr << "UBIW d_underground_length set.\n";
 						break;
 					}
 					if (d_matrix[idx - len] == UBOW)
@@ -101,132 +223,10 @@ vector<Triple> Balancer::getPathOfTile(size_t pos)
 		if (len == d_underground_length or d_matrix[idx] == EMPTY)
 			break;
 
-		if (idx == pos)
-			return vector<Triple>();
-
 		resVector.push_back(Triple{idx % d_cols, idx / d_cols, d_matrix[idx]});
 
 		if (isSplitter(d_matrix[idx]))
 			break;
-	}
-
-	idx = pos;
-
-	while (idx < d_matrix.size() - d_cols)
-	{
-		size_t len = 0;
-		switch (d_matrix[idx].item)
-		{
-			case BN: 
-			case BE:
-			case BW:
-			case BS:
-				if (hasNorthOutput(d_matrix[idx + d_cols]))
-					idx += d_cols;
-				else if (hasEastOutput(d_matrix[idx - 1]))
-					--idx;
-				else if (hasWestOutput(d_matrix[idx + 1]))
-					++idx;
-				else if (hasSouthOutput(d_matrix[idx - d_cols]))
-					idx -= d_cols;
-				else
-					len = d_underground_length;
-				break;
-			case UBIN: idx += d_cols; break;
-			case UBIE: --idx; break;
-			case UBIW: ++idx; break;
-			case UBIS: idx -= d_cols; break;
-			case UBON:
-				for (len = 2; len < d_underground_length; ++len)
-				{
-					if (idx + len * d_cols >= d_matrix.size() - d_cols)
-					{
-						len = d_underground_length;
-						// cerr << "UBON d_underground_length set.\n";
-						break;
-					}
-					if (d_matrix[idx + len * d_cols] == UBIN)
-					{
-						idx += len * d_cols;
-						break;
-					}
-				}
-				break;
-			case UBOE:
-				for (len = 2; len < d_underground_length; ++len)
-				{
-					if (idx % d_cols - len == 0)
-					{
-						len = d_underground_length;
-						// cerr << "UBOE d_underground_length set.\n";
-						break;
-					}
-					if (d_matrix[idx - len] == UBIE)
-					{
-						idx -= len;
-						break;
-					}
-				}
-				break;
-			case UBOW:
-				for (len = 2; len < d_underground_length; ++len)
-				{
-					if (idx % d_cols + len == d_cols - 1)
-					{
-						len = d_underground_length;
-						// cerr << "UBOW d_underground_length set.\n";
-						break;
-					}
-					if (d_matrix[idx + len] == UBIW)
-					{
-						idx += len;
-						break;
-					}
-				}
-				break;
-			case UBOS:
-				for (len = 2; len < d_underground_length; ++len)
-				{
-					if (idx < len * d_cols + d_cols)
-					{
-						len = d_underground_length;
-						cerr << "UBOS d_underground_length set.\n";
-						break;
-					}
-					if (d_matrix[idx - len * d_cols] == UBIS)
-					{
-						idx -= len * d_cols;
-						break;
-					}
-				}
-				break;
-
-			default:
-				cerr << "SOMETHING WENT WRONG IN getPathOfTile\n";
-		}
-
-		if (len == d_underground_length or d_matrix[idx] == EMPTY)
-			break;
-
-		resVector.insert(resVector.begin(), Triple{idx % d_cols, idx / d_cols, d_matrix[idx]});
-
-		if (isSplitter(d_matrix[idx]))
-			break;
-
-		// debug stuff, remove when working
-		if (resVector.size() > d_matrix.size())
-		{
-			cerr << resVector.size() << ", " << idx % d_cols << "," << idx / d_cols << ", " << d_matrix[idx].item << ", pos: " << pos << endl;
-			for (size_t i = 0; i < resVector.size(); ++i)
-			{
-				cerr << resVector[i].x << "," << resVector[i].y << ", " << resVector[i].tile.item << endl;
-			}
-
-			print();
-
-			string c;
-			cin >> c;
-		}
 	}
 
 	// Test if there is a shorter path possible from the path start to the path end
@@ -237,7 +237,7 @@ vector<Triple> Balancer::getPathOfTile(size_t pos)
 	Triple endTile = resVector.back();
 	Triple startTile = resVector.front();
 
-	if (endTile == startTile and isSplitter(startTile.tile)) // loop detection
+	if (endTile == startTile and resVector.size() > 1 /*and isSplitter(startTile.tile)*/) // loop detection
 	{
 		// cerr << startTile.x << "," << startTile.y << ", " << startTile.tile.item << endl << endTile.x << "," << endTile.y << ", " << endTile.tile.item << endl;
 		// print2();

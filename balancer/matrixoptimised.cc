@@ -2,7 +2,9 @@
 
 bool Balancer::matrixOptimised(size_t pos)
 {
-	// return true;
+	if (pos < d_cols)
+		return true;
+
 	//cerr << pos << endl;
 	Tile val = d_matrix[pos];
 	Tile left = EMPTY;

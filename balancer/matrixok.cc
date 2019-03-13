@@ -93,7 +93,13 @@ bool Balancer::matrixOK(size_t pos)
 	if (val.ugN >= d_underground_length or val.ugE >= d_underground_length or val.ugW >= d_underground_length or val.ugS >= d_underground_length)
 		return false;
 
-	if ((pos + 1) % d_cols == 0 and (val.ugE > 0 or val.ugW > 0))
+	if (val.ugE > (pos + 1) % d_cols or val.ugW > (pos + 1) % d_cols)
+		return false;
+
+	if (pos / d_cols + 2 >= d_rows and val.ugS > 0)
+		return false;
+
+	if (pos / d_cols + 1 == d_rows and val.ugN > 0)
 		return false;
 
 
@@ -156,8 +162,7 @@ bool Balancer::matrixOK(size_t pos)
 				and not (down == SPLN or down == SPRN or down == SPLS or down == SPRS) 
 				and not (right == SPLE or right == SPRE or right == SPLW or right == SPRW)
 				// and not hasVerticalUndergroundPath(pos)
-				and val.ugN == 0 and val.ugS == 0
-				;
+				and val.ugN == 0 and val.ugS == 0;
 
 	if (val == UBIE)
 		return hasEastOutput(left) and not requiresNorthInput(up) and not hasSouthOutput(up)
