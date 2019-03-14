@@ -40,6 +40,9 @@ class Balancer
 		std::vector<Triple> getPathOfTile(size_t pos);
 		void setUndergroundCount(size_t pos);
 		void resetUndergroundCount(size_t pos);
+		bool existsShorterExitPath(std::vector<Tile> &matrix, size_t maxLength, size_t length, size_t previousIdx, size_t idx);
+		bool existsShorterEntryPath(std::vector<Tile> &matrix, size_t maxLength, size_t length, size_t previousIdx, size_t idx);		
+		bool existsShorterMiddlePath(std::vector<Tile> &matrix, Triple &goal, size_t maxLength, size_t length, size_t previousIdx, size_t idx);
 		bool isSplitter(char val);
 		bool isSplitter(Tile val);
 		bool hasEastInput(Tile val);
@@ -61,6 +64,9 @@ class Balancer
 		bool hasVerticalUndergroundPath(size_t pos);
 		bool hasHorizontalUndergroundPath(size_t pos);
 		bool hasLoop(Tile val, Tile up, Tile upLeft, Tile left);
+		size_t getX(size_t idx);
+		size_t getY(size_t idx);
+		size_t getIdx(size_t x, size_t y);
 };
 
 inline Balancer::Balancer(std::vector<char> &matrix, size_t rows, size_t cols, size_t n, size_t power)
@@ -91,6 +97,21 @@ inline bool Balancer::isSplitter(Tile val)
 inline void Balancer::setUndergroundLength(size_t len)
 {
 	d_underground_length = len;
+}
+
+inline size_t Balancer::getX(size_t idx)
+{
+	return idx % d_cols;
+}
+
+inline size_t Balancer::getY(size_t idx)
+{
+	return idx / d_cols;
+}
+
+inline size_t Balancer::getIdx(size_t x, size_t y)
+{
+	return x + y * d_cols;
 }
 
 inline bool Balancer::hasEastInput(Tile val)

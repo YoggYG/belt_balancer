@@ -5,7 +5,7 @@ vector<Triple> Balancer::getPathOfTile(size_t pos)
 {
 	vector<Triple> resVector;
 
-	resVector.push_back(Triple{pos % d_cols, pos / d_cols, d_matrix[pos].item});
+	resVector.push_back(Triple{pos % d_cols, pos / d_cols, d_matrix[pos]});
 	size_t idx = pos;
 
 	while (idx < d_matrix.size() - d_cols)
@@ -225,11 +225,15 @@ vector<Triple> Balancer::getPathOfTile(size_t pos)
 
 		resVector.push_back(Triple{idx % d_cols, idx / d_cols, d_matrix[idx]});
 
+
 		if (isSplitter(d_matrix[idx]))
 			break;
 	}
 
 	// Test if there is a shorter path possible from the path start to the path end
+
+	if (resVector.size() < 4) // a path with max length of 3 is always optimal
+		return resVector;
 
 	bool isExit = false;
 	bool isEntry = false;
@@ -237,7 +241,7 @@ vector<Triple> Balancer::getPathOfTile(size_t pos)
 	Triple endTile = resVector.back();
 	Triple startTile = resVector.front();
 
-	if (endTile == startTile and resVector.size() > 1 /*and isSplitter(startTile.tile)*/) // loop detection
+	if (endTile == startTile) // loop detection
 	{
 		// cerr << startTile.x << "," << startTile.y << ", " << startTile.tile.item << endl << endTile.x << "," << endTile.y << ", " << endTile.tile.item << endl;
 		// print2();
@@ -249,8 +253,6 @@ vector<Triple> Balancer::getPathOfTile(size_t pos)
 
 	if (startTile.y == d_rows - 1)
 		isEntry = true;
-
-	vector<Tile> copiedMatrix(d_matrix);
 
 	size_t pathLength = 0;
 
@@ -268,49 +270,91 @@ vector<Triple> Balancer::getPathOfTile(size_t pos)
 		}
 	}
 
-	// for (auto it = resVector.begin(); it != resVector.end(); ++it)
-	// {
-	// 	idx = it->x + it->y * d_cols;
+	size_t manHattanDistance = 1; // include the first tile into the path length
 
-	// 	copiedMatrix[idx].item = EMPTY;
+	if (endTile.x > startTile.x)
+		manHattanDistance += endTile.x - startTile.x;
+	else
+		manHattanDistance += startTile.x - endTile.x;
 
-	// 	switch (it->tile.item)
-	// 	{
-	// 		case UBIN:
-	// 			while (copiedMatrix[idx].ugN > 0)
-	// 			{
-	// 				copiedMatrix[idx].ugN = 0;
-	// 				idx -= d_cols;
-	// 			}
-	// 			break;
-	// 		case UBOS:
-	// 			while (copiedMatrix[idx].ugS > 0)
-	// 			{
-	// 				copiedMatrix[idx].ugS = 0;
-	// 				idx -= d_cols;
-	// 			}
-	// 			break;
-	// 		case UBOE:
-	// 			while (copiedMatrix[idx].ugE > 0)
-	// 			{
-	// 				copiedMatrix[idx].ugE = 0;
-	// 				--idx;
-	// 			}
-	// 			break;
-	// 		case UBIW:
-	// 			while (copiedMatrix[idx].ugW > 0)
-	// 			{
-	// 				copiedMatrix[idx].ugE = 0;
-	// 				--idx;
-	// 			}
-	// 			break;
-	// 	}
-	// }
+	if (endTile.y > startTile.y)
+		manHattanDistance += endTile.y - startTile.y;
+	else
+		manHattanDistance += startTile.y - endTile.y;
 
-	// Find path backwards from current path end to bottom of balancer
-	if (isEntry)
+	if (pathLength == manHattanDistance) // shortest path possible
+		return resVector;
+
+	vector<Tile> copiedMatrix(d_matrix);
+
+	for (auto it = resVector.begin(); it != resVector.end(); ++it)
 	{
+		idx = it->x + it->y * d_cols;
 
+		copiedMatrix[idx].item = EMPTY;
+
+		switch (it->tile.item)
+		{
+			case UBIN:
+				while (copiedMatrix[idx].ugN > 0)
+				{
+					copiedMatrix[idx].ugN = 0;
+					idx -= d_cols;
+				}
+				break;
+			case UBOS:
+				while (copiedMatrix[idx].ugS > 0)
+				{
+					copiedMatrix[idx].ugS = 0;
+					idx -= d_cols;
+				}
+				break;
+			case UBOE:
+				while (copiedMatrix[idx].ugE > 0)
+				{
+					copiedMatrix[idx].ugE = 0;
+					--idx;
+				}
+				break;
+			case UBIW:
+				while (copiedMatrix[idx].ugW > 0)
+				{
+					copiedMatrix[idx].ugW = 0;
+					--idx;
+				}
+				break;
+		}
+	}
+
+	vector<Triple> generatedPath;
+
+	if (isEntry) // Find path backwards from current path end to bottom of balancer
+	{
+		idx = getIdx(endTile.x, endTile.y);
+		size_t nextIdx = getIdx(resVector[resVector.size() - 2].x, resVector[resVector.size() - 2].y);
+		
+		copiedMatrix[idx].item = endTile.tile.item;
+
+		if (existsShorterEntryPath(copiedMatrix, pathLength, 1, idx, nextIdx))
+			return vector<Triple>();
+	}
+	else 
+	{
+		idx = getIdx(startTile.x, startTile.y);
+		size_t nextIdx = getIdx(resVector[1].x, resVector[1].y);
+		
+		copiedMatrix[idx].item = startTile.tile.item;
+
+		if (isExit) // Find path forwards from current path start to top of balancer
+		{
+			if (existsShorterExitPath(copiedMatrix, pathLength, 1, idx, nextIdx))
+				return vector<Triple>();
+		}
+		else
+		{
+			if (existsShorterMiddlePath(copiedMatrix, endTile, pathLength, 1, idx, nextIdx))
+				return vector<Triple>();
+		}
 	}
 
 	return resVector;
