@@ -15,19 +15,6 @@ struct SharedDataHandler
         Balancer bal;
         bool done;
     };
-    
-    struct VectorHash 
-    {
-        size_t operator()(const std::vector<char>& v) const 
-        {
-            std::hash<char> hasher;
-            size_t seed = 0;
-            for (char i : v)
-                seed ^= hasher(i) + 0x9e3779b9 + (seed<<6) + (seed>>2);
-
-            return seed;
-        }
-    };
 
     private:
         Semaphore d_storageAvailable; //worker
@@ -43,8 +30,6 @@ struct SharedDataHandler
 
         std::vector<Balancer> d_balancers;
 
-        std::unordered_set<std::vector<char>, VectorHash> d_mirrors;
-
     public:
         SharedDataHandler(size_t nStorageLocations);
         void addTask(Spec task);
@@ -55,8 +40,6 @@ struct SharedDataHandler
         void sortVector();
         void printSolution();
         void addToVector(Balancer const &balancer);
-        bool isMirror(std::vector<char> &matrix);
-        void addMirror(std::vector<char> const &matrix);
 
     private:
         Spec nextTask();

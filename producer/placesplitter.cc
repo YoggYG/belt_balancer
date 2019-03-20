@@ -19,13 +19,10 @@ void Producer::placeSplitter(vector<char> &matrix, size_t startIndex, size_t row
 		{
 			matrix[idx] = SPLN;
 			matrix[idx + 1] = SPRN;
-			if (not d_sdh.isMirror(matrix))
-			{
-				d_sdh.addMirror(makeMirror(matrix, cols));
-				d_sdh.addMirror(makeVerticalMirror(matrix, rows, cols));
-				d_sdh.addMirror(makeDoubleMirror(matrix, rows, cols));
+			
+			if (not isMirror(matrix, rows, cols))
 				placeSplitter(matrix, idx + 2, rows, cols, n, power, splittersToPlace - 1, 1);
-			}
+			
 			matrix[idx] = EMPTY;
 			matrix[idx + 1] = EMPTY;
 		}
@@ -38,13 +35,10 @@ void Producer::placeSplitter(vector<char> &matrix, size_t startIndex, size_t row
 		{
 			matrix[idx] = SPLE;
 			matrix[idx + cols] = SPRE;
-			if (not d_sdh.isMirror(matrix))
-			{
-				d_sdh.addMirror(makeMirror(matrix, cols));
-				d_sdh.addMirror(makeVerticalMirror(matrix, rows, cols));
-				d_sdh.addMirror(makeDoubleMirror(matrix, rows, cols));
+
+			if (not isMirror(matrix, rows, cols))
 				placeSplitter(matrix, idx + 2, rows, cols, n, power, splittersToPlace - 1, 1);
-			}
+
 			matrix[idx] = EMPTY;
 			matrix[idx + cols] = EMPTY;
 		}
@@ -53,13 +47,10 @@ void Producer::placeSplitter(vector<char> &matrix, size_t startIndex, size_t row
 		{
 			matrix[idx] = SPRW;
 			matrix[idx + cols] = SPLW;
-			if (not d_sdh.isMirror(matrix))
-			{
-				d_sdh.addMirror(makeMirror(matrix, cols));
-				d_sdh.addMirror(makeVerticalMirror(matrix, rows, cols));
-				d_sdh.addMirror(makeDoubleMirror(matrix, rows, cols));
+
+			if (not isMirror(matrix, rows, cols))
 				placeSplitter(matrix, idx + 2, rows, cols, n, power, splittersToPlace - 1, 1);
-			}
+
 			matrix[idx] = EMPTY;
 			matrix[idx + cols] = EMPTY;
 		}
@@ -72,13 +63,10 @@ void Producer::placeSplitter(vector<char> &matrix, size_t startIndex, size_t row
 		{
 			matrix[idx] = SPRS;
 			matrix[idx + 1] = SPLS;
-			if (not d_sdh.isMirror(matrix))
-			{
-				d_sdh.addMirror(makeMirror(matrix, cols));
-				d_sdh.addMirror(makeVerticalMirror(matrix, rows, cols));
-				d_sdh.addMirror(makeDoubleMirror(matrix, rows, cols));
+
+			if (not isMirror(matrix, rows, cols))
 				placeSplitter(matrix, idx + 2, rows, cols, n, power, splittersToPlace - 1, 1);
-			}
+
 			matrix[idx] = EMPTY;
 			matrix[idx + 1] = EMPTY;
 		}

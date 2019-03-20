@@ -40,6 +40,7 @@ struct Producer
         std::vector<char> makeMirror(std::vector<char> &matrix, size_t cols) const;
         std::vector<char> makeVerticalMirror(std::vector<char> &matrix, size_t rows, size_t cols) const;
         std::vector<char> makeDoubleMirror(std::vector<char> &matrix, size_t rows, size_t cols) const;
+        bool isMirror(std::vector<char> &matrix, size_t rows, size_t cols);
 };
         
 #endif

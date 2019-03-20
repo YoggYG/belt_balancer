@@ -333,6 +333,8 @@ vector<Triple> Balancer::getPathOfTile(size_t pos)
 		size_t nextIdx = getIdx(resVector[resVector.size() - 2].x, resVector[resVector.size() - 2].y);
 		
 		copiedMatrix[idx].item = endTile.tile.item;
+		
+		print2();
 
 		if (existsShorterEntryPath(copiedMatrix, pathLength, 1, idx, nextIdx))
 			return vector<Triple>();

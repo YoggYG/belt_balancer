@@ -3,7 +3,10 @@
 bool Balancer::existsShorterEntryPath(vector<Tile> &matrix, size_t maxLength, size_t length, size_t previousIdx, size_t idx)
 {
 	if (length == maxLength)
+	{
+		cerr << "path not shorter with length " << length << endl;
 		return false;
+	}
 
 	if (previousIdx >= matrix.size() - d_cols and matrix[previousIdx] == BN)
 		return true;
