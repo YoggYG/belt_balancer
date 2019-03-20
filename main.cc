@@ -155,17 +155,18 @@ int main(int argc, char **argv) {
 	// 	0,0,0,1,1,0,0,1,0
 	// };
 
-	vector<char> test{
-		1,1,1,1,0,0,
-		13,14,13,14,0,0,
-		1,13,14,1,3,0,
-		1,6,6,0,6,0,
-		1,3,3,3,3,3,
-		2,2,2,4,5,1,
-		1,5,5,4,13,14,
-		1,1,1,3,1,1,
-		0,0,0,0,0,0
-	};
+	// vector<char> test
+	// {
+	// 	1,1,1,1,0,0,
+	// 	13,14,13,14,0,0,
+	// 	1,13,14,1,3,0,
+	// 	1,6,6,0,6,0,
+	// 	1,3,3,3,3,3,
+	// 	2,2,2,4,5,1,
+	// 	1,5,5,4,13,14,
+	// 	1,1,1,3,1,1,
+	// 	1,1,0,0,1,1
+	// };
 
 	// Balancer testBal(test, 6, 9, 4, 2);
 	// Balancer testBal(solution, 6, 9, 4, 2);
@@ -173,29 +174,30 @@ int main(int argc, char **argv) {
 	// Balancer testBal(test, 5, 8, 4, 2);
 	// Balancer testBal(solution, 5, 8, 4, 2);
 
-	Balancer testBal(test, 9, 6, 4, 2);
+	// Balancer testBal(test, 9, 6, 4, 2);
 	// Balancer testBal(test, 10, 12, 8, 3);
 	// Balancer testBal(test, 9, 4, 4, 2);
 
-	string tempString;
+	// string tempString;
 
-	// for (size_t idx = 0; idx < 40; ++idx)
-	// 	if (testBal.matrixOK(idx) == false)
-	// 	{
-	// 		cerr << "matrixOK false at " << idx << endl;
-	// 	}
-	testBal.print();
+	// size_t idx = 0;
+	// for (idx = 0; idx < 40; ++idx)
+		// if (testBal.matrixOptimised(48) == false)
+		// {
+		// 	cerr << "matrixOptimised false at " << idx << endl;
+		// }
+	// testBal.print();
 
 	// // testBal.incrMatrixUntilOK(0);
-	do
-	{
-		if (testBal.valid())
-			testBal.print();
-			cin >> tempString;
-	}
-	while (testBal.nextMatrix());
+	// do
+	// {
+	// 	if (testBal.valid())
+	// 		testBal.print();
+	// 		// cin >> tempString;
+	// }
+	// while (testBal.nextMatrix());
 
-	return 0;
+	// return 0;
 
 
 	if (argc < 2)

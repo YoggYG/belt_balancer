@@ -2,13 +2,18 @@
 
 void Balancer::print()
 {
+	print(d_matrix);	
+}
+
+void Balancer::print(vector<Tile> &matrix)
+{
 	// for (size_t col = 0; col < d_cols; ++col)
 	// 	cout << "=";
 	for (size_t idx = 0; idx < d_rows * d_cols; ++idx)
 	{
 		if (idx % d_cols == 0)
 			cout << endl;
-		switch (d_matrix[idx].item)
+		switch (matrix[idx].item)
 		{
 			case EMPTY: cout << ' '; break;
 			case BN: cout << '^'; break;
@@ -31,7 +36,7 @@ void Balancer::print()
 			case SPRS: cout << ')'; break;
 			case SPLW: cout << '~'; break;
 			case SPRW: cout << '_'; break;
-			default: cerr << "uuum value was above 20 (" << d_matrix[idx].item << ")\n";
+			default: cerr << "uuum value was above 20 (" << matrix[idx].item << ")\n";
 		}
 	}
 	cout << endl;

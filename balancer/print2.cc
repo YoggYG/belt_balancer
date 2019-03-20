@@ -2,6 +2,11 @@
 
 void Balancer::print2()
 {
+	print2(d_matrix);
+}
+
+void Balancer::print2(vector<Tile> &matrix)
+{
 	for (size_t col = 0; col < d_cols; ++col)
 		cout << "==";
 	for (size_t row = 0; row < d_rows; ++row)
@@ -9,7 +14,7 @@ void Balancer::print2()
 		cout << endl;
 		for (size_t col = 0; col < d_cols; ++col)
 		{
-			switch (d_matrix[row * d_cols + col].item)
+			switch (matrix[row * d_cols + col].item)
 			{
 				case EMPTY: cout << "  "; break;
 				case BN: cout << "^^"; break;
@@ -32,13 +37,13 @@ void Balancer::print2()
 				case SPRS: cout << "v)"; break;
 				case SPLW: cout << "~~"; break;
 				case SPRW: cout << "<<"; break;
-				default: cerr << "uuum value was above 20 (" << d_matrix[row * d_cols + col].item << ")\n";
+				default: cerr << "uuum value was above 20 (" << matrix[row * d_cols + col].item << ")\n";
 			}
 		}
 		cout << endl;
 		for (size_t col = 0; col < d_cols; ++col)
 		{
-			switch (d_matrix[row * d_cols + col].item)
+			switch (matrix[row * d_cols + col].item)
 			{
 				case EMPTY: cout << "  "; break;
 				case BN: cout << "^^"; break;
@@ -61,7 +66,7 @@ void Balancer::print2()
 				case SPRS: cout << "v)"; break;
 				case SPLW: cout << "<<"; break;
 				case SPRW: cout << "__"; break;
-				default: cerr << "uuum value was above 20 (" << d_matrix[row * d_cols + col].item << ")\n";
+				default: cerr << "uuum value was above 20 (" << matrix[row * d_cols + col].item << ")\n";
 			}
 		}
 	}

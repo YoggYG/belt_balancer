@@ -21,12 +21,15 @@ class Balancer
 		bool valid();
 		size_t cost();
 		void print();
+		void print(std::vector<Tile> &matrix);
 		void print2();
+		void print2(std::vector<Tile> &matrix);
 		bool operator==(Balancer const &rhs);
 		bool nextMatrix();
 		void setUndergroundLength(size_t len);
 		bool incrMatrixUntilOK(size_t pos);
 		bool matrixOK(size_t pos);
+		bool matrixOptimised(size_t pos);
 	private:
 		char requiresHorizontalUndergroundBelt(size_t pos);
 		size_t horizontalUndergroundBeltDistance(size_t pos);
@@ -36,7 +39,6 @@ class Balancer
 		bool sharedSplitters(Lane const &lane1, Lane const &lane2);
 		void shrinkBalancer();
 		bool isEdgeCase(size_t pos);
-		bool matrixOptimised(size_t pos);
 		std::vector<Triple> getPathOfTile(size_t pos);
 		void setUndergroundCount(size_t pos);
 		void resetUndergroundCount(size_t pos);
