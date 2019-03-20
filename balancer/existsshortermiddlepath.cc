@@ -2,11 +2,11 @@
 
 bool Balancer::existsShorterMiddlePath(vector<Tile> &matrix, Triple &goal, size_t maxLength, size_t length, size_t previousIdx, size_t idx)
 {
-	if (matrix[previousIdx] == goal.tile and goal.x == getX(previousIdx) and goal.y == getY(previousIdx))
-		return true;
-
 	if (length == maxLength)
 		return false;
+
+	if (matrix[previousIdx] == goal.tile and goal.x == getX(previousIdx) and goal.y == getY(previousIdx))
+		return true;
 
 	if (matrix[previousIdx] == UBIN)
 	{
@@ -122,22 +122,25 @@ bool Balancer::existsShorterMiddlePath(vector<Tile> &matrix, Triple &goal, size_
 	}
 	else if (matrix[idx] == EMPTY)
 	{
-		if (hasNorthOutput(matrix[previousIdx]) and idx >= d_cols)
-			if (matrix[idx + 1].item == SPRN or matrix[idx - 1].item == SPLN)
-				return true;
+		if (length < maxLength - 1)
+		{
+			if (hasNorthOutput(matrix[previousIdx]) and idx >= d_cols)
+				if (matrix[idx + 1].item == SPRN or matrix[idx - 1].item == SPLN)
+					return true;
 
-		if (hasEastOutput(matrix[previousIdx]) and getX(idx + 1) > 0)
-			if (matrix[idx - d_cols].item == SPLE or matrix[idx + d_cols].item == SPRE)
-				return true;
+			if (hasEastOutput(matrix[previousIdx]) and getX(idx + 1) > 0)
+				if (matrix[idx - d_cols].item == SPLE or matrix[idx + d_cols].item == SPRE)
+					return true;
 
-		if (hasWestOutput(matrix[previousIdx]) and getX(idx) > 0)
-			if (matrix[idx - d_cols].item == SPRW or matrix[idx + d_cols].item == SPLW)
-				return true;
+			if (hasWestOutput(matrix[previousIdx]) and getX(idx) > 0)
+				if (matrix[idx - d_cols].item == SPRW or matrix[idx + d_cols].item == SPLW)
+					return true;
 
-		if (hasSouthOutput(matrix[previousIdx]) and idx < matrix.size() - 2 * d_cols)
-			if (matrix[idx + 1].item == SPLS or matrix[idx - 1].item == SPRS)
-				return true;
-
+			if (hasSouthOutput(matrix[previousIdx]) and idx < matrix.size() - 2 * d_cols)
+				if (matrix[idx + 1].item == SPLS or matrix[idx - 1].item == SPRS)
+					return true;
+		}
+		
 		if (not hasSouthOutput(matrix[previousIdx]) and idx >= 2 * d_cols)
 		{
 			matrix[idx].item = BN;
@@ -198,5 +201,4 @@ bool Balancer::existsShorterMiddlePath(vector<Tile> &matrix, Triple &goal, size_
 	}
 
 	return false;
-
 }

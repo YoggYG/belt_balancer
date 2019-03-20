@@ -2,11 +2,11 @@
 
 bool Balancer::existsShorterExitPath(vector<Tile> &matrix, size_t maxLength, size_t length, size_t previousIdx, size_t idx)
 {
-	if (previousIdx < d_cols and matrix[previousIdx] == BN)
-		return true;
-
 	if (length == maxLength)
 		return false;
+
+	if (previousIdx < d_cols and matrix[previousIdx] == BN)
+		return true;
 
 	if (matrix[previousIdx] == UBIN)
 	{
@@ -182,5 +182,4 @@ bool Balancer::existsShorterExitPath(vector<Tile> &matrix, size_t maxLength, siz
 	}
 
 	return false;
-
 }

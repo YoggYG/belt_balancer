@@ -5,7 +5,7 @@ vector<Triple> Balancer::getPathOfTile(size_t pos)
 {
 	vector<Triple> resVector;
 
-	resVector.push_back(Triple{pos % d_cols, pos / d_cols, d_matrix[pos]});
+	resVector.push_back(Triple{getX(pos), getY(pos), d_matrix[pos]});
 	size_t idx = pos;
 
 	while (idx < d_matrix.size() - d_cols)
@@ -107,7 +107,7 @@ vector<Triple> Balancer::getPathOfTile(size_t pos)
 		if (idx == pos)
 			return vector<Triple>();
 
-		resVector.insert(resVector.begin(), Triple{idx % d_cols, idx / d_cols, d_matrix[idx]});
+		resVector.insert(resVector.begin(), Triple{getX(idx), getY(idx), d_matrix[idx]});
 
 		if (isSplitter(d_matrix[idx]))
 			break;
@@ -115,7 +115,7 @@ vector<Triple> Balancer::getPathOfTile(size_t pos)
 		// debug stuff, remove when working
 		if (resVector.size() > d_matrix.size())
 		{
-			cerr << resVector.size() << ", " << idx % d_cols << "," << idx / d_cols << ", " << d_matrix[idx].item << ", pos: " << pos << endl;
+			cerr << resVector.size() << ", " << getX(idx) << "," << getY(idx) << ", " << d_matrix[idx].item << ", pos: " << pos << endl;
 			for (size_t i = 0; i < resVector.size(); ++i)
 			{
 				cerr << resVector[i].x << "," << resVector[i].y << ", " << resVector[i].tile.item << endl;
@@ -130,7 +130,7 @@ vector<Triple> Balancer::getPathOfTile(size_t pos)
 
 	idx = pos;
 
-	while (idx / d_cols != 0)
+	while (getY(idx) != 0)
 	{
 		size_t len = 0;
 		switch (d_matrix[idx].item)
@@ -223,7 +223,7 @@ vector<Triple> Balancer::getPathOfTile(size_t pos)
 		if (len == d_underground_length or d_matrix[idx] == EMPTY)
 			break;
 
-		resVector.push_back(Triple{idx % d_cols, idx / d_cols, d_matrix[idx]});
+		resVector.push_back(Triple{getX(idx), getY(idx), d_matrix[idx]});
 
 
 		if (isSplitter(d_matrix[idx]))
@@ -242,17 +242,16 @@ vector<Triple> Balancer::getPathOfTile(size_t pos)
 	Triple startTile = resVector.front();
 
 	if (endTile == startTile) // loop detection
-	{
-		// cerr << startTile.x << "," << startTile.y << ", " << startTile.tile.item << endl << endTile.x << "," << endTile.y << ", " << endTile.tile.item << endl;
-		// print2();
 		return vector<Triple>();
-	}
 
 	if (endTile.y == 0)
 		isExit = true;
 
 	if (startTile.y == d_rows - 1)
 		isEntry = true;
+
+	if (isEntry and isExit)
+		return vector<Triple>();
 
 	size_t pathLength = 0;
 
@@ -282,7 +281,7 @@ vector<Triple> Balancer::getPathOfTile(size_t pos)
 	else
 		manHattanDistance += startTile.y - endTile.y;
 
-	if (pathLength == manHattanDistance) // shortest path possible
+	if (pathLength == manHattanDistance and not (isEntry or isExit)) // shortest path possible
 		return resVector;
 
 	vector<Tile> copiedMatrix(d_matrix);

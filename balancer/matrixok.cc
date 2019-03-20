@@ -96,12 +96,21 @@ bool Balancer::matrixOK(size_t pos)
 	if (val.ugE > (pos + 1) % d_cols or val.ugW > (pos + 1) % d_cols)
 		return false;
 
-	if (pos / d_cols + 2 >= d_rows and val.ugS > 0)
+	if (getY(pos) + 2 >= d_rows and val.ugS > 0)
 		return false;
 
-	if (pos / d_cols + 1 == d_rows and val.ugN > 0)
+	if (getY(pos) + 1 == d_rows and val.ugN > 0)
 		return false;
 
+
+	// new stuff, more intuitive (hopefully)
+	
+
+
+
+	// old stuff, semi-working
+	if (left == BS and not hasEastOutput(leftLeft) and not hasSouthOutput(upLeft) and not hasWestOutput(val))
+		return false;
 
 	if (val == EMPTY)
 		return not hasEastOutput(left) and not hasSouthOutput(up) and not requiresWestInput(left) and not requiresNorthInput(up) 

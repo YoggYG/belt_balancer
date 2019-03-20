@@ -59,6 +59,8 @@ bool Balancer::matrixOptimised(size_t pos)
 		vector<Triple> path = getPathOfTile(pos);
 		if (path.size() == 0)
 			return false;
+
+		
 	}
 
 	if (pos >= 2 * d_cols)
