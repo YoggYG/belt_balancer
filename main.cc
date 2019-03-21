@@ -17,8 +17,6 @@ int main(int argc, char **argv) {
 	auto start_time = chrono::system_clock::now();
 	time_t start_c_time = chrono::system_clock::to_time_t(start_time);
 	string start_time_string = ctime(&start_c_time);
-	
-	size_t n;
 
 
 	// vector<char> test
@@ -206,6 +204,7 @@ int main(int argc, char **argv) {
 		exit(0);
 	}
 
+	size_t n;
 	if (!(istringstream(argv[1]) >> n))
 	{
 		cout << "Input must be a number\n";
