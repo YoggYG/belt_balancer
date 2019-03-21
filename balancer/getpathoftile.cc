@@ -262,10 +262,14 @@ vector<Triple> Balancer::getPathOfTile(size_t pos)
 
 		switch (it->tile.item)
 		{
-			case UBIN: pathLength += it->tile.ugN; break;
-			case UBOE: pathLength += it->tile.ugE; break;
-			case UBOS: pathLength += it->tile.ugS; break;
-			case UBIW: pathLength += it->tile.ugW; break;
+			// case UBIN: pathLength += it->tile.ugN; break;
+			// case UBOE: pathLength += it->tile.ugE; break;
+			// case UBOS: pathLength += it->tile.ugS; break;
+			// case UBIW: pathLength += it->tile.ugW; break;
+			case UBIN: 
+			case UBOE: 
+			case UBOS: 
+			case UBIW: pathLength += d_underground_cost_penalty; break;
 		}
 	}
 

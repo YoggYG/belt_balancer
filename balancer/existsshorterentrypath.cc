@@ -2,7 +2,7 @@
 
 bool Balancer::existsShorterEntryPath(vector<Tile> &matrix, size_t maxLength, size_t length, size_t previousIdx, size_t idx)
 {
-	if (length == maxLength)
+	if (length >= maxLength)
 		return false;
 
 	if (previousIdx >= matrix.size() - d_cols and matrix[previousIdx] == BN)
@@ -18,7 +18,7 @@ bool Balancer::existsShorterEntryPath(vector<Tile> &matrix, size_t maxLength, si
 
 		matrix[idx].ugN = matrix[idx - d_cols].ugN + 1;
 
-		if (matrix[idx - d_cols].item != EMPTY and matrix[idx].item == EMPTY)
+		if (/*matrix[idx - d_cols].item != EMPTY and */matrix[idx].item == EMPTY)
 		{
 			matrix[idx].item = UBIN;
 			if (existsShorterEntryPath(matrix, maxLength, length + 1, idx, idx + d_cols))
@@ -29,7 +29,7 @@ bool Balancer::existsShorterEntryPath(vector<Tile> &matrix, size_t maxLength, si
 
 		if (idx + 2 * d_cols < matrix.size())
 		{
-			if (existsShorterEntryPath(matrix, maxLength, length + 1, previousIdx, idx + d_cols))
+			if (existsShorterEntryPath(matrix, maxLength, length, previousIdx, idx + d_cols))
 				return true;
 		}
 		
@@ -45,7 +45,7 @@ bool Balancer::existsShorterEntryPath(vector<Tile> &matrix, size_t maxLength, si
 
 		matrix[idx].ugE = matrix[idx + 1].ugE + 1;
 
-		if (matrix[idx + 1].item != EMPTY and matrix[idx].item == EMPTY)
+		if (/*matrix[idx + 1].item != EMPTY and */matrix[idx].item == EMPTY)
 		{
 			matrix[idx].item = UBIE;
 			if (existsShorterEntryPath(matrix, maxLength, length + 1, idx, idx - 1))
@@ -56,7 +56,7 @@ bool Balancer::existsShorterEntryPath(vector<Tile> &matrix, size_t maxLength, si
 
 		if (getX(idx) > 1)
 		{
-			if (existsShorterEntryPath(matrix, maxLength, length + 1, previousIdx, idx - 1))
+			if (existsShorterEntryPath(matrix, maxLength, length, previousIdx, idx - 1))
 				return true;
 		}
 		
@@ -72,7 +72,7 @@ bool Balancer::existsShorterEntryPath(vector<Tile> &matrix, size_t maxLength, si
 
 		matrix[idx].ugW = matrix[idx - 1].ugW + 1;
 
-		if (matrix[idx - 1].item != EMPTY and matrix[idx].item == EMPTY)
+		if (/*matrix[idx - 1].item != EMPTY and */matrix[idx].item == EMPTY)
 		{
 			matrix[idx].item = UBIW;
 			if (existsShorterEntryPath(matrix, maxLength, length + 1, idx, idx + 1))
@@ -83,7 +83,7 @@ bool Balancer::existsShorterEntryPath(vector<Tile> &matrix, size_t maxLength, si
 
 		if (getX(idx) + 2 < d_cols)
 		{
-			if (existsShorterEntryPath(matrix, maxLength, length + 1, previousIdx, idx + 1))
+			if (existsShorterEntryPath(matrix, maxLength, length, previousIdx, idx + 1))
 				return true;
 		}
 		
@@ -99,7 +99,7 @@ bool Balancer::existsShorterEntryPath(vector<Tile> &matrix, size_t maxLength, si
 
 		matrix[idx].ugS = matrix[idx + d_cols].ugS + 1;
 
-		if (matrix[idx + d_cols].item != EMPTY and matrix[idx].item == EMPTY)
+		if (/*matrix[idx + d_cols].item != EMPTY and */matrix[idx].item == EMPTY)
 		{
 			matrix[idx].item = UBIS;
 			if (existsShorterEntryPath(matrix, maxLength, length + 1, idx, idx - d_cols))
@@ -110,7 +110,7 @@ bool Balancer::existsShorterEntryPath(vector<Tile> &matrix, size_t maxLength, si
 
 		if (idx >= 3 * d_cols)
 		{
-			if (existsShorterEntryPath(matrix, maxLength, length + 1, previousIdx, idx - d_cols))
+			if (existsShorterEntryPath(matrix, maxLength, length, previousIdx, idx - d_cols))
 				return true;
 		}
 		
@@ -134,10 +134,10 @@ bool Balancer::existsShorterEntryPath(vector<Tile> &matrix, size_t maxLength, si
 			if (getX(idx) > 0 and existsShorterEntryPath(matrix, maxLength, length + 1, idx, idx - 1))
 				return true;
 
-			if (idx < matrix.size() - 3 * d_cols and matrix[idx + d_cols] != EMPTY)
+			if (idx < matrix.size() - 3 * d_cols/* and matrix[idx + d_cols] != EMPTY*/)
 			{
 				matrix[idx].item = UBON;
-				if (existsShorterEntryPath(matrix, maxLength, length + 2, idx, idx + d_cols))
+				if (existsShorterEntryPath(matrix, maxLength, length + d_underground_cost_penalty + 1, idx, idx + d_cols))
 					return true;
 			}
 		}
@@ -153,10 +153,10 @@ bool Balancer::existsShorterEntryPath(vector<Tile> &matrix, size_t maxLength, si
 			if (idx >= d_cols and existsShorterEntryPath(matrix, maxLength, length + 1, idx, idx - d_cols))
 				return true;
 
-			if (getX(idx) > 2 and matrix[idx - 1] != EMPTY)
+			if (getX(idx) > 2/* and matrix[idx - 1] != EMPTY*/)
 			{
 				matrix[idx].item = UBOE;
-				if (existsShorterEntryPath(matrix, maxLength, length + 2, idx, idx - 1))
+				if (existsShorterEntryPath(matrix, maxLength, length + d_underground_cost_penalty + 1, idx, idx - 1))
 					return true;
 			}
 		}
@@ -172,10 +172,10 @@ bool Balancer::existsShorterEntryPath(vector<Tile> &matrix, size_t maxLength, si
 			if (idx >= d_cols and existsShorterEntryPath(matrix, maxLength, length + 1, idx, idx - d_cols))
 				return true;
 
-			if (getX(idx) + 3 < d_cols and matrix[idx + 1] != EMPTY)
+			if (getX(idx) + 3 < d_cols/* and matrix[idx + 1] != EMPTY*/)
 			{
 				matrix[idx].item = UBOW;
-				if (existsShorterEntryPath(matrix, maxLength, length + 2, idx, idx + 1))
+				if (existsShorterEntryPath(matrix, maxLength, length + d_underground_cost_penalty + 1, idx, idx + 1))
 					return true;
 			}
 		}
@@ -191,10 +191,10 @@ bool Balancer::existsShorterEntryPath(vector<Tile> &matrix, size_t maxLength, si
 			if (idx >= d_cols and existsShorterEntryPath(matrix, maxLength, length + 1, idx, idx - d_cols))
 				return true;
 
-			if (idx >= d_cols * 3 and matrix[idx - d_cols] != EMPTY)
+			if (idx >= d_cols * 3/* and matrix[idx - d_cols] != EMPTY*/)
 			{
 				matrix[idx].item = UBOS;
-				if (existsShorterEntryPath(matrix, maxLength, length + 2, idx, idx - d_cols))
+				if (existsShorterEntryPath(matrix, maxLength, length + d_underground_cost_penalty + 1, idx, idx - d_cols))
 					return true;
 			}
 		}

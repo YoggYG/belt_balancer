@@ -160,10 +160,10 @@ bool Balancer::matrixOptimised(size_t pos)
 	if (val == BS)
 		return not (left == BE and upLeft == BS and up == EMPTY);
 
-	if (val == UBIN)
-		return up != EMPTY
-				and not (up == BE and upLeft == BE and upUp == UBON and d_matrix[pos - (2 * d_cols) - 1] == BS and d_matrix[pos - (3 * d_cols)] == BW and d_matrix[pos - (3 * d_cols) - 1] == BS)
-				and not (up == BW and upRight == BW and upUp == UBON and d_matrix[pos - (2 * d_cols) + 1] == BS and d_matrix[pos - (3 * d_cols)] == BE and d_matrix[pos - (3 * d_cols) + 1] == BS);
+	// if (val == UBIN)
+	// 	return up != EMPTY
+	// 			and not (up == BE and upLeft == BE and upUp == UBON and d_matrix[pos - (2 * d_cols) - 1] == BS and d_matrix[pos - (3 * d_cols)] == BW and d_matrix[pos - (3 * d_cols) - 1] == BS)
+	// 			and not (up == BW and upRight == BW and upUp == UBON and d_matrix[pos - (2 * d_cols) + 1] == BS and d_matrix[pos - (3 * d_cols)] == BE and d_matrix[pos - (3 * d_cols) + 1] == BS);
 
 	// if (val == UBON)
 	// 	return hasNorthInput(up) and not hasEastOutput(left) and not requiresWestInput(left) and not hasEastOutput(upLeft) and not hasSouthOutput(upUp) and not hasWestOutput(upRight)
@@ -177,11 +177,11 @@ bool Balancer::matrixOptimised(size_t pos)
 	// 			and not (down == SPLN or down == SPRN or down == SPLS or down == SPRS)
 	// 			and not (right == SPLE or right == SPRE or right == SPLW or right == SPRW);
 
-	if (val == UBOE)
-		return left != EMPTY;
+	// if (val == UBOE)
+	// 	return left != EMPTY;
 
-	if (val == UBIW)
-		return left != EMPTY;
+	// if (val == UBIW)
+	// 	return left != EMPTY;
 
 	// if (val == UBOW)
 	// 	return hasWestInput(left) and not hasSouthOutput(up) and not requiresNorthInput(up) and not hasEastOutput(leftLeft) and not hasSouthOutput(upLeft)
@@ -197,8 +197,8 @@ bool Balancer::matrixOptimised(size_t pos)
 	// 			and not (down == SPLN or down == SPRN or down == SPLS or down == SPRS)
 	// 			and not (right == SPLE or right == SPRE or right == SPLW or right == SPRW);
 
-	if (val == UBOS)
-		return up != EMPTY;
+	// if (val == UBOS)
+	// 	return up != EMPTY;
 
 	return true;
 

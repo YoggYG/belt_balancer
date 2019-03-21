@@ -2,7 +2,7 @@
 
 bool Balancer::existsShorterMiddlePath(vector<Tile> &matrix, Triple &goal, size_t maxLength, size_t length, size_t previousIdx, size_t idx)
 {
-	if (length == maxLength)
+	if (length >= maxLength)
 		return false;
 
 	if (matrix[previousIdx] == goal.tile and goal.x == getX(previousIdx) and goal.y == getY(previousIdx))
@@ -18,7 +18,7 @@ bool Balancer::existsShorterMiddlePath(vector<Tile> &matrix, Triple &goal, size_
 
 		matrix[idx].ugN = matrix[idx + d_cols].ugN + 1;
 
-		if (matrix[idx + d_cols].item != EMPTY and matrix[idx].item == EMPTY)
+		if (/*matrix[idx + d_cols].item != EMPTY and */matrix[idx].item == EMPTY)
 		{
 			matrix[idx].item = UBON;
 			if (existsShorterMiddlePath(matrix, goal, maxLength, length + 1, idx, idx - d_cols))
@@ -29,7 +29,7 @@ bool Balancer::existsShorterMiddlePath(vector<Tile> &matrix, Triple &goal, size_
 
 		if (idx >= 3 * d_cols)
 		{
-			if (existsShorterMiddlePath(matrix, goal, maxLength, length + 1, previousIdx, idx - d_cols))
+			if (existsShorterMiddlePath(matrix, goal, maxLength, length, previousIdx, idx - d_cols))
 				return true;
 		}
 		
@@ -45,7 +45,7 @@ bool Balancer::existsShorterMiddlePath(vector<Tile> &matrix, Triple &goal, size_
 
 		matrix[idx].ugE = matrix[idx - 1].ugE + 1;
 
-		if (matrix[idx - 1].item != EMPTY and matrix[idx].item == EMPTY)
+		if (/*matrix[idx - 1].item != EMPTY and */matrix[idx].item == EMPTY)
 		{
 			matrix[idx].item = UBOE;
 			if (existsShorterMiddlePath(matrix, goal, maxLength, length + 1, idx, idx + 1))
@@ -56,7 +56,7 @@ bool Balancer::existsShorterMiddlePath(vector<Tile> &matrix, Triple &goal, size_
 
 		if (getX(idx) + 2 < d_cols)
 		{
-			if (existsShorterMiddlePath(matrix, goal, maxLength, length + 1, previousIdx, idx + 1))
+			if (existsShorterMiddlePath(matrix, goal, maxLength, length, previousIdx, idx + 1))
 				return true;
 		}
 		
@@ -72,7 +72,7 @@ bool Balancer::existsShorterMiddlePath(vector<Tile> &matrix, Triple &goal, size_
 
 		matrix[idx].ugW = matrix[idx + 1].ugW + 1;
 
-		if (matrix[idx + 1].item != EMPTY and matrix[idx].item == EMPTY)
+		if (/*matrix[idx + 1].item != EMPTY and */matrix[idx].item == EMPTY)
 		{
 			matrix[idx].item = UBOW;
 			if (existsShorterMiddlePath(matrix, goal, maxLength, length + 1, idx, idx - 1))
@@ -83,7 +83,7 @@ bool Balancer::existsShorterMiddlePath(vector<Tile> &matrix, Triple &goal, size_
 
 		if (getX(idx) > 1)
 		{
-			if (existsShorterMiddlePath(matrix, goal, maxLength, length + 1, previousIdx, idx - 1))
+			if (existsShorterMiddlePath(matrix, goal, maxLength, length, previousIdx, idx - 1))
 				return true;
 		}
 		
@@ -99,7 +99,7 @@ bool Balancer::existsShorterMiddlePath(vector<Tile> &matrix, Triple &goal, size_
 
 		matrix[idx].ugS = matrix[idx - d_cols].ugS + 1;
 
-		if (matrix[idx - d_cols].item != EMPTY and matrix[idx].item == EMPTY)
+		if (/*matrix[idx - d_cols].item != EMPTY and */matrix[idx].item == EMPTY)
 		{
 			matrix[idx].item = UBOS;
 			if (existsShorterMiddlePath(matrix, goal, maxLength, length + 1, idx, idx + d_cols))
@@ -110,7 +110,7 @@ bool Balancer::existsShorterMiddlePath(vector<Tile> &matrix, Triple &goal, size_
 
 		if (idx + 3 * d_cols >= matrix.size())
 		{
-			if (existsShorterMiddlePath(matrix, goal, maxLength, length + 1, previousIdx, idx + d_cols))
+			if (existsShorterMiddlePath(matrix, goal, maxLength, length, previousIdx, idx + d_cols))
 				return true;
 		}
 		
@@ -169,31 +169,31 @@ bool Balancer::existsShorterMiddlePath(vector<Tile> &matrix, Triple &goal, size_
 				return true;
 		}
 
-		if (hasNorthOutput(matrix[previousIdx]) and idx >= d_cols * 4 and matrix[idx - d_cols].item != EMPTY)
+		if (hasNorthOutput(matrix[previousIdx]) and idx >= d_cols * 4/* and matrix[idx - d_cols].item != EMPTY*/)
 		{
 			matrix[idx].item = UBIN;
-			if (existsShorterMiddlePath(matrix, goal, maxLength, length + 2, idx, idx - d_cols))
+			if (existsShorterMiddlePath(matrix, goal, maxLength, length + d_underground_cost_penalty + 1, idx, idx - d_cols))
 				return true;
 		}
 
-		if (hasEastOutput(matrix[previousIdx]) and getX(idx) + 3 < d_cols and matrix[idx + 1].item != EMPTY)
+		if (hasEastOutput(matrix[previousIdx]) and getX(idx) + 3 < d_cols/* and matrix[idx + 1].item != EMPTY*/)
 		{
 			matrix[idx].item = UBIE;
-			if (existsShorterMiddlePath(matrix, goal, maxLength, length + 2, idx, idx + 1))
+			if (existsShorterMiddlePath(matrix, goal, maxLength, length + d_underground_cost_penalty + 1, idx, idx + 1))
 				return true;
 		}
 
-		if (hasWestOutput(matrix[previousIdx]) and getX(idx) > 2 and matrix[idx - 1].item != EMPTY)
+		if (hasWestOutput(matrix[previousIdx]) and getX(idx) > 2/* and matrix[idx - 1].item != EMPTY*/)
 		{
 			matrix[idx].item = UBIW;
-			if (existsShorterMiddlePath(matrix, goal, maxLength, length + 2, idx, idx + 1))
+			if (existsShorterMiddlePath(matrix, goal, maxLength, length + d_underground_cost_penalty + 1, idx, idx + 1))
 				return true;
 		}
 
-		if (hasSouthOutput(matrix[previousIdx]) and idx + 4 * d_cols < matrix.size() and matrix[idx + d_cols].item != EMPTY)
+		if (hasSouthOutput(matrix[previousIdx]) and idx + 4 * d_cols < matrix.size()/* and matrix[idx + d_cols].item != EMPTY*/)
 		{
 			matrix[idx].item = UBIS;
-			if (existsShorterMiddlePath(matrix, goal, maxLength, length + 2, idx, idx + d_cols))
+			if (existsShorterMiddlePath(matrix, goal, maxLength, length + d_underground_cost_penalty + 1, idx, idx + d_cols))
 				return true;
 		}
 
