@@ -267,8 +267,8 @@ vector<Triple> Balancer::getPathOfTile(size_t pos)
 			// case UBOS: pathLength += it->tile.ugS; break;
 			// case UBIW: pathLength += it->tile.ugW; break;
 			case UBIN: 
-			case UBOE: 
-			case UBOS: 
+			case UBIE: 
+			case UBIS: 
 			case UBIW: pathLength += d_underground_cost_penalty; break;
 		}
 	}

@@ -1,4 +1,5 @@
 #include "producer.ih"
+
 void Producer::operator()(size_t n, size_t power, size_t rows, size_t cols, size_t undergroundLength)
 {
     if (rows == 0)
@@ -6,10 +7,16 @@ void Producer::operator()(size_t n, size_t power, size_t rows, size_t cols, size
     if (cols < n)
         cols = n;
     
-    vector<char> matrix(rows * cols, EMPTY);
 
     size_t startIndex = cols + d_startNumber;
     size_t splittersToPlace = power * n / 2;
 
-    placeSplitter(matrix, startIndex, rows, cols, n, power, splittersToPlace, d_numIncrements, undergroundLength);
+    // vector<char> matrix(rows * cols, EMPTY);
+    // placeSplitter(matrix, startIndex, rows, cols, n, power, splittersToPlace, d_numIncrements, undergroundLength);
+
+    for (size_t rowLimit = 3; rowLimit <= rows; ++rowLimit)
+    {
+    	vector<char> matrix(rowLimit * cols, EMPTY);
+		placeSplitter(matrix, startIndex, rowLimit, cols, n, power, splittersToPlace, d_numIncrements, undergroundLength);
+    }
 }

@@ -108,7 +108,7 @@ bool Balancer::existsShorterMiddlePath(vector<Tile> &matrix, Triple &goal, size_
 			matrix[idx].item = EMPTY;
 		}
 
-		if (idx + 3 * d_cols >= matrix.size())
+		if (idx + 3 * d_cols < matrix.size())
 		{
 			if (existsShorterMiddlePath(matrix, goal, maxLength, length, previousIdx, idx + d_cols))
 				return true;

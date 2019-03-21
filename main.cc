@@ -166,24 +166,56 @@ int main(int argc, char **argv) {
 	// 	1,1,0,0,1,1
 	// };
 
-	// Balancer testBal(test, 6, 9, 4, 2);
-	// Balancer testBal(solution, 6, 9, 4, 2);
+	// vector<char> test
+	// {
+	// 	1,1,1,1,0,0,
+	// 	13,14,13,14,4,3,
+	// 	1,6,6,6,11,6,
+	// 	1,3,3,3,3,3,
+	// 	0,0,0,0,12,1,
+	// 	4,10,5,9,3,1,
+	// 	2,2,1,5,2,1,
+	// 	0,5,2,1,1,5,
+	// 	0,13,14,0,13,14,
+	// 	0,1,1,0,1,1
+	// };
 
-	// Balancer testBal(test, 5, 8, 4, 2);
-	// Balancer testBal(solution, 5, 8, 4, 2);
+	// Balancer testBal(test, 10, 6, 4, 2, 10);
 
-	// Balancer testBal(test, 9, 6, 4, 2);
-	// Balancer testBal(test, 10, 12, 8, 3);
-	// Balancer testBal(test, 9, 4, 4, 2);
+	// vector<char> test
+	// {
+	// 	1,1,1,1,0,0,0,
+	// 	1,1,1,1,0,0,0,
+	// 	1,1,13,14,2,4,0,
+	// 	13,14,1,13,14,4,0,
+	// 	1,1,1,1,6,11,0,
+	// 	1,13,14,1,3,3,3,
+	// 	1,6,6,0,0,12,1,
+	// 	1,3,3,3,3,0,1,
+	// 	0,5,5,0,5,0,1,
+	// 	0,1,1,0,1,0,1
+	// };
+
+	// Balancer testBal(test, 10, 7, 4, 2, 10);
+
+	// Balancer testBal(test, 6, 9, 4, 2, 10);
+	// Balancer testBal(solution, 6, 9, 4, 2, 10);
+
+	// Balancer testBal(test, 5, 8, 4, 2, 10);
+	// Balancer testBal(solution, 5, 8, 4, 2, 10);
+
+	// Balancer testBal(test, 9, 6, 4, 2, 10);
+	// Balancer testBal(test, 10, 12, 8, 3, 10);
+	// Balancer testBal(test, 9, 4, 4, 2, 10);
 
 	// string tempString;
 
-	// size_t idx = 0;
-	// for (idx = 0; idx < 40; ++idx)
-		// if (testBal.matrixOptimised(48) == false)
-		// {
-		// 	cerr << "matrixOptimised false at " << idx << endl;
-		// }
+	// size_t idx = 47;
+	// // for (idx = 0; idx < 40; ++idx)
+	// 	if (testBal.matrixOptimised(idx) == false)
+	// 	{
+	// 		cerr << "matrixOptimised false at " << idx << endl;
+	// 	}
 	// testBal.print();
 
 	// // testBal.incrMatrixUntilOK(0);
@@ -259,8 +291,8 @@ int main(int argc, char **argv) {
 
 	SharedDataHandler sdh(30);
 
-	Producers producers(sdh, threads_on_machine);
-	// Producers producers(sdh, 1);
+	// Producers producers(sdh, threads_on_machine);
+	Producers producers(sdh, 1);
 	Clients clients(sdh, threads_on_machine);
 	OutputHandler opHandler(sdh);
 	

@@ -108,7 +108,7 @@ bool Balancer::existsShorterExitPath(vector<Tile> &matrix, size_t maxLength, siz
 			matrix[idx].item = EMPTY;
 		}
 
-		if (idx + 3 * d_cols >= matrix.size())
+		if (idx + 3 * d_cols < matrix.size())
 		{
 			if (existsShorterExitPath(matrix, maxLength, length, previousIdx, idx + d_cols))
 				return true;
