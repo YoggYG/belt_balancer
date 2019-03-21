@@ -17,6 +17,9 @@ bool Producer::canPlaceSplitterEast(vector<char> &matrix, size_t idx, size_t col
 	if (matrix[idx - 2] != EMPTY and matrix[idx - 2] != SPRE and matrix[idx - 2] != SPRN and matrix[idx - 2] != SPLS)
 		return false;
 
+	if (matrix[idx - cols - 1] == SPRN or matrix[idx - cols + 1] == SPRS)
+		return false;
+
 	if (matrix[idx - 2] == SPRE and matrix[idx - cols] == SPRE)
 		return false;
 

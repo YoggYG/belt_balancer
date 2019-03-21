@@ -1,12 +1,11 @@
 #include "producers.ih"
 
-Producers::Producers(SharedDataHandler &sdh, size_t nProducers, bool noSouthBelts, bool onlyNorthUGS)
+Producers::Producers(SharedDataHandler &sdh, size_t nProducers)
 :
     d_thread(nProducers)
 {
 	d_joined = false;
 	size_t stepSize = nProducers;
     for (; nProducers--; )                        
-            d_producers.push_back(Producer(sdh, noSouthBelts, onlyNorthUGS, stepSize, nProducers));   
-    }                                               
-
+        d_producers.push_back(Producer(sdh, stepSize, nProducers));   
+}

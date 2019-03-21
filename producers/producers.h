@@ -15,7 +15,7 @@ class Producers
     bool d_joined;
 
     public:
-        Producers(SharedDataHandler &sdh, size_t nProducers, bool noSouthBelts, bool onlyNorthUGS);
+        Producers(SharedDataHandler &sdh, size_t nProducers);
         ~Producers();
         void join();
 

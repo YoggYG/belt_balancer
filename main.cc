@@ -247,13 +247,10 @@ int main(int argc, char **argv) {
 		threads_on_machine = 8;
 	}
 
-	bool noSouthBelts = true;
-	bool onlyNorthUGS = false;
-
 	SharedDataHandler sdh(30);
 
-	// Producers producers(sdh, threads_on_machine, noSouthBelts, onlyNorthUGS);
-	Producers producers(sdh, 1, noSouthBelts, onlyNorthUGS);
+	Producers producers(sdh, threads_on_machine);
+	// Producers producers(sdh, 1);
 	Clients clients(sdh, threads_on_machine);
 	OutputHandler opHandler(sdh);
 	
