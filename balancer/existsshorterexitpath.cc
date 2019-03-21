@@ -18,7 +18,7 @@ bool Balancer::existsShorterExitPath(vector<Tile> &matrix, size_t maxLength, siz
 
 		matrix[idx].ugN = matrix[idx + d_cols].ugN + 1;
 
-		if (/*matrix[idx + d_cols].item != EMPTY and */matrix[idx].item == EMPTY)
+		if (matrix[idx].item == EMPTY)
 		{
 			matrix[idx].item = UBON;
 			if (existsShorterExitPath(matrix, maxLength, length + 1, idx, idx - d_cols))
@@ -45,7 +45,7 @@ bool Balancer::existsShorterExitPath(vector<Tile> &matrix, size_t maxLength, siz
 
 		matrix[idx].ugE = matrix[idx - 1].ugE + 1;
 
-		if (/*matrix[idx - 1].item != EMPTY and */matrix[idx].item == EMPTY)
+		if (matrix[idx].item == EMPTY)
 		{
 			matrix[idx].item = UBOE;
 			if (existsShorterExitPath(matrix, maxLength, length + 1, idx, idx + 1))
@@ -72,7 +72,7 @@ bool Balancer::existsShorterExitPath(vector<Tile> &matrix, size_t maxLength, siz
 
 		matrix[idx].ugW = matrix[idx + 1].ugW + 1;
 
-		if (/*matrix[idx + 1].item != EMPTY and */matrix[idx].item == EMPTY)
+		if (matrix[idx].item == EMPTY)
 		{
 			matrix[idx].item = UBOW;
 			if (existsShorterExitPath(matrix, maxLength, length + 1, idx, idx - 1))
@@ -99,7 +99,7 @@ bool Balancer::existsShorterExitPath(vector<Tile> &matrix, size_t maxLength, siz
 
 		matrix[idx].ugS = matrix[idx - d_cols].ugS + 1;
 
-		if (/*matrix[idx - d_cols].item != EMPTY and */matrix[idx].item == EMPTY)
+		if (matrix[idx].item == EMPTY)
 		{
 			matrix[idx].item = UBOS;
 			if (existsShorterExitPath(matrix, maxLength, length + 1, idx, idx + d_cols))
@@ -150,28 +150,28 @@ bool Balancer::existsShorterExitPath(vector<Tile> &matrix, size_t maxLength, siz
 				return true;
 		}
 
-		if (hasNorthOutput(matrix[previousIdx]) and idx >= d_cols * 3/* and matrix[idx - d_cols].item != EMPTY*/)
+		if (hasNorthOutput(matrix[previousIdx]) and idx >= d_cols * 3)
 		{
 			matrix[idx].item = UBIN;
 			if (existsShorterExitPath(matrix, maxLength, length + d_underground_cost_penalty + 1, idx, idx - d_cols))
 				return true;
 		}
 
-		if (hasEastOutput(matrix[previousIdx]) and getX(idx) + 3 < d_cols/* and matrix[idx + 1].item != EMPTY*/)
+		if (hasEastOutput(matrix[previousIdx]) and getX(idx) + 3 < d_cols)
 		{
 			matrix[idx].item = UBIE;
 			if (existsShorterExitPath(matrix, maxLength, length + d_underground_cost_penalty + 1, idx, idx + 1))
 				return true;
 		}
 
-		if (hasWestOutput(matrix[previousIdx]) and getX(idx) > 2/* and matrix[idx - 1].item != EMPTY*/)
+		if (hasWestOutput(matrix[previousIdx]) and getX(idx) > 2)
 		{
 			matrix[idx].item = UBIW;
 			if (existsShorterExitPath(matrix, maxLength, length + d_underground_cost_penalty + 1, idx, idx + 1))
 				return true;
 		}
 
-		if (hasSouthOutput(matrix[previousIdx]) and idx + 4 * d_cols < matrix.size()/* and matrix[idx + d_cols].item != EMPTY*/)
+		if (hasSouthOutput(matrix[previousIdx]) and idx + 4 * d_cols < matrix.size())
 		{
 			matrix[idx].item = UBIS;
 			if (existsShorterExitPath(matrix, maxLength, length + d_underground_cost_penalty + 1, idx, idx + d_cols))

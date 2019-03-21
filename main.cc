@@ -228,6 +228,14 @@ int main(int argc, char **argv) {
 			exit(0);
 		}
 
+	size_t undergroundLength = 0;	
+	if (argc > 4)
+		if (!(istringstream(argv[4]) >> undergroundLength))
+		{
+			cout << "Input must be a number\n";
+			exit(0);
+		}
+
 	size_t power = double(log2(n));
 	if (double(log2(n)) > power)
 		++power;
@@ -239,6 +247,9 @@ int main(int argc, char **argv) {
 	if (maxHeight == 0)
 		maxHeight = 2 * n;
 
+	if (undergroundLength == 0)
+		undergroundLength = 10;
+
 	size_t threads_on_machine = thread::hardware_concurrency();
 	// threads_on_machine = 1;
 	if (threads_on_machine == 0)
@@ -246,8 +257,6 @@ int main(int argc, char **argv) {
 		cout << "Unable to detect available threads, using 8 as default\n";
 		threads_on_machine = 8;
 	}
-
-	size_t undergroundLength = 10;
 
 	SharedDataHandler sdh(30);
 
