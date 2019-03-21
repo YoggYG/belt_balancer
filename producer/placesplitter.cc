@@ -1,11 +1,11 @@
 #include "producer.ih"
 #include <iostream>
 
-void Producer::placeSplitter(vector<char> &matrix, size_t startIndex, size_t rows, size_t cols, size_t n, size_t power, size_t splittersToPlace, size_t incr)
+void Producer::placeSplitter(vector<char> &matrix, size_t startIndex, size_t rows, size_t cols, size_t n, size_t power, size_t splittersToPlace, size_t incr, size_t undergroundLength)
 {
 	if (splittersToPlace == 0)
 	{
-		d_sdh.addTask(SharedDataHandler::Spec{Balancer(matrix, rows, cols, n, power), false});
+		d_sdh.addTask(SharedDataHandler::Spec{Balancer(matrix, rows, cols, n, power, undergroundLength), false});
 		// Balancer bal(matrix, rows, cols, n, power);
 		// bal.print();
 		return;
@@ -26,7 +26,7 @@ void Producer::placeSplitter(vector<char> &matrix, size_t startIndex, size_t row
 			matrix[idx + 1] = SPRN;
 
 			if (not isMirror(matrix, rows, cols))
-				placeSplitter(matrix, idx + 2, rows, cols, n, power, splittersToPlace - 1, 1);
+				placeSplitter(matrix, idx + 2, rows, cols, n, power, splittersToPlace - 1, 1, undergroundLength);
 				// calculated = true;
 
 			// if (not d_sdh.isMirror(matrix))
@@ -71,7 +71,7 @@ void Producer::placeSplitter(vector<char> &matrix, size_t startIndex, size_t row
 			matrix[idx + cols] = SPRE;
 
 			if (not isMirror(matrix, rows, cols))
-				placeSplitter(matrix, idx + 2, rows, cols, n, power, splittersToPlace - 1, 1);
+				placeSplitter(matrix, idx + 2, rows, cols, n, power, splittersToPlace - 1, 1, undergroundLength);
 				// calculated = true;
 
 			// if (not d_sdh.isMirror(matrix))
@@ -112,7 +112,7 @@ void Producer::placeSplitter(vector<char> &matrix, size_t startIndex, size_t row
 			matrix[idx + cols] = SPLW;
 
 			if (not isMirror(matrix, rows, cols))
-				placeSplitter(matrix, idx + 2, rows, cols, n, power, splittersToPlace - 1, 1);
+				placeSplitter(matrix, idx + 2, rows, cols, n, power, splittersToPlace - 1, 1, undergroundLength);
 			// 	calculated = true;
 			
 			// if (not d_sdh.isMirror(matrix))
@@ -157,7 +157,7 @@ void Producer::placeSplitter(vector<char> &matrix, size_t startIndex, size_t row
 			matrix[idx + 1] = SPLS;
 
 			if (not isMirror(matrix, rows, cols))
-				placeSplitter(matrix, idx + 2, rows, cols, n, power, splittersToPlace - 1, 1);
+				placeSplitter(matrix, idx + 2, rows, cols, n, power, splittersToPlace - 1, 1, undergroundLength);
 			// 	calculated = true;
 			
 			// if (not d_sdh.isMirror(matrix))

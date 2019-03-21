@@ -247,6 +247,8 @@ int main(int argc, char **argv) {
 		threads_on_machine = 8;
 	}
 
+	size_t undergroundLength = 10;
+
 	SharedDataHandler sdh(30);
 
 	Producers producers(sdh, threads_on_machine);
@@ -254,13 +256,13 @@ int main(int argc, char **argv) {
 	Clients clients(sdh, threads_on_machine);
 	OutputHandler opHandler(sdh);
 	
-	producers.run(n, power, maxHeight, maxWidth);
+	producers.run(n, power, maxHeight, maxWidth, undergroundLength);
 	clients.run();
 	thread opThread(ref(opHandler));
 
 	producers.join();
 	vector<char> endVector;
-	SharedDataHandler::Spec endSignal = SharedDataHandler::Spec{Balancer(endVector, 0, 0, 0, 0), true};
+	SharedDataHandler::Spec endSignal = SharedDataHandler::Spec{Balancer(endVector, 0, 0, 0, 0, 0), true};
 	sdh.addTask(endSignal);
 
 	clients.join();

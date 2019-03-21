@@ -19,7 +19,7 @@ class Producers
         ~Producers();
         void join();
 
-        void run(size_t n, size_t power, size_t rows, size_t cols);
+        void run(size_t n, size_t power, size_t rows, size_t cols, size_t undergroundLength);
 };
         
 #endif

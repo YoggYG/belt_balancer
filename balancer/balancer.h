@@ -13,11 +13,11 @@ class Balancer
 	size_t d_cols;
 	size_t d_n;
 	size_t d_power;
-	size_t d_underground_length = 10;
-	size_t d_underground_cost_penalty = 15;
+	size_t d_underground_length;
+	size_t d_underground_cost_penalty;
 
 	public:
-		Balancer(std::vector<char> &matrix, size_t rows, size_t cols, size_t n, size_t power);
+		Balancer(std::vector<char> &matrix, size_t rows, size_t cols, size_t n, size_t power, size_t underground_length);
 		bool valid();
 		size_t cost();
 		void print();
@@ -71,13 +71,15 @@ class Balancer
 		size_t getIdx(size_t x, size_t y);
 };
 
-inline Balancer::Balancer(std::vector<char> &matrix, size_t rows, size_t cols, size_t n, size_t power)
+inline Balancer::Balancer(std::vector<char> &matrix, size_t rows, size_t cols, size_t n, size_t power, size_t underground_length)
 :
 	d_rows(rows),
 	d_cols(cols),
 	d_n(n),
-	d_power(power)
+	d_power(power),
+	d_underground_length(underground_length)
 {
+	d_underground_cost_penalty = d_underground_length * 3 / 2;
 	initMatrix(matrix);
 }
 
