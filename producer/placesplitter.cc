@@ -6,7 +6,7 @@ void Producer::placeSplitter(vector<char> &matrix, size_t startIndex, size_t row
 	{
 		d_sdh.addTask(SharedDataHandler::Spec{Balancer(matrix, rows, cols, n, power, undergroundLength), false});
 		// Balancer bal(matrix, rows, cols, n, power, undergroundLength);
-		// bal.print();
+		// bal.print2();
 		return;
 	}
 	

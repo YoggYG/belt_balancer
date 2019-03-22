@@ -42,13 +42,13 @@ bool Producer::canPlaceSplitterNorth(vector<char> &matrix, size_t idx, size_t co
 	if (idx >= cols * 3 and matrix[idx - 3 * cols] == SPLN and (matrix[idx - 2 * cols] == SPRN or matrix[idx - cols] == SPRN))
 		return false;
 
-	if (idx == cols * 2 and matrix[idx - cols + 1] == SPLN)
+	if (idx < cols * 3 and matrix[idx - cols + 1] == SPLN and matrix[idx - cols] == EMPTY)
 		return false;
 
-	if (idx == matrix.size() - 2 * cols + 1 and matrix[idx - cols] == SPRN)
+	if (idx > matrix.size() - 2 * cols and matrix[idx - cols] == SPRN and matrix[idx - 1] == EMPTY)
 		return false;
 
-	if (idx == cols * 3 - 2 and matrix[idx - cols] == SPRN)
+	if (idx < cols * 3 and matrix[idx - cols] == SPRN and matrix[idx - cols + 1] == EMPTY)
 		return false;
 
 	if (idx == matrix.size() - cols - 3 and matrix[idx - cols + 1] == SPLN)
