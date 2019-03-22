@@ -291,8 +291,8 @@ int main(int argc, char **argv) {
 
 	SharedDataHandler sdh(30);
 
-	// Producers producers(sdh, threads_on_machine);
-	Producers producers(sdh, 1);
+	Producers producers(sdh, threads_on_machine);
+	// Producers producers(sdh, 1);
 	Clients clients(sdh, threads_on_machine);
 	OutputHandler opHandler(sdh);
 	
