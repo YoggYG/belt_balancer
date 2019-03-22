@@ -178,7 +178,7 @@ bool Balancer::matrixOptimised(size_t pos)
 		if (left == BE and upLeft == BS and up == EMPTY)
 			return false;
 
-		if (right == SPRE and (left == BE or (left == UBOE and left.ugE < d_underground_length - 1)) and ((up == BE and (upLeft == BE or (upLeft == UBOE and upLeft.ugE < d_underground_length - 1))) or (up == UBOE and upLeft == EMPTY)))
+		if (right == SPRE and (left == BE or left == UBOE) and ((up == BE and (upLeft == BE or upLeft == UBOE)) or (up == UBOE and upLeft == EMPTY)))
 			return false;
 	}
 
@@ -204,7 +204,7 @@ bool Balancer::matrixOptimised(size_t pos)
 		if (left == BE and upLeft == BS and up == EMPTY)
 			return false;
 
-		if (down == SPLS and (up == BS or (up == UBOS and up.ugS < d_underground_length - 1)) and ((left == BS and (upLeft == BS or (upLeft == UBOS and upLeft.ugS < d_underground_length - 1))) or (left == UBOS and upLeft == EMPTY)))
+		if (down == SPLS and (up == BS or up == UBOS) and ((left == BS and (upLeft == BS or upLeft == UBOS)) or (left == UBOS and upLeft == EMPTY)))
 			return false;
 
 		// if (up == UBOS and up.ugS < d_underground_length - 1)
@@ -235,7 +235,7 @@ bool Balancer::matrixOptimised(size_t pos)
 
 	if (val == UBOE)
 	{
-		if (right == SPRE and left == EMPTY and ((up == UBOE and upLeft == EMPTY) or (up == BE and (upLeft == BE or (upLeft == UBOE and upLeft.ugE < d_underground_length - 1)))))
+		if (right == SPRE and left == EMPTY and ((up == UBOE and upLeft == EMPTY) or (up == BE and (upLeft == BE or upLeft == UBOE))))
 			return false;
 	}
 	// 	return left != EMPTY;
@@ -263,7 +263,7 @@ bool Balancer::matrixOptimised(size_t pos)
 
 	if (val == UBOS)
 	{
-		if (down == SPLS and up == EMPTY and ((left == UBOS and upLeft == EMPTY) or (left == BS and (upLeft == BS or (upLeft == UBOS and upLeft.ugS < d_underground_length - 1)))))
+		if (down == SPLS and up == EMPTY and ((left == UBOS and upLeft == EMPTY) or (left == BS and (upLeft == BS or upLeft == UBOS))))
 			return false;
 	}
 	// 	return up != EMPTY;

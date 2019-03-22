@@ -14,6 +14,8 @@ bool Balancer::valid()
 	if (d_matrix[0].item > BN)
 		return false;
 
+	// print2();
+
 	size_t numberOfLanes = 0;
 	vector<Lane> lanes;
 	for (size_t idx = (d_rows - 1) * d_cols; idx < d_rows * d_cols; ++idx)

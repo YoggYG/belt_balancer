@@ -5,6 +5,9 @@ bool Balancer::incrMatrixUntilOK(size_t pos)
 	if (d_matrix[0].item > 1)
 		return false;
 
+	// cerr << "pos: " << pos << endl;
+	// print2();
+
 	size_t maxVal = 13;
 	if (pos < d_cols or pos >= (d_rows - 1) * d_cols)
 		maxVal = 2;
