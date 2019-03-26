@@ -39,12 +39,17 @@ class Balancer
 		bool sharedSplitters(Lane const &lane1, Lane const &lane2);
 		void shrinkBalancer();
 		bool isEdgeCase(size_t pos);
-		std::vector<Triple> getPathOfTile(size_t pos);
+		std::vector<Triple> getPathOfTile(size_t pos, bool forward, bool backward);
 		void setUndergroundCount(size_t pos);
 		void resetUndergroundCount(size_t pos);
 		bool existsShorterExitPath(std::vector<Tile> &matrix, size_t maxLength, size_t length, size_t previousIdx, size_t idx);
 		bool existsShorterEntryPath(std::vector<Tile> &matrix, size_t maxLength, size_t length, size_t previousIdx, size_t idx);		
 		bool existsShorterMiddlePath(std::vector<Tile> &matrix, Triple &goal, size_t maxLength, size_t length, size_t previousIdx, size_t idx);
+		bool isCompletePath(std::vector<Triple> path);		
+		bool isEntryPath(std::vector<Triple> path);
+		bool isExitPath(std::vector<Triple> path);
+		size_t getIdxOfComplementarySplitterHalf(size_t idx);
+		bool isSameSplitter(Triple tile1, Triple tile2);
 		bool isSplitter(char val);
 		bool isSplitter(Tile val);
 		bool hasEastInput(Tile val);

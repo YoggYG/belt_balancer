@@ -9,6 +9,12 @@ void Producer::placeSplitter(vector<char> &matrix, size_t startIndex, size_t row
 		// bal.print2();
 		return;
 	}
+
+	if (splittersToPlace == 6)
+	{
+		Balancer bal(matrix, rows, cols, n, power, undergroundLength);
+		bal.print2();
+	}
 	
 	for (size_t idx = startIndex; idx < (rows - 1) * cols; idx += incr)
 	{

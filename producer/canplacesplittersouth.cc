@@ -20,6 +20,9 @@ bool Producer::canPlaceSplitterSouth(vector<char> &matrix, size_t idx, size_t co
 	if (matrix[idx - (2 * cols) + 1] != EMPTY and matrix[idx - (2 * cols) + 1] != SPRS and matrix[idx - (2 * cols) + 1] != SPLW and matrix[idx - (2 * cols) + 1] != SPRE)
 		return false;
 
+	if (idx == 2 * cols or idx == 3 * cols - 2 or idx == matrix.size() - 3 * cols or idx == matrix.size() - 2 * cols - 2)
+		return false;
+
 	if (matrix[idx + 2] != EMPTY)
 		return false;
 

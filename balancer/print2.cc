@@ -8,70 +8,70 @@ void Balancer::print2()
 void Balancer::print2(vector<Tile> &matrix)
 {
 	for (size_t col = 0; col < d_cols; ++col)
-		cout << "==";
+		cerr << "==";
 	for (size_t row = 0; row < d_rows; ++row)
 	{
-		cout << endl;
+		cerr << endl;
 		for (size_t col = 0; col < d_cols; ++col)
 		{
 			switch (matrix[row * d_cols + col].item)
 			{
-				case EMPTY: cout << "  "; break;
-				case BN: cout << "^^"; break;
-				case BE: cout << ">>"; break;
-				case BS: cout << "vv"; break;
-				case BW: cout << "<<"; break;
-				case UBIN: cout << "--"; break;
-				case UBIE: cout << ">|"; break;
-				case UBIS: cout << "vv"; break;
-				case UBIW: cout << "|<"; break;
-				case UBON: cout << "^^"; break;
-				case UBOE: cout << "|>"; break;
-				case UBOS: cout << "--"; break;
-				case UBOW: cout << "<|"; break;
-				case SPLN: cout << "^)"; break;
-				case SPRN: cout << "(^"; break;
-				case SPLE: cout << ">>"; break;
-				case SPRE: cout << "~~"; break;
-				case SPLS: cout << "(v"; break;
-				case SPRS: cout << "v)"; break;
-				case SPLW: cout << "~~"; break;
-				case SPRW: cout << "<<"; break;
+				case EMPTY: cerr << "  "; break;
+				case BN: cerr << "^^"; break;
+				case BE: cerr << ">>"; break;
+				case BS: cerr << "vv"; break;
+				case BW: cerr << "<<"; break;
+				case UBIN: cerr << "--"; break;
+				case UBIE: cerr << ">|"; break;
+				case UBIS: cerr << "vv"; break;
+				case UBIW: cerr << "|<"; break;
+				case UBON: cerr << "^^"; break;
+				case UBOE: cerr << "|>"; break;
+				case UBOS: cerr << "--"; break;
+				case UBOW: cerr << "<|"; break;
+				case SPLN: cerr << "^)"; break;
+				case SPRN: cerr << "(^"; break;
+				case SPLE: cerr << ">>"; break;
+				case SPRE: cerr << "~~"; break;
+				case SPLS: cerr << "(v"; break;
+				case SPRS: cerr << "v)"; break;
+				case SPLW: cerr << "~~"; break;
+				case SPRW: cerr << "<<"; break;
 				default: cerr << "uuum value was above 20 (" << matrix[row * d_cols + col].item << ")\n";
 			}
 		}
-		cout << endl;
+		cerr << endl;
 		for (size_t col = 0; col < d_cols; ++col)
 		{
 			switch (matrix[row * d_cols + col].item)
 			{
-				case EMPTY: cout << "  "; break;
-				case BN: cout << "^^"; break;
-				case BE: cout << ">>"; break;
-				case BS: cout << "vv"; break;
-				case BW: cout << "<<"; break;
-				case UBIN: cout << "^^"; break;
-				case UBIE: cout << ">|"; break;
-				case UBIS: cout << "--"; break;
-				case UBIW: cout << "|<"; break;
-				case UBON: cout << "--"; break;
-				case UBOE: cout << "|>"; break;
-				case UBOS: cout << "vv"; break;
-				case UBOW: cout << "<|"; break;
-				case SPLN: cout << "^)"; break;
-				case SPRN: cout << "(^"; break;
-				case SPLE: cout << "__"; break;
-				case SPRE: cout << ">>"; break;
-				case SPLS: cout << "(v"; break;
-				case SPRS: cout << "v)"; break;
-				case SPLW: cout << "<<"; break;
-				case SPRW: cout << "__"; break;
+				case EMPTY: cerr << "  "; break;
+				case BN: cerr << "^^"; break;
+				case BE: cerr << ">>"; break;
+				case BS: cerr << "vv"; break;
+				case BW: cerr << "<<"; break;
+				case UBIN: cerr << "^^"; break;
+				case UBIE: cerr << ">|"; break;
+				case UBIS: cerr << "--"; break;
+				case UBIW: cerr << "|<"; break;
+				case UBON: cerr << "--"; break;
+				case UBOE: cerr << "|>"; break;
+				case UBOS: cerr << "vv"; break;
+				case UBOW: cerr << "<|"; break;
+				case SPLN: cerr << "^)"; break;
+				case SPRN: cerr << "(^"; break;
+				case SPLE: cerr << "__"; break;
+				case SPRE: cerr << ">>"; break;
+				case SPLS: cerr << "(v"; break;
+				case SPRS: cerr << "v)"; break;
+				case SPLW: cerr << "<<"; break;
+				case SPRW: cerr << "__"; break;
 				default: cerr << "uuum value was above 20 (" << matrix[row * d_cols + col].item << ")\n";
 			}
 		}
 	}
-	cout << endl;
+	cerr << endl;
 	for (size_t col = 0; col < d_cols; ++col)
-		cout << "=="; 
-	cout << endl;
+		cerr << "=="; 
+	cerr << endl;
 }
