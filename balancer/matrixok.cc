@@ -96,10 +96,13 @@ bool Balancer::matrixOK(size_t pos)
 	if (val.ugE > (pos + 1) % d_cols or val.ugW > (pos + 1) % d_cols)
 		return false;
 
-	if (getY(pos) + 2 >= d_rows and val.ugS > 0)
+	if (getY(pos) + 3 >= d_rows and val.ugS > 0 and val != UBOS)
 		return false;
 
-	if (getY(pos) + 1 == d_rows and val.ugN > 0)
+	if (getY(pos) + 2 >= d_rows and val.ugN > 0 and val != UBIN)
+		return false;
+
+	if (getY(pos) + 1 == d_rows and val == UBOS)
 		return false;
 
 

@@ -2,7 +2,7 @@
 
 bool Balancer::isEdgeCase(size_t idx)
 {
-	if (idx < 2 * d_cols)
+	if (idx < 3 * d_cols)
 		if (d_matrix[idx] == UBIN or d_matrix[idx] == UBOS)
 			return true;
 

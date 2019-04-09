@@ -80,6 +80,7 @@ bool Balancer::valid()
 	if (d_matrix != secondVector)
 	{
 		cerr << "matrix is not the same as secondVector, there are random shizzle in the way\n";
+		print2();
 		return false;
 		//d_matrix = secondVector;
 	}

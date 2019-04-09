@@ -2,6 +2,9 @@
 
 bool Balancer::isCompletePath(vector<Triple> path)
 {
+	if (path.size() < 2)
+		return false;
+	
 	if (isSplitter(path.front().tile) and isSplitter(path.back().tile))
 		return true;
 

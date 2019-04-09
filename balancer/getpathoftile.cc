@@ -30,9 +30,17 @@ vector<Triple> Balancer::getPathOfTile(size_t pos, bool forward, bool backward)
 					else
 						len = d_underground_length;
 					break;
+				case SPLN:
+				case SPRN:
 				case UBIN: idx += d_cols; break;
+				case SPLE:
+				case SPRE:
 				case UBIE: --idx; break;
+				case SPLW:
+				case SPRW:
 				case UBIW: ++idx; break;
+				case SPLS:
+				case SPRS:
 				case UBIS: idx -= d_cols; break;
 				case UBON:
 					for (len = 2; len < d_underground_length; ++len)
@@ -100,7 +108,7 @@ vector<Triple> Balancer::getPathOfTile(size_t pos, bool forward, bool backward)
 					break;
 
 				default:
-					cerr << "SOMETHING WENT WRONG IN getPathOfTile\n";
+					cerr << "SOMETHING WENT WRONG IN backward getPathOfTile\n";
 			}
 
 			if (len == d_underground_length or d_matrix[idx] == EMPTY)
@@ -142,18 +150,26 @@ vector<Triple> Balancer::getPathOfTile(size_t pos, bool forward, bool backward)
 			{
 				case BN:
 				case UBON:
+				case SPLN:
+				case SPRN:
 					idx -= d_cols;
 					break;
 				case BE:
 				case UBOE:
+				case SPLE:
+				case SPRE:
 					++idx;
 					break;
 				case BW:
 				case UBOW:
+				case SPLW:
+				case SPRW:
 					--idx;
 					break;
 				case BS:
 				case UBOS:
+				case SPLS:
+				case SPRS:
 					idx += d_cols;
 					break;
 				case UBIN:
@@ -222,7 +238,7 @@ vector<Triple> Balancer::getPathOfTile(size_t pos, bool forward, bool backward)
 					break;
 				
 				default:
-					cerr << "SOMETHING WENT WRONG IN getPathOfTile\n";
+					cerr << "SOMETHING WENT WRONG IN forward getPathOfTile, item: " << d_matrix[idx].item << endl;
 			}
 
 			if (len == d_underground_length or d_matrix[idx] == EMPTY)
@@ -230,11 +246,13 @@ vector<Triple> Balancer::getPathOfTile(size_t pos, bool forward, bool backward)
 
 			resVector.push_back(Triple{getX(idx), getY(idx), d_matrix[idx]});
 
-
 			if (isSplitter(d_matrix[idx]))
 				break;
 		}
 	}
+
+	if (not (forward and backward))
+		return resVector;
 
 	// Test if there is a shorter path possible from the path start to the path end
 

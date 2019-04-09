@@ -291,17 +291,20 @@ bool Balancer::matrixOptimised(size_t pos)
 		{
 			size_t pos2 = getIdxOfComplementarySplitterHalf(getIdx(path.back().x, path.back().y));
 			vector<Triple> path2 = getPathOfTile(pos2, false, true);
-			if (not isEntryPath(path2) and isCompletePath(path2))
-				return false;
+			if (isCompletePath(path2))
+			{
+				if (not isEntryPath(path2))
+					return false;
 
-			Lane lane1 = Lane(d_matrix, getIdx(path.front().x, path.front().y), d_rows, d_cols, d_power, d_underground_length);
-			Lane lane2 = Lane(d_matrix, getIdx(path2.front().x, path2.front().y), d_rows, d_cols, d_power, d_underground_length);
+				Lane lane1 = Lane(d_matrix, getIdx(path.front().x, path.front().y), d_rows, d_cols, d_power, d_underground_length);
+				Lane lane2 = Lane(d_matrix, getIdx(path2.front().x, path2.front().y), d_rows, d_cols, d_power, d_underground_length);
 
-			if (not (lane1.valid(d_matrix) and lane2.valid(d_matrix)))
-				return false;
+				if (not (lane1.valid(d_matrix) and lane2.valid(d_matrix)))
+					return false;
 
-			if (not sharedSplitters(lane1, lane2))
-				return false;
+				if (not sharedSplitters(lane1, lane2))
+					return false;
+			}			
 		}
 		else
 		{
