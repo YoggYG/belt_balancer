@@ -6,8 +6,8 @@ Lane::Lane(vector<Tile> &matrix, size_t idx, size_t rows, size_t cols, size_t po
 	d_cols(cols),
 	d_power(power)
 {
-	size_t x = idx - (d_rows - 1) * d_cols;
-	size_t y = d_rows - 1;
+	size_t x = idx % d_cols;
+	size_t y = idx / d_cols;
 	Tile tile = BN;
 
 	while (true)
@@ -129,7 +129,7 @@ Lane::Lane(vector<Tile> &matrix, size_t idx, size_t rows, size_t cols, size_t po
 		}
 		if (fail)
 		{
-			cerr << "lane1.cc: following item invalid, tile: " << tile.item << ", newTile: " << newTile.item << ", idx: " << x  + y * d_cols << "\n";
+			// cerr << "lane1.cc: following item invalid, tile: " << tile.item << ", newTile: " << newTile.item << ", idx: " << x  + y * d_cols << "\n";
 			break;
 		}
 
@@ -140,7 +140,7 @@ Lane::Lane(vector<Tile> &matrix, size_t idx, size_t rows, size_t cols, size_t po
 		
 		if (fail)
 		{
-			cerr << "lane1.cc: tile elsewhere in path\n";
+			// cerr << "lane1.cc: tile elsewhere in path\n";
 			break;
 		}
 	}

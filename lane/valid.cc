@@ -2,12 +2,12 @@
 
 bool Lane::valid(vector<Tile> &matrix)
 {
-	if (d_path.back().tile.item != BN || d_path.back().y != EMPTY)
+	if (d_path.front().y == d_rows - 1 and (d_path.back().tile.item != BN or d_path.back().y != EMPTY))
 		return false;
 
 	size_t numSplit = 0;
 	for (vector<Triple>::iterator it = d_path.begin(); it != d_path.end(); ++it)
-		switch (it->tile.item) // it->item == SPLN
+		switch (it->tile.item)
 		{
 			case SPLN: 
 				if (it->x + 1 >= d_cols) 
@@ -67,10 +67,10 @@ bool Lane::valid(vector<Tile> &matrix)
 				break;
 		}
 	
-	if (numSplit != d_power)
+	if (numSplit > d_power)
 		return false;
-	
-	if (hasLoops(matrix))
+
+	if (d_path.front().y == d_rows - 1 and numSplit < d_power)
 		return false;
 
 	return true;

@@ -102,7 +102,7 @@ bool Balancer::matrixOK(size_t pos)
 	if (getY(pos) + 2 >= d_rows and val.ugN > 0 and val != UBIN)
 		return false;
 
-	if (getY(pos) + 1 == d_rows and val == UBOS)
+	if (getY(pos) + 2 == d_rows and val == UBOS)
 		return false;
 
 

@@ -280,45 +280,92 @@ bool Balancer::matrixOptimised(size_t pos)
 		if (not isCompletePath(path))
 			return true;
 
-		if (isExitPath(path))
+		size_t pos2;
+		vector<Triple> path2;
+
+		if (isEntryPath(path))
 		{
-			size_t pos2 = getIdxOfComplementarySplitterHalf(getIdx(path.front().x, path.front().y));
-			vector<Triple> path2 = getPathOfTile(pos2, true, false);
-			if (not isExitPath(path2) and isCompletePath(path2))
-				return false;
-		}
-		else if (isEntryPath(path))
-		{
-			size_t pos2 = getIdxOfComplementarySplitterHalf(getIdx(path.back().x, path.back().y));
-			vector<Triple> path2 = getPathOfTile(pos2, false, true);
-			if (isCompletePath(path2))
-			{
-				if (not isEntryPath(path2))
-					return false;
-
-				Lane lane1 = Lane(d_matrix, getIdx(path.front().x, path.front().y), d_rows, d_cols, d_power, d_underground_length);
-				Lane lane2 = Lane(d_matrix, getIdx(path2.front().x, path2.front().y), d_rows, d_cols, d_power, d_underground_length);
-
-				if (not (lane1.valid(d_matrix) and lane2.valid(d_matrix)))
-					return false;
-
-				if (not sharedSplitters(lane1, lane2))
-					return false;
-			}			
+			pos2 = getIdxOfComplementarySplitterHalf(getIdx(path.back().x, path.back().y));
+			path2 = getPathOfTile(pos2, false, true);
 		}
 		else
 		{
-			size_t pos2 = getIdxOfComplementarySplitterHalf(getIdx(path.front().x, path.front().y));
-			vector<Triple> path2 = getPathOfTile(pos2, true, false);
-			if (isCompletePath(path2))
+			pos2 = getIdxOfComplementarySplitterHalf(getIdx(path.front().x, path.front().y));
+			path2 = getPathOfTile(pos2, true, false);
+		}
+
+		if (isCompletePath(path2))
+		{
+			if (isEntryPath(path))
 			{
-				if (isEntryPath(path2) or isExitPath(path2))
-					return false;
-				
-				if (isSameSplitter(path.back(), path2.back()))
+				if (not isEntryPath(path2))
 					return false;
 			}
+			else if (isExitPath(path))
+			{
+				if (not isExitPath(path2))
+					return false;
+			}
+			else
+				if (isEntryPath(path2) or isExitPath(path2))
+					return false;
+
+
+			Lane lane1 = Lane(d_matrix, getIdx(path.front().x, path.front().y), d_rows, d_cols, d_power, d_underground_length);
+			Lane lane2 = Lane(d_matrix, getIdx(path2.front().x, path2.front().y), d_rows, d_cols, d_power, d_underground_length);
+
+			// print2();
+
+			if (not (lane1.valid(d_matrix) and lane2.valid(d_matrix)))
+				return false;
+
+			if (not sharedSplitters(lane1, lane2))
+				return false;
 		}
+
+
+
+		// if (isExitPath(path))
+		// {
+		// 	size_t pos2 = getIdxOfComplementarySplitterHalf(getIdx(path.front().x, path.front().y));
+		// 	vector<Triple> path2 = getPathOfTile(pos2, true, false);
+		// 	if (not isExitPath(path2) and isCompletePath(path2))
+		// 		return false;
+		// }
+		// else if (isEntryPath(path))
+		// {
+		// 	size_t pos2 = getIdxOfComplementarySplitterHalf(getIdx(path.back().x, path.back().y));
+		// 	vector<Triple> path2 = getPathOfTile(pos2, false, true);
+		// 	if (isCompletePath(path2))
+		// 	{
+		// 		if (not isEntryPath(path2))
+		// 			return false;
+
+		// 		Lane lane1 = Lane(d_matrix, getIdx(path.front().x, path.front().y), d_rows, d_cols, d_power, d_underground_length);
+		// 		Lane lane2 = Lane(d_matrix, getIdx(path2.front().x, path2.front().y), d_rows, d_cols, d_power, d_underground_length);
+
+		// 		// print2();
+
+		// 		if (not (lane1.valid(d_matrix) and lane2.valid(d_matrix)))
+		// 			return false;
+
+		// 		if (not sharedSplitters(lane1, lane2))
+		// 			return false;
+		// 	}			
+		// }
+		// else
+		// {
+		// 	size_t pos2 = getIdxOfComplementarySplitterHalf(getIdx(path.front().x, path.front().y));
+		// 	vector<Triple> path2 = getPathOfTile(pos2, true, false);
+		// 	if (isCompletePath(path2))
+		// 	{
+		// 		if (isEntryPath(path2) or isExitPath(path2))
+		// 			return false;
+				
+		// 		if (isSameSplitter(path.back(), path2.back()))
+		// 			return false;
+		// 	}
+		// }
 
 		
 	}

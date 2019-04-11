@@ -4,7 +4,7 @@ bool Balancer::sharedSplitters(Lane const &lane1, Lane const &lane2)
 {
 	size_t splitterNumberL1 = 0;
 	size_t res = 0;
-	for (size_t idx1 = 0; idx1 < lane1.d_path.size(); ++idx1)
+	for (size_t idx1 = lane1.d_path.size(); --idx1; )
 	{
 		if (not isSplitter(lane1.d_path[idx1].tile.item))
 			continue;
@@ -12,7 +12,7 @@ bool Balancer::sharedSplitters(Lane const &lane1, Lane const &lane2)
 		++splitterNumberL1;
 		size_t splitterNumberL2 = 0;
 
-		for (size_t idx2 = 0; idx2 < lane2.d_path.size(); ++idx2)
+		for (size_t idx2 = lane2.d_path.size(); --idx2; )
 		{
 			if (not isSplitter(lane2.d_path[idx2].tile.item)) //not a splitter
 				continue;
@@ -51,7 +51,7 @@ bool Balancer::sharedSplitters(Lane const &lane1, Lane const &lane2)
 			if (lane1.d_path[idx1].y == lane2.d_path[idx2].y + yOffset)
 				if (lane1.d_path[idx1].x == lane2.d_path[idx2].x + xOffset)
 				{
-					if (splitterNumberL1 != splitterNumberL2)
+					if (splitterNumberL1 != splitterNumberL2 and lane1.d_path.back().y == 0 and lane2.d_path.back().y == 0)
 						return false;
 					
 					if (res > 0)

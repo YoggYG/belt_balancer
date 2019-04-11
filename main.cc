@@ -232,14 +232,14 @@ int main(int argc, char **argv) {
 
 	if (argc < 2)
 	{
-		cout << "Provide the number of belts to be balanced\n";
+		cerr << "Provide the number of belts to be balanced\n";
 		exit(0);
 	}
 
 	size_t n;
 	if (!(istringstream(argv[1]) >> n))
 	{
-		cout << "Input must be a number\n";
+		cerr << "Input must be a number\n";
 		exit(0);
 	}
 
@@ -247,7 +247,7 @@ int main(int argc, char **argv) {
 	if (argc > 2)
 		if (!(istringstream(argv[2]) >> maxHeight))
 		{
-			cout << "Input must be a number\n";
+			cerr << "Input must be a number\n";
 			exit(0);
 		}	
 
@@ -255,7 +255,7 @@ int main(int argc, char **argv) {
 	if (argc > 3)
 		if (!(istringstream(argv[3]) >> maxWidth))
 		{
-			cout << "Input must be a number\n";
+			cerr << "Input must be a number\n";
 			exit(0);
 		}
 
@@ -263,7 +263,7 @@ int main(int argc, char **argv) {
 	if (argc > 4)
 		if (!(istringstream(argv[4]) >> undergroundLength))
 		{
-			cout << "Input must be a number\n";
+			cerr << "Input must be a number\n";
 			exit(0);
 		}
 
@@ -285,7 +285,7 @@ int main(int argc, char **argv) {
 	// threads_on_machine = 1;
 	if (threads_on_machine == 0)
 	{
-		cout << "Unable to detect available threads, using 8 as default\n";
+		cerr << "Unable to detect available threads, using 8 as default\n";
 		threads_on_machine = 8;
 	}
 
