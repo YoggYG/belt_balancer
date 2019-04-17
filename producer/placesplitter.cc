@@ -1,4 +1,6 @@
 #include "producer.ih"
+#include <chrono>
+#include <iostream>
 
 void Producer::placeSplitter(vector<char> &matrix, size_t startIndex, size_t rows, size_t cols, size_t n, size_t power, size_t splittersToPlace, size_t incr, size_t undergroundLength)
 {
@@ -10,8 +12,14 @@ void Producer::placeSplitter(vector<char> &matrix, size_t startIndex, size_t row
 		return;
 	}
 
-	if (splittersToPlace == 6)
+	if (splittersToPlace == 8)
 	{
+		auto end_time = chrono::system_clock::now();
+		time_t end_c_time = chrono::system_clock::to_time_t(end_time);
+		string end_time_string = ctime(&end_c_time);
+		
+		cerr << end_time_string << endl;
+
 		Balancer bal(matrix, rows, cols, n, power, undergroundLength);
 		bal.print2();
 	}

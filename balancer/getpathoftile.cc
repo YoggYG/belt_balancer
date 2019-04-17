@@ -120,22 +120,7 @@ vector<Triple> Balancer::getPathOfTile(size_t pos, bool forward, bool backward)
 			resVector.insert(resVector.begin(), Triple{getX(idx), getY(idx), d_matrix[idx]});
 
 			if (isSplitter(d_matrix[idx]))
-				break;
-
-			// debug stuff, remove when working
-			if (resVector.size() > d_matrix.size())
-			{
-				cerr << resVector.size() << ", " << getX(idx) << "," << getY(idx) << ", " << d_matrix[idx].item << ", pos: " << pos << endl;
-				for (size_t i = 0; i < resVector.size(); ++i)
-				{
-					cerr << resVector[i].x << "," << resVector[i].y << ", " << resVector[i].tile.item << endl;
-				}
-
-				print();
-
-				string c;
-				cin >> c;
-			}
+				break;			
 		}
 
 		idx = pos;

@@ -266,9 +266,6 @@ bool Balancer::matrixOptimised(size_t pos)
 		if (down == SPLS and up == EMPTY and ((left == UBOS and upLeft == EMPTY) or (left == BS and (upLeft == BS or upLeft == UBOS))))
 			return false;
 	}
-	// 	return up != EMPTY;
-
-
 
 	
 	if (val != EMPTY)
@@ -311,8 +308,8 @@ bool Balancer::matrixOptimised(size_t pos)
 					return false;
 
 
-			Lane lane1 = Lane(d_matrix, getIdx(path.front().x, path.front().y), d_rows, d_cols, d_power, d_underground_length);
-			Lane lane2 = Lane(d_matrix, getIdx(path2.front().x, path2.front().y), d_rows, d_cols, d_power, d_underground_length);
+			Lane lane1 = Lane(d_matrix, path, d_rows, d_cols, d_power, d_underground_length);
+			Lane lane2 = Lane(d_matrix, path2, d_rows, d_cols, d_power, d_underground_length);
 
 			// print2();
 
@@ -321,57 +318,8 @@ bool Balancer::matrixOptimised(size_t pos)
 
 			if (not sharedSplitters(lane1, lane2))
 				return false;
-		}
-
-
-
-		// if (isExitPath(path))
-		// {
-		// 	size_t pos2 = getIdxOfComplementarySplitterHalf(getIdx(path.front().x, path.front().y));
-		// 	vector<Triple> path2 = getPathOfTile(pos2, true, false);
-		// 	if (not isExitPath(path2) and isCompletePath(path2))
-		// 		return false;
-		// }
-		// else if (isEntryPath(path))
-		// {
-		// 	size_t pos2 = getIdxOfComplementarySplitterHalf(getIdx(path.back().x, path.back().y));
-		// 	vector<Triple> path2 = getPathOfTile(pos2, false, true);
-		// 	if (isCompletePath(path2))
-		// 	{
-		// 		if (not isEntryPath(path2))
-		// 			return false;
-
-		// 		Lane lane1 = Lane(d_matrix, getIdx(path.front().x, path.front().y), d_rows, d_cols, d_power, d_underground_length);
-		// 		Lane lane2 = Lane(d_matrix, getIdx(path2.front().x, path2.front().y), d_rows, d_cols, d_power, d_underground_length);
-
-		// 		// print2();
-
-		// 		if (not (lane1.valid(d_matrix) and lane2.valid(d_matrix)))
-		// 			return false;
-
-		// 		if (not sharedSplitters(lane1, lane2))
-		// 			return false;
-		// 	}			
-		// }
-		// else
-		// {
-		// 	size_t pos2 = getIdxOfComplementarySplitterHalf(getIdx(path.front().x, path.front().y));
-		// 	vector<Triple> path2 = getPathOfTile(pos2, true, false);
-		// 	if (isCompletePath(path2))
-		// 	{
-		// 		if (isEntryPath(path2) or isExitPath(path2))
-		// 			return false;
-				
-		// 		if (isSameSplitter(path.back(), path2.back()))
-		// 			return false;
-		// 	}
-		// }
-
-		
+		}		
 	}
 
 	return true;
-
-	// cerr << "Unexpected value: " << val.item + '0' - '0' << " at position: " << pos << endl;
-	// return false;
 }

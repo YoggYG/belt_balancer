@@ -7,7 +7,7 @@ PROJECT := main.out
 EXECUTABLE := $(PROJECT)
 LIBNAME := $(PROJECT)
 
-CXXFLAGS += --std=c++11 -O5 -Wall -fomit-frame-pointer -ffast-math 
+CXXFLAGS += --std=c++11 -O5 -Wall -fomit-frame-pointer -ffast-math
 LDFLAGS += -L. -pthread
 LDLIBS += -l$(LIBNAME)
 

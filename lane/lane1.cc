@@ -1,19 +1,19 @@
 #include "lane.ih"
 
-Lane::Lane(vector<Tile> &matrix, size_t idx, size_t rows, size_t cols, size_t power, size_t underground_distance)
+Lane::Lane(vector<Tile> &matrix, vector<Triple> &path, size_t rows, size_t cols, size_t power, size_t underground_distance)
 :
 	d_rows(rows),
 	d_cols(cols),
-	d_power(power)
+	d_power(power),
+	d_path(path)
 {
-	size_t x = idx % d_cols;
-	size_t y = idx / d_cols;
-	Tile tile = BN;
+	size_t x = d_path.back().x;
+	size_t y = d_path.back().y;
+	Tile tile = d_path.back().tile;
 
 	while (true)
 	{
 		// cerr << "X: " << x << "   Y: " << y << "    Item: " << item << endl;
-		d_path.push_back(Triple{x, y, tile});
 		size_t len = 0;
 		switch (tile.item)
 		{
@@ -143,5 +143,7 @@ Lane::Lane(vector<Tile> &matrix, size_t idx, size_t rows, size_t cols, size_t po
 			// cerr << "lane1.cc: tile elsewhere in path\n";
 			break;
 		}
+		
+		d_path.push_back(Triple{x, y, tile});
 	}
 }
