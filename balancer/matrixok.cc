@@ -105,6 +105,21 @@ bool Balancer::matrixOK(size_t pos)
 	if (getY(pos) + 2 == d_rows and val == UBOS)
 		return false;
 
+	if (pos == d_matrix.size() - d_cols)
+	{
+		bool empty = true;
+		for (size_t idx = 0; idx < d_matrix.size(); idx += d_cols)
+		{
+			if (d_matrix[idx] != EMPTY)
+			{
+				empty = false;
+				break;
+			}
+		}
+		if (empty)
+			return false;
+	}
+
 
 	// new stuff, more intuitive (hopefully)
 	

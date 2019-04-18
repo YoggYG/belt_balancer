@@ -12,7 +12,7 @@ void Producer::placeSplitter(vector<char> &matrix, size_t startIndex, size_t row
 		return;
 	}
 
-	if (splittersToPlace == 8)
+	if (splittersToPlace == 4)
 	{
 		auto end_time = chrono::system_clock::now();
 		time_t end_c_time = chrono::system_clock::to_time_t(end_time);

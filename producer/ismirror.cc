@@ -27,5 +27,27 @@ bool Producer::isMirror(vector<char> &matrix, size_t rows, size_t cols)
 				break;
 		}
 	}
+
+	double middleRow = (rows - 1) / 2.0;
+
+	double weightedSum = 0;
+
+	for (size_t row = 0; row < rows; ++row)
+	{
+		double weight = middleRow - row;
+
+		for (size_t idx = row * cols; idx < (row + 1) * cols; ++idx)
+		{
+			if (matrix[idx] == SPLN or matrix[idx] == SPLS)
+				weightedSum += weight;
+
+			if (matrix[idx] == SPLE or matrix[idx] == SPRW)
+				weightedSum += weight - 0.5;
+		}
+	}
+
+	if (weightedSum < 0)
+		return true;
+
 	return false;
 }

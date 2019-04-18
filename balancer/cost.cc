@@ -27,6 +27,40 @@ size_t Balancer::cost()
 			case 11:
 			case 12: cost += d_underground_cost_penalty; break;
 		}
-	cost *= d_rows * d_cols;
+
+	size_t emptyRows;
+	size_t emptyCols;
+
+	for (emptyCols = 0; emptyCols < d_cols; ++emptyCols)
+	{
+		bool empty = true;
+		for (size_t idx = d_cols - 1 - emptyCols; idx < d_matrix.size(); idx += d_cols)
+		{
+			if (d_matrix[idx] != EMPTY)
+			{
+				empty = false;
+				break;
+			}
+		}
+		if (empty == false)
+			break;
+	}	
+
+	for (emptyRows = 0; emptyRows < d_cols; ++emptyRows)
+	{
+		bool empty = true;
+		for (size_t idx = d_matrix.size() - d_cols * (emptyRows + 1); idx < d_matrix.size() - d_cols * emptyRows; ++idx)
+		{
+			if (d_matrix[idx] != EMPTY and d_matrix[idx] != BN)
+			{
+				empty = false;
+				break;
+			}
+		}
+		if (empty == false)
+			break;
+	}	
+
+	cost *= (d_rows - emptyRows) * (d_cols - emptyCols);
 	return cost;
 }
